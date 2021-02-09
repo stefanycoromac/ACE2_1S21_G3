@@ -1,0 +1,55 @@
+h1 {
+  color: #fff;
+  font-weight: bold;
+}
+
+button {
+  border-radius: 20px;
+  border: 1px solid #2F2D46;
+  background-color: #2F2D46;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+button:focus {
+  outline: none;
+}
+
+/*
+:invalid {
+  box-shadow: none;
+}
+
+:-moz-submit-invalid {
+  box-shadow: none;
+}
+
+:-moz-ui-invalid {
+  box-shadow: none;
+}
+*/
+
+.form-control {
+  color: #fff;
+  background-color: #35324e;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+}
+
+.form-control:focus {
+  color: #fff;
+  background-color: #35324e;
+  outline: 0;
+  box-shadow: none;
+}

@@ -2,13 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { SharedModule } from '../shared/shared.module';
+import { ComponentsModule } from '../components/components.module';
 
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -39,11 +38,10 @@ import { ProfileComponent } from './profile/profile.component';
     CommonModule,
     RouterModule,
     FormsModule,
-    BrowserAnimationsModule,
-    NgxChartsModule,
     MatIconModule,
     MatSidenavModule,
-    SharedModule
+    SharedModule,
+    ComponentsModule
   ]
 })
 export class PagesModule { }

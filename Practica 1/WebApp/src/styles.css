@@ -76,3 +76,8 @@ button:focus {
 .card-graph {
   background-color: #fff;
 }
+
+.legend-labels {
+  background-color: #222831 !important;
+  border-radius: 15px !important;
+}

@@ -1,0 +1,46 @@
+<div class="row page-content">
+  <div class="col-12 col-lg-12 align-self-center">
+    <h1>Ritmo Cardiaco</h1>
+  </div>
+
+  <div class="col-12 col-lg-8 align-self-center">
+    <div class="card card-graph">
+      <div class="card-body ghp-content">
+
+        <ngx-charts-line-chart [results]="data" [xAxis]="showXAxis" [yAxis]="showYAxis"
+          [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel" [showGridLines]="showGridLines" [roundDomains]="roundDomains"
+          [autoScale]="autoScale" [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition">
+        </ngx-charts-line-chart>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-lg-4 align-self-center">
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-text">{{ dateNow | date:'medium' }}</h5>
+        <p class="card-text">Promedio 107 BPM</p>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-text">Historial</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Cras justo odio</li>
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item">Vestibulum at eros</li>
+      </ul>
+      <div class="card-body">
+      </div>
+    </div>
+
+  </div>
+
+</div>

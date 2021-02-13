@@ -50,6 +50,11 @@ button:focus {
   text-align: center;
 }
 
+.page-content {
+  height: 100vh;
+  padding: 20px;
+}
+
 .form-control {
   color: #000;
   background-color: #dddddd;

@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class DashboardComponent implements OnInit {
+  public data: any[];
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor() {
+    this.data = [
+      {
+        "name": "Germany",
+        "value": 8940000
+      },
+      {
+        "name": "USA",
+        "value": 5000000
+      }
+    ];
   }
+
+  ngOnInit(): void { }
 }

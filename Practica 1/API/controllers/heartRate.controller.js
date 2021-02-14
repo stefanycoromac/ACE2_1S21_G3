@@ -11,7 +11,7 @@ const heartRateController = {
 
             res.status(200).send({
                 code: '200',
-                data: product
+                data: heartRate
             });
         } catch (err) {
             res.status(500).send({
@@ -51,7 +51,33 @@ const heartRateController = {
             });
             next(err);
         }
-    }
+    },
+
+    createDetail: async (req, res, next) => {
+        try {
+            let heartRate = {
+                medicion: req.body.medicion,
+                idRitmo: req.body.idRitmo,
+            };
+
+            heartRate = await heartRateModel.createDetail(heartRate);
+
+            await heartRateModel.update({
+                idRitmo: req.body.idRitmo
+            });
+
+            res.status(200).send({
+                code: '200',
+                data: heartRate
+            });
+        } catch (err) {
+            res.status(500).send({
+                code: '500',
+                data: err
+            });
+            next(err);
+        }
+    },
 };
 
 module.exports = heartRateController;

@@ -1,7 +1,7 @@
 const oracledb = require('oracledb');
 
 const parameters = {
-    user: 'TEST',
+    user: 'healthDB',
     password: '1234',
     connectString: '172.17.0.2:1521/ORCL18'
 };

@@ -34,6 +34,23 @@ const heartRateModel = {
         const result = await database(query, binds);
         return result.rows;
     },
+    update: async (parameters) => {
+        let query = `UPDATE RitmoCardiaco SET medicion = (
+                SELECT ROUND(AVG(medicion), 2) FROM DetalleRitmo 
+                    WHERE idRitmo = :idRitmo
+            ) WHERE idRitmo = :idRitmo`;
+
+        const heartRate = Object.assign({}, parameters);
+
+        const result = await database(query, heartRate);
+        if (result.rowsAffected && result.rowsAffected === 1) {
+            return {
+                result,
+                heartRate
+            };
+        }
+        return null;
+    },
 
     createDetail: async (parameters) => {
         const query = `INSERT INTO DetalleRitmo(medicion, idRitmo)

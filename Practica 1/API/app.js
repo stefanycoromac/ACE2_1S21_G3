@@ -5,6 +5,7 @@ const path = require('path');
 
 const indexRouter = require('./routes/index.route');
 const heartRateRouter = require('./routes/heartRate.route');
+const temperatureRouter = require('./routes/temperature.route');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes 
 app.use('/', indexRouter);
 app.use('/heart-rate', heartRateRouter);
+app.use('/temperature', temperatureRouter);
 
 // Port assignment
 app.listen(PORT, () => {

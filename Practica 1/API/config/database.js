@@ -1,9 +1,9 @@
 const oracledb = require('oracledb');
 
 const parameters = {
-    user: 'healthDB',
-    password: '1234',
-    connectString: '172.17.0.2:1521/ORCL18'
+    user: 'arqui2',
+    password: '12345',
+    connectString: '35.202.113.72:1521/ORCL18'
 };
 
 const oracleDBConnection = async (statement, binds = [], opts = {}) => {

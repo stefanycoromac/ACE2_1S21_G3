@@ -1,17 +1,17 @@
-const heartRateModel = require('../models/heartRate.model');
+const temperatureModel = require('../models/temperature.model');
 
-const heartRateController = {
+const temperatureController = {
     create: async (req, res, next) => {
         try {
-            let heartRate = {
+            let temperature = {
                 idUsuario: req.body.idUsuario
             };
 
-            heartRate = await heartRateModel.create(heartRate);
+            temperature = await temperatureModel.create(temperature);
 
             res.status(200).send({
                 code: '200',
-                data: heartRate
+                data: temperature
             });
         } catch (err) {
             res.status(500).send({
@@ -28,13 +28,15 @@ const heartRateController = {
                 idUsuario: req.params.idUsuario
             };
 
-            const rows = await heartRateModel.getTop(parameters);
+            const rows = await temperatureModel.getTop(parameters);
 
-            let heartRates = [];
+            let temperatures = [];
             rows.forEach(element => {
-                heartRates.push({
-                    idRitmo: element.IDRITMO,
-                    medicion: element.MEDICION,
+                temperatures.push({
+                    idTemperatura: element.IDTEMPERATURA,
+                    promedio: element.PROMEDIO,
+                    minima: element.MINTEMP,
+                    maxima: element.MAXTEMP,
                     fechaHora: element.FECHAHORA,
                     idUsuario: element.IDUSUARIO
                 });
@@ -42,7 +44,7 @@ const heartRateController = {
 
             res.status(200).send({
                 code: '200',
-                data: heartRates
+                data: temperatures
             });
         } catch (err) {
             res.status(500).send({
@@ -55,16 +57,16 @@ const heartRateController = {
 
     createDetail: async (req, res, next) => {
         try {
-            let heartRate = {
+            let temperature = {
                 medicion: req.body.medicion,
-                idRitmo: req.body.idRitmo,
+                idTemperatura: req.body.idTemperatura,
             };
 
-            heartRate = await heartRateModel.createDetail(heartRate);
+            temperature = await temperatureModel.createDetail(temperature);
 
             res.status(200).send({
                 code: '200',
-                data: heartRate
+                data: temperature
             });
         } catch (err) {
             res.status(500).send({
@@ -76,4 +78,4 @@ const heartRateController = {
     },
 };
 
-module.exports = heartRateController;
+module.exports = temperatureController;

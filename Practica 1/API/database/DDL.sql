@@ -97,3 +97,35 @@ COMPOUND TRIGGER
         WHERE idRitmo = v_idRitmo;
   END AFTER STATEMENT;
 END tg_promedioRitmo;
+
+CREATE OR REPLACE TRIGGER tg_minmaxpromTemps
+FOR INSERT ON DetalleTemperatura
+COMPOUND TRIGGER
+  v_idTemperatura INTEGER;
+  v_promedio NUMBER(5,2);
+  v_min NUMBER(5,2);
+  v_max NUMBER(5,2);
+
+  AFTER EACH ROW IS
+  BEGIN
+    v_idTemperatura := :NEW.idTemperatura;
+  END AFTER EACH ROW;
+
+  AFTER STATEMENT IS
+    BEGIN
+      SELECT AVG(tm.medicion) INTO v_promedio FROM DetalleTemperatura tm
+        WHERE tm.idTemperatura = v_idTemperatura;
+
+      SELECT MIN(tm.medicion) INTO v_min FROM DetalleTemperatura tm
+        WHERE tm.idTemperatura = v_idTemperatura;
+
+      SELECT MAX(tm.medicion) INTO v_max FROM DetalleTemperatura tm
+        WHERE tm.idTemperatura = v_idTemperatura;
+
+      UPDATE Temperatura SET 
+          promedio = v_promedio, 
+          minTemp = v_min,
+          maxTemp = v_max
+        WHERE idTemperatura = v_idTemperatura;  
+  END AFTER STATEMENT;
+END tg_minmaxpromTemps;

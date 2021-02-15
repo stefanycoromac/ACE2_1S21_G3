@@ -129,3 +129,27 @@ COMPOUND TRIGGER
         WHERE idTemperatura = v_idTemperatura;  
   END AFTER STATEMENT;
 END tg_minmaxpromTemps;
+
+CREATE OR REPLACE TRIGGER tg_promedioOxigeno 
+FOR INSERT ON DetalleOxigeno
+COMPOUND TRIGGER 
+    valor_idOxigeno INTEGER;
+    promedio NUMBER(5,2);
+        
+    AFTER EACH ROW IS
+    BEGIN
+        valor_idOxigeno := :NEW.idOxigeno; 
+    END AFTER EACH ROW; 
+    
+    AFTER STATEMENT IS 
+    BEGIN 
+        SELECT AVG(deo.medicion)INTO promedio FROM DetalleOxigeno deo
+        WHERE deo.idoxigeno = valor_idOxigeno; 
+        
+        UPDATE Oxigeno SET medicion = promedio
+        WHERE idoxigeno = valor_idOxigeno; 
+    
+    END AFTER STATEMENT; 
+END tg_promedioOxigeno;
+
+

@@ -6,6 +6,8 @@ const path = require('path');
 const indexRouter = require('./routes/index.route');
 const heartRateRouter = require('./routes/heartRate.route');
 const temperatureRouter = require('./routes/temperature.route');
+const oxygenRouter = require('./routes/oxygen.route');
+const userRouter = require('./routes/user.route');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,6 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/heart-rate', heartRateRouter);
 app.use('/temperature', temperatureRouter);
+app.use('/oxygen', oxygenRouter);
+app.use('/user', userRouter);
 
 // Port assignment
 app.listen(PORT, () => {

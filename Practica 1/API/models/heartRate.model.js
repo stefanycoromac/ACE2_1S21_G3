@@ -21,6 +21,19 @@ const heartRateModel = {
             result
         };
     },
+    getLast: async (parameters) => {
+        let query = `SELECT * FROM RitmoCardiaco 
+            WHERE idUsuario = :idUsuario
+            ORDER BY fechaHora DESC
+            FETCH NEXT 1 ROWS ONLY`;
+
+        const binds = {
+            idUsuario: parameters.idUsuario
+        };
+
+        const result = await database(query, binds);
+        return result.rows;
+    },
     getTop: async (parameters) => {
         let query = `SELECT * FROM RitmoCardiaco
             WHERE idUsuario = :idUsuario
@@ -64,9 +77,25 @@ const heartRateModel = {
             result
         };
     },
-
     getDetail: async (parameters) => {
-        let query = `SELECT * FROM DetalleRitmo`;
+        let query = `SELECT dr.idritmo, dr.iddetalleritmo, dr.medicion 
+            FROM detalleritmo dr, (
+            SELECT rc.idritmo, rc.medicion, 
+                u.nombre, u.apellido 
+            FROM RitmoCardiaco rc, Usuario u 
+            WHERE rc.idusuario = :idUsuario
+            ORDER BY rc.idritmo DESC 
+            FETCH NEXT 1 ROWS ONLY
+            ) a 
+            WHERE dr.idritmo = a.idritmo
+            ORDER BY dr.iddetalleritmo ASC`;
+
+        const binds = {
+            idUsuario: parameters.idUsuario
+        };
+
+        const result = await database(query, binds);
+        return result.rows;
     }
 };
 

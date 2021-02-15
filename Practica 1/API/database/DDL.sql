@@ -152,4 +152,9 @@ COMPOUND TRIGGER
     END AFTER STATEMENT; 
 END tg_promedioOxigeno;
 
-
+/* VIEWS */
+CREATE OR REPLACE VIEW coaching AS
+  SELECT ch.idEntrenador AS IDCOACH, us.idUsuario AS IDUSUARIO, 
+    us.nombre, us.apellido, us.genero, us.edad,
+    us.peso, us.estatura FROM Coach ch
+  INNER JOIN Usuario us ON (ch.idAtleta = us.idUsuario);

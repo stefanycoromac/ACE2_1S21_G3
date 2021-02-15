@@ -1,17 +1,17 @@
-const temperatureModel = require('../models/temperature.model');
+const oxygenModel = require('../models/oxygen.model');
 
-const temperatureController = {
+const oxygenController = {
     create: async (req, res, next) => {
         try {
-            let temperature = {
+            let oxygen = {
                 idUsuario: req.body.idUsuario
             };
 
-            temperature = await temperatureModel.create(temperature);
+            oxygen = await oxygenModel.create(oxygen);
 
             res.status(200).send({
                 code: '200',
-                data: temperature
+                data: oxygen
             });
         } catch (err) {
             res.status(500).send({
@@ -27,15 +27,13 @@ const temperatureController = {
             const parameters = {
                 idUsuario: req.params.idUsuario
             };
-            const rows = await temperatureModel.getLast(parameters);
+            const rows = await oxygenModel.getLast(parameters);
 
-            let temperatures = [];
+            let oxygens = [];
             rows.forEach(element => {
-                temperatures.push({
-                    idTemperatura: element.IDTEMPERATURA,
-                    promedio: element.PROMEDIO,
-                    minima: element.MINTEMP,
-                    maxima: element.MAXTEMP,
+                oxygens.push({
+                    idOxigeno: element.IDOXIGENO,
+                    medicion: element.MEDICION,
                     fechaHora: element.FECHAHORA,
                     idUsuario: element.IDUSUARIO
                 });
@@ -43,7 +41,7 @@ const temperatureController = {
 
             res.status(200).send({
                 code: '200',
-                data: temperatures[0]
+                data: oxygens[0]
             });
         } catch (err) {
             res.status(500).send({
@@ -60,15 +58,13 @@ const temperatureController = {
                 idUsuario: req.params.idUsuario
             };
 
-            const rows = await temperatureModel.getTop(parameters);
+            const rows = await oxygenModel.getTop(parameters);
 
-            let temperatures = [];
+            let oxygen = [];
             rows.forEach(element => {
-                temperatures.push({
-                    idTemperatura: element.IDTEMPERATURA,
-                    promedio: element.PROMEDIO,
-                    minima: element.MINTEMP,
-                    maxima: element.MAXTEMP,
+                oxygen.push({
+                    idOxigeno: element.IDOXIGENO,
+                    medicion: element.MEDICION,
                     fechaHora: element.FECHAHORA,
                     idUsuario: element.IDUSUARIO
                 });
@@ -76,7 +72,7 @@ const temperatureController = {
 
             res.status(200).send({
                 code: '200',
-                data: temperatures
+                data: oxygen
             });
         } catch (err) {
             res.status(500).send({
@@ -89,16 +85,16 @@ const temperatureController = {
 
     createDetail: async (req, res, next) => {
         try {
-            let temperature = {
+            let oxygen = {
                 medicion: req.body.medicion,
-                idTemperatura: req.body.idTemperatura,
+                idOxigeno: req.body.idOxigeno,
             };
 
-            temperature = await temperatureModel.createDetail(temperature);
+            oxygen = await oxygenModel.createDetail(oxygen);
 
             res.status(200).send({
                 code: '200',
-                data: temperature
+                data: oxygen
             });
         } catch (err) {
             res.status(500).send({
@@ -108,6 +104,35 @@ const temperatureController = {
             next(err);
         }
     },
+
+    getDetail: async (req, res, next) => {
+        try {
+            const parameters = {
+                idUsuario: req.params.idUsuario
+            };
+            const rows = await oxygenModel.getDetail(parameters);
+
+            let oxygens = [];
+            rows.forEach(element => {
+                oxygens.push({
+                    idOxigeno: element.IDOXIGENO,
+                    idDetalleOxigeno: element.IDDETALLEOXIGENO,
+                    medicion: element.MEDICION,
+                });
+            });
+
+            res.status(200).send({
+                code: '200',
+                data: oxygens
+            });
+        } catch (err) {
+            res.status(500).send({
+                code: '500',
+                data: err
+            });
+            next(err);
+        }
+    }
 };
 
-module.exports = temperatureController;
+module.exports = oxygenController;

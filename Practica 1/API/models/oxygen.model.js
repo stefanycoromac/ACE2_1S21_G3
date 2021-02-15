@@ -21,6 +21,19 @@ const oxygenModel = {
             result
         };
     },
+    getLast: async (parameters) => {
+        let query = `SELECT * FROM Oxigeno 
+            WHERE idUsuario = :idUsuario
+            ORDER BY fechaHora DESC
+            FETCH NEXT 1 ROWS ONLY`;
+
+        const binds = {
+            idUsuario: parameters.idUsuario
+        };
+
+        const result = await database(query, binds);
+        return result.rows;
+    },
     getTop: async (parameters) => {
         let query = `SELECT * FROM Oxigeno
             WHERE idUsuario = :idUsuario
@@ -47,6 +60,25 @@ const oxygenModel = {
             result
         };
     },
+    getDetail: async (parameters) => {
+        let query = `SELECT do.idoxigeno, do.iddetalleoxigeno, do.medicion
+            FROM detalleoxigeno do, 
+                (   
+                    SELECT  o.idoxigeno FROM Oxigeno o, usuario u 
+                    WHERE o.idusuario = :idUsuario 
+                    ORDER BY o.idoxigeno DESC 
+                    FETCH NEXT 1 ROWS ONLY
+                ) a
+            WHERE do.idoxigeno = a.idoxigeno
+            ORDER BY do.iddetalleoxigeno ASC`;
+
+        const binds = {
+            idUsuario: parameters.idUsuario
+        };
+
+        const result = await database(query, binds);
+        return result.rows;
+    }
 };
 
 module.exports = oxygenModel;

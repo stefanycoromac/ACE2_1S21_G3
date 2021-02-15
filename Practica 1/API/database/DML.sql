@@ -45,14 +45,25 @@ SELECT * FROM DETALLEOXIGENO;
 SELECT * FROM TEMPERATURA;
 SELECT * FROM DETALLETEMPERATURA; 
 
-SELECT * FROM detalleritmo dr, (
-SELECT rc.idritmo, rc.medicion, u.nombre, u.apellido FROM RitmoCardiaco rc, Usuario u WHERE rc.idusuario = 1
-ORDER BY rc.idritmo DESC 
-FETCH NEXT 1 ROWS ONLY) a 
-WHERE dr.idritmo = a.idritmo; 
+SELECT dr.idritmo, dr.iddetalleritmo, dr.medicion 
+FROM detalleritmo dr, (
+  SELECT rc.idritmo, rc.medicion, 
+    u.nombre, u.apellido 
+  FROM RitmoCardiaco rc, Usuario u 
+  WHERE rc.idusuario = '1'
+  ORDER BY rc.idritmo DESC 
+  FETCH NEXT 1 ROWS ONLY
+) a 
+WHERE dr.idritmo = a.idritmo
+ORDER BY dr.iddetalleritmo ASC; 
 
-SELECT * FROM detalleoxigeno do, 
-( SELECT  o.idoxigeno FROM Oxigeno o, usuario u WHERE o.idusuario = 1 
-ORDER BY o.idoxigeno DESC 
-FETCH NEXT 1 ROWS ONLY) a
-WHERE do.idoxigeno = a.idoxigeno; 
+SELECT do.idoxigeno, do.iddetalleoxigeno, do.medicion
+FROM detalleoxigeno do, 
+    (   
+        SELECT  o.idoxigeno FROM Oxigeno o, usuario u 
+        WHERE o.idusuario = 1 
+        ORDER BY o.idoxigeno DESC 
+        FETCH NEXT 1 ROWS ONLY
+    ) a
+WHERE do.idoxigeno = a.idoxigeno
+ORDER BY do.iddetalleoxigeno ASC;

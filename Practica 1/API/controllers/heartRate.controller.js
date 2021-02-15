@@ -22,12 +22,41 @@ const heartRateController = {
         }
     },
 
+    getLast: async (req, res, next) => {
+        try {
+            const parameters = {
+                idUsuario: req.params.idUsuario
+            };
+            const rows = await heartRateModel.getLast(parameters);
+
+            let heartRates = [];
+            rows.forEach(element => {
+                heartRates.push({
+                    idRitmo: element.IDRITMO,
+                    medicion: element.MEDICION,
+                    fechaHora: element.FECHAHORA,
+                    idUsuario: element.IDUSUARIO
+                });
+            });
+
+            res.status(200).send({
+                code: '200',
+                data: heartRates[0]
+            });
+        } catch (err) {
+            res.status(500).send({
+                code: '500',
+                data: err
+            });
+            next(err);
+        }
+    },
+
     getTop: async (req, res, next) => {
         try {
             const parameters = {
                 idUsuario: req.params.idUsuario
             };
-
             const rows = await heartRateModel.getTop(parameters);
 
             let heartRates = [];
@@ -74,6 +103,35 @@ const heartRateController = {
             next(err);
         }
     },
+
+    getDetail: async (req, res, next) => {
+        try {
+            const parameters = {
+                idUsuario: req.params.idUsuario
+            };
+            const rows = await heartRateModel.getDetail(parameters);
+
+            let heartRates = [];
+            rows.forEach(element => {
+                heartRates.push({
+                    idRitmo: element.IDRITMO,
+                    idDetalleRitmo: element.IDDETALLERITMO,
+                    medicion: element.MEDICION,
+                });
+            });
+
+            res.status(200).send({
+                code: '200',
+                data: heartRates
+            });
+        } catch (err) {
+            res.status(500).send({
+                code: '500',
+                data: err
+            });
+            next(err);
+        }
+    }
 };
 
 module.exports = heartRateController;

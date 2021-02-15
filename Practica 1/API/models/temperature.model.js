@@ -21,6 +21,19 @@ const temperatureModel = {
             result
         };
     },
+    getLast: async (parameters) => {
+        let query = `SELECT * FROM Temperatura 
+            WHERE idUsuario = :idUsuario
+            ORDER BY fechaHora DESC
+            FETCH NEXT 1 ROWS ONLY`;
+
+        const binds = {
+            idUsuario: parameters.idUsuario
+        };
+
+        const result = await database(query, binds);
+        return result.rows;
+    },
     getTop: async (parameters) => {
         let query = `SELECT * FROM Temperatura
             WHERE idUsuario = :idUsuario

@@ -14,7 +14,7 @@
       </li>
 
       <li style="position:relative; margin-top: calc(100% - 50px);">
-        <a style="cursor: pointer;">
+        <a style="cursor: pointer;" [routerLink]="['/login']" (click)="logOut()">
           <mat-icon>logout</mat-icon>
           <span class="aligned-with-icon">Cerrar Sesión</span>
         </a>

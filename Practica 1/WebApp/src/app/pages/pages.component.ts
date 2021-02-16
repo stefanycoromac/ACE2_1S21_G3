@@ -13,6 +13,9 @@ export class PagesComponent implements OnInit {
     this.menuItem = sidebarService.menu;
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  logOut() {
+    localStorage.clear();
   }
 }

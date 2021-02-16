@@ -20,7 +20,7 @@
   background: #30475e;
 }
 
-.sidebar-panel ul p {
+.sidebar-panel ul {
   color: #fff;
   padding: 10px;
 }
@@ -29,6 +29,7 @@
   padding: 10px;
   font-size: 1.0em;
   display: block;
+  position: relative;
   border: none;
   color: #fff;
 }

@@ -8,46 +8,58 @@
             <hr>
 
             <div class="row">
+              <div class="col-12 col-lg-12">
+                <div class="form-group">
+                  <label for="nickname">Nickname</label>
+                  <input class="form-control" type="text" name="nickname" id="nickname" [value]="user.nickname" required
+                    disabled>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
               <div class="col-12 col-lg-6">
                 <div class="form-group">
                   <label for="first_name">Nombre</label>
-                  <input class="form-control" type="text" name="FirstName" id="first_name" required disabled>
+                  <input class="form-control" type="text" name="FirstName" id="first_name" [value]="user.nombre"
+                    required disabled>
                 </div>
               </div>
               <div class="col-12 col-lg-6">
                 <div class="form-group">
                   <label for="last_name">Apellido</label>
-                  <input class="form-control" type="text" name="LastName" id="last_name" required disabled>
+                  <input class="form-control" type="text" name="LastName" id="last_name" [value]="user.apellido"
+                    required disabled>
                 </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-12 col-lg-12">
+              <div class="col-12 col-lg-3">
                 <div class="form-group">
-                  <label for="email">Dirección de correo electrónico</label>
-                  <input class="form-control" type="email" name="email" id="email" required disabled>
+                  <label for="birth">Edad</label>
+                  <input class="form-control" type="text" name="Birth" id="birth" [value]="user.edad" required disabled>
                 </div>
               </div>
-            </div>
-
-            <div class="row">
-              <div class="col-12 col-lg-4">
+              <div class="col-12 col-lg-3">
+                <div class="form-group">
+                  <label for="Gender">Genero</label>
+                  <input class="form-control" type="text" name="Gender" id="gender"
+                    [value]="user.genero ? 'Masculino' : 'Femenino'" required disabled>
+                </div>
+              </div>
+              <div class="col-12 col-lg-3">
                 <div class="form-group">
                   <label for="height">Estatura</label>
-                  <input class="form-control" type="text" name="Height" id="height" required disabled>
+                  <input class="form-control" type="text" name="Height" id="height" [value]="user.estatura" required
+                    disabled>
                 </div>
               </div>
-              <div class="col-12 col-lg-4">
-                <div class="form-group">
-                  <label for="birth">Nacimiento</label>
-                  <input class="form-control" type="text" name="Birth" id="birth" required disabled>
-                </div>
-              </div>
-              <div class="col-12 col-lg-4">
+              <div class="col-12 col-lg-3">
                 <div class="form-group">
                   <label for="weight">Peso</label>
-                  <input class="form-control" type="text" name="Weight" id="weight" required disabled>
+                  <input class="form-control" type="text" name="Weight" id="weight" [value]="user.peso" required
+                    disabled>
                 </div>
               </div>
             </div>

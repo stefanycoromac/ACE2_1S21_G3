@@ -1,13 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { interval, Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
+
+import { User } from 'src/app/models/user.model';
+import { HeartRate } from 'src/app/models/heart-rate.model';
+import { HeartRateService } from 'src/app/services/heart-rate.service';
 
 @Component({
   selector: 'app-heart',
   templateUrl: './heart.component.html',
-  styleUrls: ['./heart.component.css']
+  styleUrls: ['./heart.component.css'],
+  providers: [DatePipe]
 })
 export class HeartComponent implements OnInit {
-  public counter = 0;
+  public idUser: number;
+  public lastHR: HeartRate;
+
+  public counter: number;
   public data: any[];
 
   public dataReports: any[];
@@ -15,70 +24,121 @@ export class HeartComponent implements OnInit {
   public yAxisLabel: string;
   public legendTitle: string;
 
-  constructor() {
+  constructor(
+    private _activatedRoute: ActivatedRoute,
+    private _datepipe: DatePipe,
+    private _hearRateService: HeartRateService,
+  ) {
     this.counter = 0;
     this.data = [{
-      "name": "BPM",
-      "series": this.initialData()
+      'name': 'BPM',
+      'series': this.initialData()
     }];
 
     this.reportProperties();
+
+    this.lastHR = new HeartRate();
   }
 
-  ngOnInit(): void {
-    // const source = interval(1000);
-    // this.subscription = source.subscribe(val => { this.addData(); this.addReportData(); });
+  async ngOnInit(): Promise<void> {
+    this.getIDUser();
+
+    await this.getTop();
+    await this.getDetail();
+    await this.getLast();
   }
 
   private initialData(): any[] {
     const initialData: any[] = [];
-    for (let index = -50; index < 0; index++) {
+    for (let index = -25; index < 0; index++) {
       initialData.push({
-        "name": index,
-        "value": 0
+        'name': index,
+        'value': 0
       });
     }
 
     return initialData;
   }
 
+  private getIDUser(): void {
+    this._activatedRoute.params.subscribe(
+      params => { this.idUser = params['idUser']; }
+    );
+
+    if (!this.idUser) {
+      const user: User = JSON.parse(localStorage.getItem('user'));
+      this.idUser = user.idUsuario;
+    }
+  }
+
   private reportProperties(): void {
-    this.xAxisLabel = "Fecha";
-    this.yAxisLabel = "Promedio BPM";
-    this.legendTitle = "Ultimas 10 lecturas";
+    this.xAxisLabel = 'Fecha';
+    this.yAxisLabel = 'Promedio BPM';
+    this.legendTitle = 'Ultimas 10 lecturas';
     this.dataReports = [];
   }
 
+  private async getLast(): Promise<void> {
+    try {
+      const data = await this._hearRateService.getLast(this.idUser);
 
-
-  /* TEST */
-  private subscription: Subscription;
-  ngOnDestroy() {
-    this.subscription?.unsubscribe();
+      if (data['code'] === '200') {
+        this.lastHR.fechaHora = this._datepipe.transform(
+          new Date(data['data']['fechaHora']),
+          'MMM d, y, h:mm:ss a'
+        );
+        this.lastHR.medicion = data['data']['medicion'];
+      }
+    } catch (err) {
+      console.log(<any>err);
+    }
   }
 
-  private addData(): void {
-    this.data[0].series.shift();
+  private async getDetail(): Promise<void> {
+    try {
+      const data = await this._hearRateService.getDetail(this.idUser);
 
-    const obj = {
-      // "name": new Date().toLocaleString(),
-      "name": this.counter++,
-      "value": this.getRandomArbitrary(1, 100)
+      if (data['code'] === '200') {
+        data['data'].forEach(element => {
+          this.addData(element.medicion);
+        });
+      }
+    } catch (err) {
+      console.log(<any>err);
     }
+  }
+
+  private addData(value: number): void {
+    // this.data[0].series.shift();
+
+    const obj = { 'name': this.counter++, value };
 
     this.data[0].series.push(obj);
     this.data = [...this.data];
   }
 
-  private getRandomArbitrary(min: number, max: number): number {
-    return Math.random() * (max - min) + min;
+  private async getTop(): Promise<void> {
+    try {
+      const data = await this._hearRateService.getTop(this.idUser);
+
+      if (data['code'] === '200') {
+        let dateHour;
+        data['data'].forEach(element => {
+          dateHour = this._datepipe.transform(
+            new Date(element.fechaHora),
+            'd/MM/yy, h:mm a'
+          );
+
+          this.addReportData(dateHour, element.medicion);
+        });
+      }
+    } catch (err) {
+      console.log(<any>err);
+    }
   }
 
-  private addReportData() {
-    const obj = {
-      "name": this.counter++,
-      "value": this.getRandomArbitrary(1, 100)
-    }
+  private addReportData(name: string, value: number) {
+    const obj = { name, value };
 
     this.dataReports.push(obj);
     this.dataReports = [...this.dataReports];

@@ -126,7 +126,7 @@ export class HeartComponent implements OnInit {
         data['data'].forEach(element => {
           dateHour = this._datepipe.transform(
             new Date(element.fechaHora),
-            'd/MM/yy, h:mm a'
+            'd/MM/yy, h:mm:ss a'
           );
 
           this.addReportData(dateHour, element.medicion);

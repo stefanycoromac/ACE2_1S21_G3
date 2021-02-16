@@ -10,6 +10,14 @@ export class TemperatureService {
   public url: string;
 
   constructor(private _httpClient: HttpClient) {
-    this.url = `${Global.url}/heart-rate`;
+    this.url = `${Global.url}/temperature`;
+  }
+
+  public async getTop(idUser: number): Promise<any> {
+    return await this._httpClient.get(`${this.url}/${idUser}/top`).toPromise();
+  }
+
+  public async getLast(idUser: number): Promise<any> {
+    return await this._httpClient.get(`${this.url}/${idUser}/last`).toPromise();
   }
 }

@@ -1,11 +1,21 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { User } from 'src/app/models/user.model';
+import { Temperature } from 'src/app/models/temperature.model';
+import { TemperatureService } from 'src/app/services/temperature.service';
 
 @Component({
   selector: 'app-temperature',
   templateUrl: './temperature.component.html',
-  styleUrls: ['./temperature.component.css']
+  styleUrls: ['./temperature.component.css'],
+  providers: [DatePipe]
 })
 export class TemperatureComponent implements OnInit {
+  public idUser: number;
+  public lastTP: Temperature;
+
   public data: any[];
   public xAxisLabel: string;
   public yAxisLabel: string;
@@ -15,32 +25,30 @@ export class TemperatureComponent implements OnInit {
   public dataReports: any[];
   public legendReportTitle: string;
 
-  constructor() {
+  constructor(
+    private _activatedRoute: ActivatedRoute,
+    private _datepipe: DatePipe,
+    private _temperatureService: TemperatureService,
+  ) {
     this.propertiesChart();
     this.propertiesReportChart();
+
+    this.lastTP = new Temperature();
   }
 
-  ngOnInit(): void { }
+  async ngOnInit(): Promise<void> {
+    this.getIDUser();
+
+    await this.getTop();
+    await this.getLast();
+  }
 
   private propertiesChart(): void {
     this.xAxisLabel = "Estado";
     this.yAxisLabel = "Temperatura";
     this.legendTitle = "Datos";
 
-    this.data = [
-      {
-        "name": "Minima",
-        "value": 0
-      },
-      {
-        "name": "Promedio",
-        "value": 0
-      },
-      {
-        "name": "Maxima",
-        "value": 0
-      }
-    ];
+    this.data = [];
 
     this.scheme = {
       domain: ['#0264c5', '#01a99c', '#df2e36']
@@ -49,25 +57,90 @@ export class TemperatureComponent implements OnInit {
 
   private propertiesReportChart(): void {
     this.legendReportTitle = "Ultimas 10 lecturas";
+    this.dataReports = [];
+  }
 
-    this.dataReports = [
+  private getIDUser(): void {
+    this._activatedRoute.params.subscribe(
+      params => { this.idUser = params['idUser']; }
+    );
+
+    if (!this.idUser) {
+      const user: User = JSON.parse(localStorage.getItem('user'));
+      this.idUser = user.idUsuario;
+    }
+  }
+
+  private async getLast(): Promise<void> {
+    try {
+      const data = await this._temperatureService.getLast(this.idUser);
+
+      if (data['code'] === '200') {
+        this.lastTP.fechaHora = this._datepipe.transform(
+          new Date(data['data']['fechaHora']),
+          'MMM d, y, h:mm:ss a'
+        );
+
+        this.lastTP.promedio = data['data']['promedio'];
+        this.lastTP.minima = data['data']['minima'];
+        this.lastTP.maxima = data['data']['maxima'];
+        this.addData(this.lastTP.minima, this.lastTP.maxima, this.lastTP.promedio);
+      }
+    } catch (err) {
+      console.log(<any>err);
+    }
+  }
+
+  private async getTop(): Promise<void> {
+    try {
+      const data = await this._temperatureService.getTop(this.idUser);
+
+      if (data['code'] === '200') {
+        let dateHour: string;
+        let series: any[];
+
+        data['data'].forEach(element => {
+          dateHour = this._datepipe.transform(
+            new Date(element.fechaHora),
+            'd/MM/yy, h:mm:ss a'
+          );
+
+          series = [
+            { "name": "Minima", "value": element.minima },
+            { "name": "Promedio", "value": element.promedio },
+            { "name": "Maxima", "value": element.maxima }
+          ];
+
+          this.addReportData(dateHour, series);
+        });
+      }
+    } catch (err) {
+      console.log(<any>err);
+    }
+  }
+
+  private addData(min: number, max: number, avg: number) {
+    this.data = [
       {
-        "name": "Fecha1",
-        "series": [
-          {
-            "name": "Minima",
-            "value": 0
-          },
-          {
-            "name": "Promedio",
-            "value": 0
-          },
-          {
-            "name": "Maxima",
-            "value": 0
-          }
-        ]
+        "name": "Minima",
+        "value": this.lastTP.minima
+      },
+      {
+        "name": "Promedio",
+        "value": this.lastTP.promedio
+      },
+      {
+        "name": "Maxima",
+        "value": this.lastTP.maxima
       }
     ];
+    this.data = [...this.data];
+  }
+
+  private addReportData(name: string, series: any[]) {
+    const obj = { name, series };
+
+    this.dataReports.push(obj);
+    this.dataReports = [...this.dataReports];
   }
 }

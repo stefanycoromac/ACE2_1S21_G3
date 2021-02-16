@@ -6,7 +6,7 @@ import { Global } from 'src/app/services/global';
 @Injectable({
   providedIn: 'root'
 })
-export class HeartRateService {
+export class OxygenService {
   public url: string;
 
   constructor(private _httpClient: HttpClient) {

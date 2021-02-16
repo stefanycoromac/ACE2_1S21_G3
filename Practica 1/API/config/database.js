@@ -3,7 +3,7 @@ const oracledb = require('oracledb');
 const parameters = {
     user: 'arqui2',
     password: '12345',
-    connectString: '35.202.113.72:1521/ORCL18'
+    connectString: '34.66.214.252:1521/ORCL18'
 };
 
 const oracleDBConnection = async (statement, binds = [], opts = {}) => {

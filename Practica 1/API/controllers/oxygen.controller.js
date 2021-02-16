@@ -39,10 +39,17 @@ const oxygenController = {
                 });
             });
 
-            res.status(200).send({
-                code: '200',
-                data: oxygens[0]
-            });
+            if (rows.length === 1) {
+                res.status(200).send({
+                    code: '200',
+                    data: oxygens[0]
+                });
+            } else {
+                res.status(200).send({
+                    code: '404',
+                    data: 'Not Found'
+                });
+            }
         } catch (err) {
             res.status(500).send({
                 code: '500',
@@ -57,7 +64,6 @@ const oxygenController = {
             const parameters = {
                 idUsuario: req.params.idUsuario
             };
-
             const rows = await oxygenModel.getTop(parameters);
 
             let oxygen = [];

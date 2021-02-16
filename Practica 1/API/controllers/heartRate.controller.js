@@ -39,10 +39,17 @@ const heartRateController = {
                 });
             });
 
-            res.status(200).send({
-                code: '200',
-                data: heartRates[0]
-            });
+            if (rows.length === 1) {
+                res.status(200).send({
+                    code: '200',
+                    data: heartRates[0]
+                });
+            } else {
+                res.status(200).send({
+                    code: '404',
+                    data: 'Not Found'
+                });
+            }
         } catch (err) {
             res.status(500).send({
                 code: '500',

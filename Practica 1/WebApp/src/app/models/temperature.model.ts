@@ -6,6 +6,10 @@ export class Temperature {
   public maxima: number;
   public fechaHora: string;
 
-  constructor() { }
-
+  constructor() {
+    this.fechaHora = new Date().toString();
+    this.promedio = 0;
+    this.minima = 0;
+    this.maxima = 0;
+  }
 };

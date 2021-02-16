@@ -15,7 +15,7 @@ export class SidebarService {
       { title: 'Perfil', icon: 'accessibility_new', url: 'profile' },
       { title: 'Oxigeno', icon: 'air', url: 'oxygen' },
       { title: 'Temperatura', icon: 'thermostat', url: 'temperature' },
-      { title: 'Ritmo Cardiaco', icon: 'favorite', url: 'heart' },
+      { title: 'Ritmo Cardiaco', icon: 'favorite', url: 'heart-rate' },
     ];
 
     return this._menu;

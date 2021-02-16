@@ -40,12 +40,12 @@ export class HeartComponent implements OnInit {
     this.lastHR = new HeartRate();
   }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     this.getIDUser();
 
-    await this.getTop();
-    await this.getDetail();
-    await this.getLast();
+    this.getTop();
+    this.getDetail();
+    this.getLast();
   }
 
   private initialData(): any[] {
@@ -83,10 +83,7 @@ export class HeartComponent implements OnInit {
       const data = await this._hearRateService.getLast(this.idUser);
 
       if (data['code'] === '200') {
-        this.lastHR.fechaHora = this._datepipe.transform(
-          new Date(data['data']['fechaHora']),
-          'MMM d, y, h:mm:ss a'
-        );
+        this.lastHR.fechaHora = data['data']['fechaHora'];
         this.lastHR.medicion = data['data']['medicion'];
       }
     } catch (err) {

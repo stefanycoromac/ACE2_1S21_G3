@@ -20,8 +20,11 @@ const routes: Routes = [
       { path: '', component: DashboardComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'oxygen', component: OxygenComponent },
+      { path: 'oxygen/:idUser', component: OxygenComponent },
       { path: 'temperature', component: TemperatureComponent },
-      { path: 'heart', component: HeartComponent },
+      { path: 'temperature/:idUser', component: TemperatureComponent },
+      { path: 'heart-rate', component: HeartComponent },
+      { path: 'heart-rate/:idUser', component: HeartComponent },
     ]
   },
 ];

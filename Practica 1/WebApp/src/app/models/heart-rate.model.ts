@@ -4,6 +4,9 @@ export class HeartRate {
   public medicion: number;
   public fechaHora: string;
 
-  constructor() { }
 
+  constructor() {
+    this.fechaHora = new Date().toString();
+    this.medicion = 0;
+  }
 };

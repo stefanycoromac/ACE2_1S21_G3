@@ -36,27 +36,27 @@ export class TemperatureComponent implements OnInit {
     this.lastTP = new Temperature();
   }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     this.getIDUser();
 
-    await this.getTop();
-    await this.getLast();
+    this.getTop();
+    this.getLast();
   }
 
   private propertiesChart(): void {
-    this.xAxisLabel = "Estado";
-    this.yAxisLabel = "Temperatura";
-    this.legendTitle = "Datos";
+    this.xAxisLabel = 'Estado';
+    this.yAxisLabel = 'Temperatura';
+    this.legendTitle = 'Datos';
 
     this.data = [];
 
     this.scheme = {
-      domain: ['#0264c5', '#01a99c', '#df2e36']
+      domain: ['#3f51b5', '#00b862', '#a8385d']
     }
   }
 
   private propertiesReportChart(): void {
-    this.legendReportTitle = "Ultimas 10 lecturas";
+    this.legendReportTitle = 'Ultimas 10 lecturas';
     this.dataReports = [];
   }
 
@@ -76,15 +76,11 @@ export class TemperatureComponent implements OnInit {
       const data = await this._temperatureService.getLast(this.idUser);
 
       if (data['code'] === '200') {
-        this.lastTP.fechaHora = this._datepipe.transform(
-          new Date(data['data']['fechaHora']),
-          'MMM d, y, h:mm:ss a'
-        );
-
+        this.lastTP.fechaHora = data['data']['fechaHora'];
         this.lastTP.promedio = data['data']['promedio'];
         this.lastTP.minima = data['data']['minima'];
         this.lastTP.maxima = data['data']['maxima'];
-        this.addData(this.lastTP.minima, this.lastTP.maxima, this.lastTP.promedio);
+        this.addData();
       }
     } catch (err) {
       console.log(<any>err);
@@ -106,9 +102,9 @@ export class TemperatureComponent implements OnInit {
           );
 
           series = [
-            { "name": "Minima", "value": element.minima },
-            { "name": "Promedio", "value": element.promedio },
-            { "name": "Maxima", "value": element.maxima }
+            { 'name': 'Minima', 'value': element.minima },
+            { 'name': 'Promedio', 'value': element.promedio },
+            { 'name': 'Maxima', 'value': element.maxima }
           ];
 
           this.addReportData(dateHour, series);
@@ -119,19 +115,19 @@ export class TemperatureComponent implements OnInit {
     }
   }
 
-  private addData(min: number, max: number, avg: number) {
+  private addData() {
     this.data = [
       {
-        "name": "Minima",
-        "value": this.lastTP.minima
+        'name': 'Minima',
+        'value': this.lastTP.minima
       },
       {
-        "name": "Promedio",
-        "value": this.lastTP.promedio
+        'name': 'Promedio',
+        'value': this.lastTP.promedio
       },
       {
-        "name": "Maxima",
-        "value": this.lastTP.maxima
+        'name': 'Maxima',
+        'value': this.lastTP.maxima
       }
     ];
     this.data = [...this.data];

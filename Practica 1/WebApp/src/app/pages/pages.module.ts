@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import { SharedModule } from '../shared/shared.module';
 import { ComponentsModule } from '../components/components.module';
@@ -40,6 +42,8 @@ import { ProfileComponent } from './profile/profile.component';
     FormsModule,
     MatIconModule,
     MatSidenavModule,
+    MatButtonModule,
+    MatButtonToggleModule,
     SharedModule,
     ComponentsModule
   ]

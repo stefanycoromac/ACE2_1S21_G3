@@ -3,13 +3,94 @@
     <h1>Inicio</h1>
   </div>
 
-  <div class="col-12 col-lg-12 align-self-center">
-    <div class="card card-graph">
+  <div class="col-12 col-xl-4 align-self-center">
+    <div class="card card-graph" routerLink="oxygen" style="cursor: pointer;">
       <div class="card-body">
 
-        <!-- <app-pie-grid-chart [data]="data"></app-pie-grid-chart> -->
+        <h5 class="card-text center">Oxigeno</h5>
+        <h6 class="card-text center">{{lastOxygen.fechaHora | date:'MMM d, y, h:mm:ss a'}}</h6>
+        <app-pie-grid-chart [data]="oxygenData"></app-pie-grid-chart>
 
       </div>
     </div>
   </div>
+
+  <div class="col-12 col-xl-4 align-self-center">
+    <div class="card card-graph" routerLink="temperature" style="cursor: pointer;">
+      <div class="card-body">
+
+        <h5 class="card-text center">Temperatura</h5>
+        <h6 class="card-text center">{{lastTemperature.fechaHora | date:'MMM d, y, h:mm:ss a'}}</h6>
+        <app-pie-grid-chart [scheme]="scheme" [data]="temperatureData"></app-pie-grid-chart>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-4 align-self-center">
+    <div class="card card-graph" routerLink="heart-rate" style="cursor: pointer;">
+      <div class="card-body">
+
+        <h5 class="card-text center">Ritmo Cardiaco</h5>
+        <h6 class="card-text center">{{lastHeartRate.fechaHora | date:'MMM d, y, h:mm:ss a'}}</h6>
+        <app-pie-grid-chart [data]="heartRateData"></app-pie-grid-chart>
+
+      </div>
+    </div>
+  </div>
+
 </div>
+
+<ng-template [ngIf]="userType">
+  <div class="row page-content">
+    <div class="col-12 col-lg-12 align-self-center">
+      <h1>Atletas</h1>
+    </div>
+
+    <div class="col-12 col-lg-12 align-self-center">
+
+      <table class="table table-hover table-striped table-light">
+        <thead>
+          <tr>
+            <th scope="col" class="align-middle">#</th>
+            <th scope="col" class="align-middle">Nombre</th>
+            <th scope="col" class="align-middle">Apellido</th>
+            <th scope="col" class="align-middle">Edad</th>
+            <th scope="col" class="align-middle">Genero</th>
+            <th scope="col" class="align-middle">Peso</th>
+            <th scope="col" class="align-middle">Estatura</th>
+            <th scope="col" class="align-middle">Analitica</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of athletes">
+            <th scope="row" class="align-middle">{{user.idUsuario}}</th>
+            <td class="align-middle">{{user.nombre}}</td>
+            <td class="align-middle">{{user.apellido}}</td>
+            <td class="align-middle">{{user.edad}}</td>
+            <td class="align-middle">{{user.genero ? 'Masculino' : 'Femenino'}}</td>
+            <td class="align-middle">{{user.peso}}</td>
+            <td class="align-middle">{{user.estatura}}</td>
+            <td class="align-middle">
+
+              <mat-button-toggle-group #group="matButtonToggleGroup">
+                <mat-button-toggle value="left" aria-label="Oxygen" [routerLink]="['oxygen', user.idUsuario]">
+                  <mat-icon>air</mat-icon>
+                </mat-button-toggle>
+                <mat-button-toggle value="center" aria-label="Temperature"
+                  [routerLink]="['temperature', user.idUsuario]">
+                  <mat-icon color="primary">thermostat</mat-icon>
+                </mat-button-toggle>
+                <mat-button-toggle value="right" aria-label="Heart Rate" [routerLink]="['heart-rate', user.idUsuario]">
+                  <mat-icon color="warn">favorite</mat-icon>
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</ng-template>

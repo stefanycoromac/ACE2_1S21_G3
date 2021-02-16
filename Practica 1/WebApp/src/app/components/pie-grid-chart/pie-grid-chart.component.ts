@@ -7,11 +7,14 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PieGridChartComponent implements OnInit {
   @Input() data: any[];
+  @Input() scheme: any;
+  @Input() designatedTotal: number;
 
   constructor() {
     this.data = [];
+    this.scheme = 'nightLights';
+    this.designatedTotal = 100;
   }
 
   ngOnInit(): void { }
-
 }

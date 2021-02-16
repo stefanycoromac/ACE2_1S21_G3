@@ -11,7 +11,7 @@ export class UserService {
   public url: string;
 
   constructor(private _httpClient: HttpClient) {
-    this.url = Global.url;
+    this.url = `${Global.url}/user`;
   }
 
   public async authenticate(user: User): Promise<any> {
@@ -19,9 +19,13 @@ export class UserService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
     return await this._httpClient.post(
-      `${this.url}/user/login`,
+      `${this.url}/login`,
       json,
       { headers: headers }
     ).toPromise();
+  }
+
+  public async getCoaching(idUser: number): Promise<any> {
+    return await this._httpClient.get(`${this.url}/${idUser}/coaching`).toPromise();
   }
 }

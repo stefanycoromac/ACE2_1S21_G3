@@ -40,12 +40,12 @@ export class OxygenComponent implements OnInit {
     this.lastOX = new Oxygen();
   }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     this.getIDUser();
 
-    await this.getTop();
-    await this.getDetail();
-    await this.getLast();
+    this.getTop();
+    this.getDetail();
+    this.getLast();
   }
 
   private initialData(): any[] {
@@ -72,9 +72,9 @@ export class OxygenComponent implements OnInit {
   }
 
   private reportProperties(): void {
-    this.xAxisLabel = "Fecha";
-    this.yAxisLabel = "Promedio";
-    this.legendTitle = "Ultimas 10 lecturas";
+    this.xAxisLabel = 'Fecha';
+    this.yAxisLabel = 'Promedio';
+    this.legendTitle = 'Ultimas 10 lecturas';
     this.dataReports = [];
   }
 
@@ -83,10 +83,7 @@ export class OxygenComponent implements OnInit {
       const data = await this._oxygenService.getLast(this.idUser);
 
       if (data['code'] === '200') {
-        this.lastOX.fechaHora = this._datepipe.transform(
-          new Date(data['data']['fechaHora']),
-          'MMM d, y, h:mm:ss a'
-        );
+        this.lastOX.fechaHora = data['data']['fechaHora'];
         this.lastOX.medicion = data['data']['medicion'];
       }
     } catch (err) {

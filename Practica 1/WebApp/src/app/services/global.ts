@@ -1,3 +1,3 @@
 export const Global = {
-  url: 'http://localhost:3000'
+  url: 'http://34.69.69.236:3000'
 };

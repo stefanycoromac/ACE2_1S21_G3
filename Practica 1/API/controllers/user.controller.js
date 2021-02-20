@@ -44,6 +44,58 @@ const userController = {
             next(err);
         }
     },
+    register: async (req, res, next) => {
+        try {
+            const parameters = {
+                nombre: req.body.nombre,
+                apellido: req.body.apellido,
+                nickname: req.body.nickname,
+                contrasenia: req.body.contrasenia
+            };
+            const user = await userModel.register(parameters);
+
+            res.status(200).send({
+                code: '200',
+                data: user
+            });
+        } catch (err) {
+            res.status(500).send({
+                code: '500',
+                data: err
+            });
+            next(err);
+        }
+    },
+    update: async (req, res, next) => {
+        try {
+            let user = {
+                idUsuario: req.body.idUsuario,
+                edad: req.body.edad,
+                genero: req.body.genero,
+                peso: req.body.peso,
+                estatura: req.body.estatura
+            };
+            user = await userModel.update(user);
+
+            if (user !== null) {
+                res.status(200).send({
+                    code: '200',
+                    data: user
+                });
+            } else {
+                res.status(500).send({
+                    code: '500',
+                    data: user
+                });
+            }
+        } catch (err) {
+            res.status(500).send({
+                code: '500',
+                data: err
+            });
+            next(err);
+        }
+    },
 
     getUser: async (req, res, next) => {},
 

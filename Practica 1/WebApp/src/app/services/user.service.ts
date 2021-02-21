@@ -25,6 +25,28 @@ export class UserService {
     ).toPromise();
   }
 
+  public async signup(user: User): Promise<any> {
+    const json = JSON.stringify(user);
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    return await this._httpClient.post(
+      `${this.url}/register`,
+      json,
+      { headers }
+    ).toPromise();
+  }
+
+  public async update(user: User): Promise<any> {
+    const json = JSON.stringify(user);
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    return await this._httpClient.put(
+      `${this.url}`,
+      json,
+      { headers }
+    ).toPromise();
+  }
+
   public async getCoaching(idUser: number): Promise<any> {
     return await this._httpClient.get(`${this.url}/${idUser}/coaching`).toPromise();
   }

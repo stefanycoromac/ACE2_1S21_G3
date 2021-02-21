@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { User } from 'src/app/models/user.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,9 +11,22 @@ import { User } from 'src/app/models/user.model';
 export class ProfileComponent implements OnInit {
   public user: User;
 
-  constructor() {
+  constructor(
+    private _userService: UserService
+  ) {
     this.user = JSON.parse(localStorage.getItem('user'));
   }
 
   ngOnInit(): void { }
+
+  public async update() {
+    try {
+      const data = await this._userService.update(this.user);
+
+      if (data['code'] === '200') {
+      }
+    } catch (err) {
+      console.log(<any>err);
+    }
+  }
 }

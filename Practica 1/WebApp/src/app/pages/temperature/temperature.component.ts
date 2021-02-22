@@ -1,6 +1,7 @@
-import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { interval, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 import { User } from 'src/app/models/user.model';
 import { Temperature } from 'src/app/models/temperature.model';
@@ -12,9 +13,11 @@ import { TemperatureService } from 'src/app/services/temperature.service';
   styleUrls: ['./temperature.component.css'],
   providers: [DatePipe]
 })
-export class TemperatureComponent implements OnInit {
+export class TemperatureComponent implements OnInit, OnDestroy {
   public idUser: number;
   public lastTP: Temperature;
+
+  private subscription: Subscription;
 
   public data: any[];
   public xAxisLabel: string;
@@ -39,8 +42,15 @@ export class TemperatureComponent implements OnInit {
   ngOnInit(): void {
     this.getIDUser();
 
-    this.getTop();
-    this.getLast();
+    const source = interval(2500);
+    this.subscription = source.subscribe(() => {
+      this.getLast();
+      this.getTop();
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 
   private propertiesChart(): void {

@@ -1,6 +1,7 @@
-import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { interval, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 import { User } from 'src/app/models/user.model';
 import { Oxygen } from 'src/app/models/oxygen.model';
@@ -12,12 +13,14 @@ import { OxygenService } from 'src/app/services/oxygen.service';
   styleUrls: ['./oxygen.component.css'],
   providers: [DatePipe]
 })
-export class OxygenComponent implements OnInit {
+export class OxygenComponent implements OnInit, OnDestroy {
   public idUser: number;
   public lastOX: Oxygen;
 
   public counter: number;
   public data: any[];
+
+  private subscription: Subscription;
 
   public dataReports: any[];
   public xAxisLabel: string;
@@ -43,9 +46,16 @@ export class OxygenComponent implements OnInit {
   ngOnInit(): void {
     this.getIDUser();
 
-    this.getTop();
-    this.getDetail();
-    this.getLast();
+    const source = interval(2500);
+    this.subscription = source.subscribe(() => {
+      this.getLast();
+      this.getTop();
+      this.getDetail();
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 
   private initialData(): any[] {
@@ -96,6 +106,10 @@ export class OxygenComponent implements OnInit {
       const data = await this._oxygenService.getDetail(this.idUser);
 
       if (data['code'] === '200') {
+        this.data[0].series = this.initialData();
+        this.data = [...this.data];
+
+        this.counter = 0;
         data['data'].forEach(element => {
           this.addData(element.medicion);
         });
@@ -106,7 +120,7 @@ export class OxygenComponent implements OnInit {
   }
 
   private addData(value: number): void {
-    // this.data[0].series.shift();
+    this.data[0].series.shift();
 
     const obj = { 'name': this.counter++, value };
 
@@ -119,6 +133,9 @@ export class OxygenComponent implements OnInit {
       const data = await this._oxygenService.getTop(this.idUser);
 
       if (data['code'] === '200') {
+        this.dataReports = [];
+        this.data = [...this.data];
+
         let dateHour;
         data['data'].forEach(element => {
           dateHour = this._datepipe.transform(

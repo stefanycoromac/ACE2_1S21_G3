@@ -34,7 +34,7 @@ export class OxygenComponent implements OnInit, OnDestroy {
   ) {
     this.counter = 0;
     this.data = [{
-      'name': 'BPM',
+      'name': '%',
       'series': this.initialData()
     }];
 

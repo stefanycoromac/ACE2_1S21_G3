@@ -40,6 +40,13 @@
   text-decoration: none
 }
 
+.date-time:hover {
+  cursor: default;
+  color: #fff !important;
+  background: transparent !important;
+  text-decoration: none
+}
+
 .aligned-with-icon {
   position: absolute;
   margin-top: 0px;

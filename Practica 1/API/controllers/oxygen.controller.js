@@ -100,6 +100,7 @@ const oxygenController = {
 
             res.status(200).send({
                 code: '200',
+                movilecode: '2',
                 data: oxygen
             });
         } catch (err) {

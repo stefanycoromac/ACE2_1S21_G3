@@ -11,6 +11,7 @@ const temperatureController = {
 
             res.status(200).send({
                 code: '200',
+                movilecode: '3',
                 data: temperature
             });
         } catch (err) {

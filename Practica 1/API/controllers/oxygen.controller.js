@@ -92,11 +92,12 @@ const oxygenController = {
 
     createDetail: async (req, res, next) => {
         try {
+            console.log(req.body);
             let oxygen = {
                 medicion: req.body.medicion,
                 idOxigeno: req.body.idOxigeno,
             };
-
+            console.log(oxygen);
             oxygen = await oxygenModel.createDetail(oxygen);
 
             res.status(200).send({

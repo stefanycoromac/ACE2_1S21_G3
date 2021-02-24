@@ -1,3 +1,4 @@
+const int BTPWR = 12;
 /*#include <SoftwareSerial.h>
   SoftwareSerial hc06(18, 19);*/
 /* Temperatura */
@@ -20,6 +21,8 @@ boolean logueado = false;
 /* END Login */
 
 void setup() {
+  pinMode(BTPWR,OUTPUT);
+  digitalWrite(BTPWR,HIGH);
   Serial.begin(9600);
   //hc06.begin(9600);
   pinMode(loginLed, OUTPUT);

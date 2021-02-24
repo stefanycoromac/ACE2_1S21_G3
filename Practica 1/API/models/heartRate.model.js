@@ -24,7 +24,7 @@ const heartRateModel = {
     getLast: async (parameters) => {
         let query = `SELECT * FROM RitmoCardiaco 
             WHERE idUsuario = :idUsuario
-            ORDER BY fechaHora DESC
+            ORDER BY idRitmo DESC
             FETCH NEXT 1 ROWS ONLY`;
 
         const binds = {
@@ -37,7 +37,7 @@ const heartRateModel = {
     getTop: async (parameters) => {
         let query = `SELECT * FROM RitmoCardiaco
             WHERE idUsuario = :idUsuario
-            ORDER BY fechaHora DESC
+            ORDER BY idRitmo DESC
             FETCH NEXT 10 ROWS ONLY`;
 
         const binds = {

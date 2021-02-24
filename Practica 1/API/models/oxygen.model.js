@@ -24,7 +24,7 @@ const oxygenModel = {
     getLast: async (parameters) => {
         let query = `SELECT * FROM Oxigeno 
             WHERE idUsuario = :idUsuario
-            ORDER BY fechaHora DESC
+            ORDER BY idOxigeno DESC
             FETCH NEXT 1 ROWS ONLY`;
 
         const binds = {
@@ -37,7 +37,7 @@ const oxygenModel = {
     getTop: async (parameters) => {
         let query = `SELECT * FROM Oxigeno
             WHERE idUsuario = :idUsuario
-            ORDER BY fechaHora DESC
+            ORDER BY idOxigeno DESC
             FETCH NEXT 10 ROWS ONLY`;
 
         const binds = {

@@ -31,7 +31,7 @@ const userController = {
                     data: userLog[0]
                 });
             } else {
-                res.status(200).send({
+                res.status(404).send({
                     code: '404',
                     data: 'Not Found'
                 });

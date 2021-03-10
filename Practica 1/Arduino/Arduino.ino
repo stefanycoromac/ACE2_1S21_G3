@@ -14,6 +14,7 @@ String temp;
 MAX30105 particleSensor;
 
 #define MAX_BRIGHTNESS 255
+const int MAXPWR = 5;
 
 uint32_t irBuffer[100];  // infrared LED sensor data
 uint32_t redBuffer[100]; // red LED sensor data
@@ -33,7 +34,6 @@ float latidosValor = 0;
 /* END  Oxigeno y Latidos */
 
 /* Login */
-const int loginLed = 13;
 char entrada = 'f';
 boolean logueado = false;
 /* END Login */
@@ -45,9 +45,8 @@ void setup()
   pinMode(BTPWR, OUTPUT);
   digitalWrite(BTPWR, HIGH);
 
-  pinMode(loginLed, OUTPUT);
-
-  inicializacionSensor();
+  pinMode(MAXPWR, OUTPUT);
+  digitalWrite(MAXPWR, LOW);
 }
 
 void loop()
@@ -69,14 +68,16 @@ void medirTemperatura()
 
   if (celsiusTemp > 0)
   {
-  temp = "T;" + (String)celsiusTemp;
-  enviarDatos(temp);
-  delay(1000);
+    temp = "T;" + (String)celsiusTemp;
+    enviarDatos(temp);
+    delay(1000);
   }
 }
 
 void inicializacionSensor()
 {
+  digitalWrite(MAXPWR, HIGH);
+
   if (!particleSensor.begin(Wire, I2C_SPEED_FAST))
   {
     while (1)
@@ -90,7 +91,7 @@ void realizarMediciones()
 {
   Serial.begin(115200);
 
-  // inicializacionSensor();
+  inicializacionSensor();
   bufferLength = 100;
 
   for (byte i = 0; i < bufferLength; i++)
@@ -131,6 +132,11 @@ void realizarMediciones()
 
     if (validHeartRate == 1)
     {
+      if (heartRate > 100)
+      {
+        heartRate = heartRate - (heartRate * 0.2);
+      }
+
       latidos = "L;" + (String)heartRate;
       enviarDatos(latidos);
       delay(1000);
@@ -146,6 +152,8 @@ void realizarMediciones()
     medirTemperatura();
     delay(1000);
   }
+  
+  digitalWrite(MAXPWR, LOW);
 }
 
 void verificarLogin()
@@ -154,12 +162,11 @@ void verificarLogin()
   if (entrada == 'v')
   {
     logueado = true;
-    digitalWrite(loginLed, HIGH);
   }
+  
   if (entrada == 'f')
   {
     logueado = false;
-    digitalWrite(loginLed, LOW);
   }
 }
 

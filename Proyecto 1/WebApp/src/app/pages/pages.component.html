@@ -1,0 +1,39 @@
+<mat-drawer-container class="sidebar-content">
+
+  <mat-drawer class="sidebar-panel" mode="side" #drawer opened>
+    <div class="sidebar-header center">
+      <h3>Health app</h3>
+    </div>
+
+    <ul class="list-unstyled components">
+      <li>
+        <a class="date-time">
+          <mat-icon>schedule</mat-icon>
+          <span class="aligned-with-icon">{{ now | date:'MMM d, y, h:mm a'}}</span>
+        </a>
+      </li>
+
+      <li *ngFor="let item of menuItem">
+        <a [routerLink]="[item.url]">
+          <mat-icon>{{item.icon}}</mat-icon>
+          <span class="aligned-with-icon">{{item.title}}</span>
+        </a>
+      </li>
+
+      <li>
+        <a style="cursor: pointer;" [routerLink]="['/login']" (click)="logOut()">
+          <mat-icon>logout</mat-icon>
+          <span class="aligned-with-icon">Cerrar Sesión</span>
+        </a>
+      </li>
+    </ul>
+  </mat-drawer>
+
+  <mat-drawer-content class="sidebar-container">
+
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-drawer-content>
+</mat-drawer-container>

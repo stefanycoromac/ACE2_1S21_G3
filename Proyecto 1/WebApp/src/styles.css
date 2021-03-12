@@ -1,0 +1,88 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+h1 {
+  color: #fff;
+  font-weight: bold;
+}
+
+button {
+  border-radius: 20px;
+  border: 1px solid #848484;
+  background-color: #848484;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+button:focus {
+  outline: none;
+}
+
+:invalid {
+  box-shadow: none;
+}
+
+:-moz-submit-invalid {
+  box-shadow: none;
+}
+
+:-moz-ui-invalid {
+  box-shadow: none;
+}
+
+.center {
+  text-align: center;
+}
+
+.page-content {
+  height: 100vh;
+  padding: 20px;
+}
+
+.form-control {
+  color: #000;
+  background-color: #dddddd;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+}
+
+.form-control:focus {
+  color: #000;
+  background-color: #dddddd;
+  outline: 0;
+  box-shadow: none;
+}
+
+.card {
+  /*background-color: #f05454;*/
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.card-graph {
+  background-color: #fff;
+}
+
+.legend-labels {
+  background-color: #222831 !important;
+  border-radius: 15px !important;
+}

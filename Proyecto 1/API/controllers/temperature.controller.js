@@ -97,12 +97,10 @@ const temperatureController = {
 
     createDetail: async (req, res, next) => {
         try {
-            console.log(req.body);
             let temperature = {
                 medicion: req.body.medicion,
                 idTemperatura: req.body.idTemperatura,
             };
-            console.log(temperature);
 
             temperature = await temperatureModel.createDetail(temperature);
 

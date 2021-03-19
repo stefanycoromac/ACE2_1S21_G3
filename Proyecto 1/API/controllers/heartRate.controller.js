@@ -3,7 +3,6 @@ const heartRateModel = require('../models/heartRate.model');
 const heartRateController = {
     create: async (req, res, next) => {
         try {
-            console.log(req.body);
             let heartRate = {
                 idUsuario: req.body.idUsuario
             };
@@ -93,12 +92,10 @@ const heartRateController = {
 
     createDetail: async (req, res, next) => {
         try {
-            console.log(req.body);
             let heartRate = {
                 medicion: req.body.medicion,
                 idRitmo: req.body.idRitmo,
             };
-            console.log(heartRate)
 
             heartRate = await heartRateModel.createDetail(heartRate);
 

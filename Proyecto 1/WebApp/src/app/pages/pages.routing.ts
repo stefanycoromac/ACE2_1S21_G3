@@ -9,6 +9,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { OxygenComponent } from './oxygen/oxygen.component';
 import { TemperatureComponent } from './temperature/temperature.component';
 import { HeartComponent } from './heart/heart.component';
+import { CourseNavetteComponent } from './course-navette/course-navette.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,8 @@ const routes: Routes = [
       { path: 'temperature/:idUser', component: TemperatureComponent },
       { path: 'heart-rate', component: HeartComponent },
       { path: 'heart-rate/:idUser', component: HeartComponent },
+      { path: 'course-navette', component: CourseNavetteComponent },
+      { path: 'course-navette/:idUser', component: CourseNavetteComponent },
     ]
   },
 ];

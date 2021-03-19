@@ -33,7 +33,7 @@
 
         <h5 class="card-text center">Ritmo Cardiaco</h5>
         <h6 class="card-text center">{{lastHeartRate.fechaHora | date:'MMM d, y, h:mm:ss a'}}</h6>
-        <app-pie-grid-chart [data]="heartRateData"></app-pie-grid-chart>
+        <app-pie-grid-chart [data]="heartRateData" [designatedTotal]="200"></app-pie-grid-chart>
 
       </div>
     </div>

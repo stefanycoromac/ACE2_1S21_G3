@@ -17,6 +17,7 @@ import { TemperatureComponent } from './temperature/temperature.component';
 import { HeartComponent } from './heart/heart.component';
 import { OxygenComponent } from './oxygen/oxygen.component';
 import { ProfileComponent } from './profile/profile.component';
+import { CourseNavetteComponent } from './course-navette/course-navette.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { ProfileComponent } from './profile/profile.component';
     TemperatureComponent,
     HeartComponent,
     OxygenComponent,
-    ProfileComponent
+    ProfileComponent,
+    CourseNavetteComponent
   ],
   exports: [
     PagesComponent,
@@ -34,7 +36,8 @@ import { ProfileComponent } from './profile/profile.component';
     TemperatureComponent,
     HeartComponent,
     OxygenComponent,
-    ProfileComponent
+    ProfileComponent,
+    CourseNavetteComponent
   ],
   imports: [
     CommonModule,

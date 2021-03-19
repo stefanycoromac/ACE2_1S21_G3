@@ -10,18 +10,18 @@
 }
 
 .sidebar-panel {
-  background: #222831;
-  color: #fff;
+  background: #17242c;
+  color: #e1e2e4;
   width: 250px;
 }
 
 .sidebar-panel .sidebar-header {
   padding: 50px;
-  background: #30475e;
+  background: #17242c;
 }
 
 .sidebar-panel ul {
-  color: #fff;
+  color: #89c8f2;
   padding: 10px;
 }
 
@@ -31,18 +31,17 @@
   display: block;
   position: relative;
   border: none;
-  color: #fff;
+  color: #89c8f2;
 }
 
 .sidebar-panel ul li a:hover {
-  color: #29273f;
-  background: #dddddd;
+  color: #e1e2e4;
   text-decoration: none
 }
 
 .date-time:hover {
   cursor: default;
-  color: #fff !important;
+  color: #89c8f2 !important;
   background: transparent !important;
   text-decoration: none
 }
@@ -54,5 +53,5 @@
 }
 
 .sidebar-container {
-  background: #2c3440;
+  background: #242527;
 }

@@ -343,3 +343,14 @@ FROM detalleoxigeno do,
     ) a
 WHERE do.idoxigeno = a.idoxigeno
 ORDER BY do.iddetalleoxigeno ASC;
+
+
+/* Total de Repeticiones por Test de un Usuario*/ 
+SELECT t.idTest, t.fechaInicio, t.estado, COUNT(r.idRepeticion) AS TotalRepeticiones
+FROM TEST t, REPETICION r
+WHERE t.idUsuario = 3 AND t.idTest = r.idTest
+GROUP BY t.idTest, t.fechaInicio, t.estado
+ORDER BY t.fechaInicio;
+
+
+/* Reporte de Repeticiones por Semana */ 

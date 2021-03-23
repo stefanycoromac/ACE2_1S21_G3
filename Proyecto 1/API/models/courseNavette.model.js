@@ -55,7 +55,7 @@ const courseNavetteModel = {
         };
     },
     getDetail: async (parameters) => {
-        let query = `SELECT * FROM repeticionTest
+        const query = `SELECT * FROM repeticionTest
             WHERE idUsuario = :idUsuario
             ORDER BY idTest DESC
             FETCH NEXT 1 ROWS ONLY`;
@@ -66,7 +66,39 @@ const courseNavetteModel = {
 
         const result = await database(query, binds);
         return result.rows;
-    }
+    },
+
+    getAll: async (parameters) => {
+        let query = `SELECT t.idTest, t.fechaInicio, t.estado, 
+                COUNT(r.idRepeticion) AS TotalRepeticiones
+            FROM TEST t, REPETICION r
+            WHERE t.idUsuario = :idUsuario AND t.idTest = r.idTest`;
+
+        const binds = {
+            idUsuario: parameters.idUsuario
+        };
+
+        if (parameters.estado) {
+            binds.estado = parameters.idProducto;
+            query += ` AND t.estado = :estado`;
+        }
+
+        query += ` GROUP BY t.idTest, t.fechaInicio, t.estado
+            ORDER BY t.fechaInicio`;
+        const result = await database(query, binds);
+        return result.rows
+    },
+    getPerWeek: async (parameters) => {
+        let query = `SELECT * FROM TEST t
+            WHERE t.idUsuario = :idUsuario`;
+
+        const binds = {
+            idUsuario: parameters.idUsuario
+        };
+
+        const result = await database(query, binds);
+        return result.rows
+    },
 };
 
 module.exports = courseNavetteModel;

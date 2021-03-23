@@ -244,7 +244,7 @@ CREATE OR REPLACE VIEW repeticionTest AS
       WHERE idRepeticion = repe.idRepeticion
       ORDER BY idDistancia DESC
       FETCH NEXT 1 ROWS ONLY
-    ) AS medicion
+    ) AS distancia
   FROM Repeticion repe
   INNER JOIN Velocidad vel ON (repe.idRepeticion = vel.idRepeticion)
   INNER JOIN Test ts ON (repe.idTest = ts.idTest); 

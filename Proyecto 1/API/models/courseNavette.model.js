@@ -34,6 +34,20 @@ const courseNavetteModel = {
         const result = await database(query, binds);
         return result.rows;
     },
+    update: async (parameters) => {
+        const query = `UPDATE Test SET estado = :estado
+            WHERE idTest = :idTest`;
+        const test = Object.assign({}, parameters);
+
+        const result = await database(query, test);
+        if (result.rowsAffected && result.rowsAffected === 1) {
+            return {
+                result,
+                test
+            };
+        }
+        return null;
+    },
 
     createDetail: async (parameters) => {
         const query = `INSERT INTO Repeticion(idTest, numero)
@@ -79,7 +93,7 @@ const courseNavetteModel = {
         };
 
         if (parameters.estado) {
-            binds.estado = parameters.idProducto;
+            binds.estado = parameters.estado;
             query += ` AND t.estado = :estado`;
         }
 

@@ -7,6 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { SharedModule } from '../shared/shared.module';
 import { ComponentsModule } from '../components/components.module';
@@ -47,6 +49,8 @@ import { CourseNavetteComponent } from './course-navette/course-navette.componen
     MatSidenavModule,
     MatButtonModule,
     MatButtonToggleModule,
+    MatTableModule,
+    MatPaginatorModule,
     SharedModule,
     ComponentsModule
   ]

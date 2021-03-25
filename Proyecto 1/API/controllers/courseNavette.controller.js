@@ -35,7 +35,6 @@ const couseNavetteController = {
                     estado: element.ESTADO,
                     fechaInicio: element.FECHAINICIO,
                     fechaFin: element.FECHAFIN,
-                    idUsuario: element.idUsuario,
                 });
             });
 
@@ -153,7 +152,7 @@ const couseNavetteController = {
             rows.forEach(element => {
                 details.push({
                     idTest: element.IDTEST,
-                    fechaHora: element.FECHAINICIO,
+                    fechaInicio: element.FECHAINICIO,
                     estado: element.ESTADO,
                     repeticiones: element.TOTALREPETICIONES,
                 });

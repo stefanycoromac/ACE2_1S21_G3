@@ -30,6 +30,15 @@
   </mat-drawer>
 
   <mat-drawer-content class="sidebar-container">
+    <div class="d-lg-none">
+      <div class="action-header clearfix">
+        <div class="pull-left hidden-xs d-flex align-items-center">
+          <button mat-button style="outline: none;" (click)="drawer.toggle()">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
 
     <div class="container-fluid">
       <router-outlet></router-outlet>

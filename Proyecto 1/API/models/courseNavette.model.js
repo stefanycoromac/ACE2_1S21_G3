@@ -24,7 +24,7 @@ const courseNavetteModel = {
     getLast: async (parameters) => {
         const query = `SELECT * FROM Test 
             WHERE idUsuario = :idUsuario
-            ORDER BY idTest DESC
+            ORDER BY fechaInicio DESC
             FETCH NEXT 1 ROWS ONLY`;
 
         const binds = {
@@ -70,9 +70,11 @@ const courseNavetteModel = {
     },
     getDetail: async (parameters) => {
         const query = `SELECT * FROM repeticionTest
-            WHERE idUsuario = :idUsuario
-            ORDER BY idTest DESC
-            FETCH NEXT 1 ROWS ONLY`;
+            WHERE idtest IN (SELECT idTest FROM Test 
+                WHERE idUsuario = :idUsuario
+                ORDER BY fechaInicio DESC
+                FETCH NEXT 1 ROWS ONLY)
+            ORDER BY idTest DESC`;
 
         const binds = {
             idUsuario: parameters.idUsuario

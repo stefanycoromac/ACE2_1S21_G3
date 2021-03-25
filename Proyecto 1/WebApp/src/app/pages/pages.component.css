@@ -55,3 +55,9 @@
 .sidebar-container {
   background: #242527;
 }
+
+.action-header {
+  position: relative;
+  background: #17242c;
+  color: #89c8f2;
+}

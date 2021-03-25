@@ -4,17 +4,177 @@
   </div>
 
   <div class="col-12 col-lg-8 align-self-center">
-    <app-detail-test-table></app-detail-test-table>
+    <!-- TABLA DETALLE TEST -->
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSourceDetail">
+
+        <!-- numero Column -->
+        <ng-container matColumnDef="numero">
+          <th mat-header-cell *matHeaderCellDef> Repetición </th>
+          <td mat-cell *matCellDef="let element"> <strong>{{element.numero}}</strong> </td>
+
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <!-- minVel Column -->
+        <ng-container matColumnDef="minVel">
+          <th mat-header-cell *matHeaderCellDef> Velocidad minima </th>
+          <td mat-cell *matCellDef="let element"> {{element.minVel}} </td>
+
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <!-- maxVel Column -->
+        <ng-container matColumnDef="maxVel">
+          <th mat-header-cell *matHeaderCellDef> Velocidad Maxima </th>
+          <td mat-cell *matCellDef="let element"> {{element.maxVel}} </td>
+
+          <td mat-footer-cell *matFooterCellDef> <strong>Distancia Total</strong> </td>
+        </ng-container>
+
+        <!-- promedio Column -->
+        <ng-container matColumnDef="promedio">
+          <th mat-header-cell *matHeaderCellDef> Velocidad promedio </th>
+          <td mat-cell *matCellDef="let element"> {{element.promedio}} </td>
+
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <!-- distancia Column -->
+        <ng-container matColumnDef="distancia">
+          <th mat-header-cell *matHeaderCellDef> Distancia </th>
+          <td mat-cell *matCellDef="let element"> {{element.distancia}} </td>
+
+          <td mat-footer-cell *matFooterCellDef> {{getTotal()}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsDetails"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsDetails;"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumnsDetails"></tr>
+      </table>
+
+      <mat-paginator #paginatorDetails="matPaginator" [pageSize]="7" showFirstLastButtons></mat-paginator>
+    </div>
+    <!-- FIN TABLA DETALLE TEST -->
   </div>
 
   <div class="col-12 col-lg-4 align-self-center">
-
     <div class="card">
       <div class="card-body">
         <p class="card-text">Area tiempo real</p>
       </div>
     </div>
+  </div>
+</div>
 
+<div class="row page-content">
+  <div class="col-12 col-lg-12 align-self-center">
+    <h1>Historial</h1>
   </div>
 
+  <div class="col-12 col-lg-7 align-self-center">
+    <!-- Historial de repeticiones -->
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSourceHistory">
+
+        <!-- fecha Column -->
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef> Fecha </th>
+          <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+        </ng-container>
+
+        <!-- estado Column -->
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef> Estado </th>
+          <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+        </ng-container>
+
+        <!-- repeticiones Column -->
+        <ng-container matColumnDef="repeticiones">
+          <th mat-header-cell *matHeaderCellDef> Repeticiones </th>
+          <td mat-cell *matCellDef="let element"> {{element.repeticiones}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsHistory"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsHistory;"></tr>
+      </table>
+
+      <mat-paginator #paginatorHistory="matPaginator" [pageSize]="9" showFirstLastButtons></mat-paginator>
+    </div>
+    <!-- FIN Historial de repeticiones -->
+  </div>
+
+  <div class="col-12 col-lg-5 align-self-center">
+    <div class="row">
+      <h2>Fallos {{fails.length}}</h2>
+
+      <!-- Historial de fallos -->
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSourceFails">
+
+          <!-- fecha Column -->
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef> Fecha </th>
+            <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+          </ng-container>
+
+          <!-- repeticiones Column -->
+          <ng-container matColumnDef="repeticiones">
+            <th mat-header-cell *matHeaderCellDef> Repeticiones </th>
+            <td mat-cell *matCellDef="let element"> {{element.repeticiones}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsFails"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsFails;"></tr>
+        </table>
+
+        <mat-paginator #paginatorFails="matPaginator" [pageSize]="2" showFirstLastButtons></mat-paginator>
+      </div>
+      <!-- FIN Historial de fallos -->
+    </div>
+
+    <br>
+    <br>
+
+    <div class="row">
+      <h2>Rendiciones {{rend.length}}</h2>
+
+      <!-- Historial de rendiciones -->
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSourceRend">
+
+          <!-- fecha Column -->
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef> Fecha </th>
+            <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+          </ng-container>
+
+          <!-- repeticiones Column -->
+          <ng-container matColumnDef="repeticiones">
+            <th mat-header-cell *matHeaderCellDef> Repeticiones </th>
+            <td mat-cell *matCellDef="let element"> {{element.repeticiones}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsRend"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsRend;"></tr>
+        </table>
+
+        <mat-paginator #paginatorRend="matPaginator" [pageSize]="2" showFirstLastButtons></mat-paginator>
+      </div>
+      <!-- FIN Historial de fallos -->
+
+    </div>
+  </div>
+</div>
+
+<div class="row page-content">
+  <div class="col-12 col-lg-12 align-self-center">
+    <h1>Estadisticas por semana</h1>
+  </div>
+
+  <div class="col-12 col-lg-12 align-self-center">
+
+    <h1>Tabla estadisticas</h1>
+
+  </div>
 </div>

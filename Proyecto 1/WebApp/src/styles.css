@@ -8,7 +8,8 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-h1 {
+h1,
+h2 {
   color: #e1e2e4;
   font-weight: bold;
 }
@@ -84,7 +85,6 @@ button:focus {
 }
 
 /* CARD */
-
 .card {
   background-color: #252a2e;
   color: #e1e2e4;
@@ -98,9 +98,8 @@ button:focus {
 }
 
 /* CHART */
-
 .ngx-charts {
-  fill: #636a70;
+  fill: #7b848b;
 }
 
 .ngx-charts .gridline-path {
@@ -108,7 +107,6 @@ button:focus {
 }
 
 /* TABLE */
-
 table {
   width: 100%;
 }
@@ -119,7 +117,7 @@ tr.mat-header-row {
 }
 
 .mat-header-cell {
-  font-size: 17px;
+  font-size: 16px;
   color: #e1e2e4;
   background-color: #191A21 !important;
 }
@@ -147,4 +145,14 @@ mat-footer-row,
 .mat-paginator-page-size .mat-select-trigger {
   color: #e1e2e4;
   background-color: #252a2e;
+}
+
+.mat-header-cell {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mat-cell {
+  text-align: center;
+  justify-content: center;
 }

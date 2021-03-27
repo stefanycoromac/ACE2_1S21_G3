@@ -25,7 +25,7 @@ export class CourseNavetteService {
     return await this._httpClient.get(`${this.url}/all/${idUser}`).toPromise();
   }
 
-  public async getByID(idUser: number, status: String): Promise<any> {
+  public async getByStatus(idUser: number, status: String): Promise<any> {
     const json = JSON.stringify({ estado: status });
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 

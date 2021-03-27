@@ -61,6 +61,9 @@ export class CourseNavetteComponent implements OnInit, OnDestroy {
     this.subscription = source.subscribe(() => {
       this.getLast();
       this.getDetail();
+      this.getHistory();
+      this.getFails();
+      this.getRends();
     });
   }
 
@@ -153,39 +156,82 @@ export class CourseNavetteComponent implements OnInit, OnDestroy {
 
   private async getHistory(): Promise<void> {
     try {
+      const data = await this._courseNavetteService.getAll(this.idUser);
 
+      if (data['code'] === '200') {
+
+        this.history = [];
+        let test: Test;
+        let dateHour;
+
+        data['data'].forEach(element => {
+          test = element;
+          dateHour = this._datepipe.transform(
+            new Date(element.fechaInicio),
+            'd/MM/yy, h:mm:ss a'
+          );
+          test.fechaInicio = dateHour;
+
+          this.history.push(test);
+          this.dataSourceHistory.data = this.history;
+        });
+      }
     } catch (err) {
       console.log(<any>err);
     }
   }
 
-  public cont: number = 0;
-  private addDetailTest(): void {
-    const rep = new Repetition();
-    rep.maxVel = Math.floor(Math.random() * 100);
-    rep.minVel = Math.floor(Math.random() * 100);
-    rep.promedio = (rep.maxVel + rep.minVel) / 2;
-    rep.distancia = Math.floor(Math.random() * 21);
-    rep.idRepeticion = this.cont;
+  private async getFails(): Promise<void> {
+    try {
+      const data = await this._courseNavetteService.getByStatus(this.idUser, 'FALLADO');
 
-    this.detailCourseNavette.push(rep);
-    this.dataSourceDetail.data = this.detailCourseNavette;
+      if (data['code'] === '200') {
 
-    const ts = new Test();
-    ts.repeticiones = this.cont * 2;
-    this.history.push(ts);
-    this.dataSourceHistory.data = this.history;
+        this.fails = [];
+        let test: Test;
+        let dateHour;
 
-    const ts2 = new Test();
-    ts2.repeticiones = this.cont;
-    this.fails.push(ts2);
-    this.dataSourceFails.data = this.fails;
+        data['data'].forEach(element => {
+          test = element;
+          dateHour = this._datepipe.transform(
+            new Date(element.fechaInicio),
+            'd/MM/yy, h:mm:ss a'
+          );
+          test.fechaInicio = dateHour;
 
-    const ts3 = new Test();
-    ts3.repeticiones = this.cont * 4;
-    this.rend.push(ts3);
-    this.dataSourceRend.data = this.rend;
+          this.fails.push(test);
+          this.dataSourceFails.data = this.fails;
+        });
+      }
+    } catch (err) {
+      console.log(<any>err);
+    }
+  }
 
-    this.cont++
+  private async getRends(): Promise<void> {
+    try {
+      const data = await this._courseNavetteService.getByStatus(this.idUser, 'RENDIDO');
+
+      if (data['code'] === '200') {
+
+        this.rend = [];
+        let test: Test;
+        let dateHour;
+
+        data['data'].forEach(element => {
+          test = element;
+          dateHour = this._datepipe.transform(
+            new Date(element.fechaInicio),
+            'd/MM/yy, h:mm:ss a'
+          );
+          test.fechaInicio = dateHour;
+
+          this.rend.push(test);
+          this.dataSourceRend.data = this.rend;
+        });
+      }
+    } catch (err) {
+      console.log(<any>err);
+    }
   }
 }

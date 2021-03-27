@@ -31,4 +31,12 @@ export class CourseNavetteService {
 
     return await this._httpClient.post(`${this.url}/all/${idUser}`, json, { headers: headers }).toPromise();
   }
+
+  public async getLastDistance(idUser: number): Promise<any> {
+    return await this._httpClient.get(`${Global.url}/distance/${idUser}/last`).toPromise();
+  }
+
+  public async getLastSpeed(idUser: number): Promise<any> {
+    return await this._httpClient.get(`${Global.url}/speed/${idUser}/last`).toPromise();
+  }
 }

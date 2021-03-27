@@ -122,12 +122,19 @@ export class CourseNavetteComponent implements OnInit, OnDestroy {
   private async getLast(): Promise<void> {
     try {
       const data = await this._courseNavetteService.getLast(this.idUser);
-
       if (data['code'] === '200') {
         this.lastTest.idTest = data['data']['idTest'];
-        this.lastTest.estado = data['data']['estado'];
         this.lastTest.fechaInicio = data['data']['fechaInicio'];
-        this.lastTest.fechaFin = data['data']['fechaFin'];
+      }
+
+      const distance = await this._courseNavetteService.getLastDistance(this.idUser);
+      if (distance['code'] === '200') {
+        this.lastTest.distancia = distance['data']['medicion'];
+      }
+
+      const speed = await this._courseNavetteService.getLastSpeed(this.idUser);
+      if (speed['code'] === '200') {
+        this.lastTest.velocidad = speed['data']['medicion'];
       }
     } catch (err) {
       console.log(<any>err);

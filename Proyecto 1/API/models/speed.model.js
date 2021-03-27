@@ -21,9 +21,12 @@ const speedModel = {
         };
     },
     getLast: async (parameters) => {
-        const query = `SELECT * FROM Velocidad 
-            WHERE idUsuario = :idUsuario
-            ORDER BY idVelocidad DESC
+        const query = `SELECT dtv.medicion FROM detalleVelocidad dtv
+            INNER JOIN Velocidad v ON (v.idVelocidad = dtv.idVelocidad)
+            INNER JOIN Repeticion repe ON (v.idRepeticion = repe.idRepeticion)
+            INNER JOIN Test tst ON (repe.idTest = tst.idTest)
+            WHERE tst.idUsuario = :idUsuario
+            ORDER BY dtv.idDetalleVelocidad DESC
             FETCH NEXT 1 ROWS ONLY`;
 
         const binds = {

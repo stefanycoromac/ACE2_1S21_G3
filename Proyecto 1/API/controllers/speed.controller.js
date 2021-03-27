@@ -31,10 +31,7 @@ const speedController = {
             rows.forEach(element => {
                 speeds.push({
                     idVelocidad: element.IDVELOCIDAD,
-                    promedio: element.PROMEDIO,
-                    minvel: element.MINVEL,
-                    maxvel: element.MAXVEL,
-                    idRepeticion: element.IDREPETICION
+                    medicion: element.MEDICION
                 });
             });
 

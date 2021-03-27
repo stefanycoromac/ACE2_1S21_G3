@@ -61,7 +61,10 @@
   <div class="col-12 col-lg-4 align-self-center">
     <div class="card">
       <div class="card-body">
-        <p class="card-text">Area tiempo real</p>
+        <h5 class="card-text">{{lastTest.fechaInicio | date:'MMM d, y, h:mm:ss a'}}</h5>
+        <br>
+        <p class="card-text">Distancia: {{lastTest.distancia || 0.00 | number : '1.2-2'}} m</p>
+        <p class="card-text">Velocidad: {{lastTest.velocidad || 0.00 | number : '1.2-2'}} m/s</p>
       </div>
     </div>
   </div>

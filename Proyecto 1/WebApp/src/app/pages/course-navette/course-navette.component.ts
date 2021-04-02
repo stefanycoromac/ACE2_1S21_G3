@@ -10,6 +10,7 @@ import { User } from 'src/app/models/user.model';
 import { Test } from 'src/app/models/test.model';
 import { Repetition } from 'src/app/models/repetition.model';
 import { CourseNavetteService } from 'src/app/services/course-navette.service';
+import { TsWeek } from 'src/app/models/ts-week.model';
 
 @Component({
   selector: 'app-course-navette',
@@ -40,6 +41,11 @@ export class CourseNavetteComponent implements OnInit, OnDestroy {
   public dataSourceRend: any;
   public rend: Test[];
   @ViewChild('paginatorRend', { static: true }) paginatorRend: MatPaginator;
+
+  public displayedColumnsTW: string[];
+  public dataSourceTW: any;
+  public tsWeek: TsWeek[];
+  @ViewChild('paginatorTsWeek', { static: true }) paginatorTsWeek: MatPaginator;
 
   private subscription: Subscription;
 
@@ -72,6 +78,7 @@ export class CourseNavetteComponent implements OnInit, OnDestroy {
     this.dataSourceHistory.paginator = this.paginatorHistory;
     this.dataSourceFails.paginator = this.paginatorFails;
     this.dataSourceRend.paginator = this.paginatorRend;
+    this.dataSourceTW.paginator = this.paginatorTsWeek;
   }
 
   ngOnDestroy() {
@@ -95,6 +102,10 @@ export class CourseNavetteComponent implements OnInit, OnDestroy {
     this.dataSourceRend = new MatTableDataSource<Test>();
     this.displayedColumnsRend = ['fecha', 'repeticiones'];
     this.rend = [];
+
+    this.dataSourceTW = new MatTableDataSource<TsWeek>();
+    this.displayedColumnsTW = ['inicio', 'fin', 'repMax', 'repMin'];
+    this.tsWeek = [];
   }
 
   private getIDUser(): void {
@@ -113,6 +124,7 @@ export class CourseNavetteComponent implements OnInit, OnDestroy {
     this.dataSourceHistory.data = this.history;
     this.dataSourceFails.data = this.fails;
     this.dataSourceRend.data = this.rend;
+    this.dataSourceTW.data = this.tsWeek;
   }
 
   public getTotal(): number {
@@ -241,4 +253,6 @@ export class CourseNavetteComponent implements OnInit, OnDestroy {
       console.log(<any>err);
     }
   }
+
+  //TODO get Test per Week
 }

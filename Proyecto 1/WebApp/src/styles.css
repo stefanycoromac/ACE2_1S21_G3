@@ -9,7 +9,8 @@ body {
 }
 
 h1,
-h2 {
+h2,
+h3 {
   color: #e1e2e4;
   font-weight: bold;
 }

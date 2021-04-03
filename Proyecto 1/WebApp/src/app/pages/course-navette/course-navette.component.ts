@@ -21,6 +21,8 @@ import { TsWeek } from 'src/app/models/ts-week.model';
 export class CourseNavetteComponent implements OnInit, OnDestroy {
   public idUser: number;
   public lastTest: Test;
+  public speedData: any[];
+  public distanceData: any[];
 
   public displayedColumnsDetails: string[];
   public dataSourceDetail: any;
@@ -57,6 +59,7 @@ export class CourseNavetteComponent implements OnInit, OnDestroy {
     this.tableInit();
 
     this.lastTest = new Test();
+    this.initialMeditions();
   }
 
   ngOnInit(): void {
@@ -128,6 +131,22 @@ export class CourseNavetteComponent implements OnInit, OnDestroy {
     this.dataSourceTW.data = this.tsWeek;
   }
 
+  private initialMeditions(): void {
+    this.speedData = [
+      {
+        'name': 'Velocidad',
+        'value': this.lastTest.velocidad
+      }
+    ];
+
+    this.distanceData = [
+      {
+        'name': 'Distancia',
+        'value': this.lastTest.distancia
+      }
+    ];
+  }
+
   public getTotal(): number {
     return this.detailCourseNavette.map(t => t.distancia).reduce((acc, value) => acc + value, 0);
   }
@@ -140,14 +159,34 @@ export class CourseNavetteComponent implements OnInit, OnDestroy {
         this.lastTest.fechaInicio = data['data']['fechaInicio'];
       }
 
-      const distance = await this._courseNavetteService.getLastDistance(this.idUser);
-      if (distance['code'] === '200') {
-        this.lastTest.distancia = distance['data']['medicion'];
-      }
-
       const speed = await this._courseNavetteService.getLastSpeed(this.idUser);
       if (speed['code'] === '200') {
-        this.lastTest.velocidad = speed['data']['medicion'];
+        if (this.lastTest.velocidad != speed['data']['medicion']) {
+          this.lastTest.velocidad = speed['data']['medicion'];
+
+          this.speedData = [
+            {
+              'name': 'Velocidad',
+              'value': this.lastTest.velocidad
+            }
+          ];
+          this.speedData = [...this.speedData];
+        }
+      }
+
+      const distance = await this._courseNavetteService.getLastDistance(this.idUser);
+      if (distance['code'] === '200') {
+        if (this.lastTest.distancia != distance['data']['medicion']) {
+          this.lastTest.distancia = distance['data']['medicion'];
+
+          this.distanceData = [
+            {
+              'name': 'Distancia',
+              'value': this.lastTest.distancia
+            }
+          ];
+          this.distanceData = [...this.distanceData];
+        }
       }
     } catch (err) {
       console.log(<any>err);

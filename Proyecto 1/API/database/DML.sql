@@ -194,3 +194,17 @@ FROM Repeticion repe
 INNER JOIN Velocidad vel ON (repe.idRepeticion = vel.idRepeticion)
 INNER JOIN Test ts ON (repe.idTest = ts.idTest)
 GROUP BY ts.idTest, ts.idUsuario, ts.estado;
+
+/*Promedio, Maximo, Minimo de Repeticiones por Semana */ 
+SELECT DISTINCT a.Semana, MAX(a.repeticionesTest) OVER (PARTITION BY a.Semana) AS Maximo,
+MIN(a.repeticionesTest) OVER (PARTITION BY a.Semana)  AS minimo,
+ROUND(AVG(a.repeticionesTest) OVER (PARTITION BY a.Semana), 2) AS Promedio 
+FROM 
+(
+    SELECT t.idTest, TO_CHAR(t.fechaInicio, 'iw') AS Semana , t.fechaInicio, t.estado, COUNT(r.idRepeticion) AS repeticionesTest
+    FROM TEST t , REPETICION r 
+    WHERE t.idTest = r.idTest /*AND  t.idUsuario = 3 */
+    GROUP BY t.idTest, TO_CHAR(t.fechaInicio, 'iw'), t.fechaInicio, t.estado
+    ORDER BY TO_CHAR(t.fechaInicio, 'iw') 
+) a
+ORDER BY a.Semana ASC; 

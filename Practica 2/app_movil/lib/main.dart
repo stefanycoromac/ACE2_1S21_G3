@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           'login': (BuildContext context) => LoginPage(),
           'dashboard': (BuildContext context) => DashBoardPage(),
         },
-        theme: theme(),
+        // theme: theme(),
       ),
     );
   }

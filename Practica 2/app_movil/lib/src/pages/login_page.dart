@@ -21,6 +21,10 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     _userBloc = Provider.userBloc(context);
     _size = MediaQuery.of(context).size;
+
+    _nickname = '';
+    _password = '';
+
     return Scaffold(
       body: SafeArea(
         child: Center(child: _body(context)),
@@ -30,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _body(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: _getProportionateWidth(20)),
+      padding: EdgeInsets.symmetric(horizontal: _getProportionateWidth(20.0)),
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -38,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
               '¡Bienvenido de nuevo!',
               style: TextStyle(
                 color: Colors.black,
-                fontSize: _getProportionateWidth(28),
+                fontSize: _getProportionateWidth(28.0),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -60,9 +64,9 @@ class _LoginPageState extends State<LoginPage> {
       child: Column(
         children: <Widget>[
           _userField(),
-          SizedBox(height: _getProportionateHeight(30)),
+          SizedBox(height: _getProportionateHeight(30.0)),
           _passwordField(),
-          SizedBox(height: _getProportionateHeight(30)),
+          SizedBox(height: _getProportionateHeight(30.0)),
           _customButton('Ingresar'),
         ],
       ),
@@ -79,6 +83,10 @@ class _LoginPageState extends State<LoginPage> {
         suffixIcon: _customIcon(Icons.alternate_email),
       ),
       onSaved: (value) => _nickname = value,
+      validator: (value) {
+        if (value.length <= 0) return 'Debes ingresar un usuario';
+        return null;
+      },
     );
   }
 
@@ -92,21 +100,25 @@ class _LoginPageState extends State<LoginPage> {
         suffixIcon: _customIcon(Icons.lock_outline),
       ),
       onSaved: (value) => _password = value,
+      validator: (value) {
+        if (value.length <= 0) return 'Debes ingresar tu contraseña';
+        return null;
+      },
     );
   }
 
   Padding _customIcon(IconData icon) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
-        0,
-        _getProportionateWidth(20),
-        _getProportionateWidth(20),
-        _getProportionateWidth(20),
+        0.0,
+        _getProportionateWidth(20.0),
+        _getProportionateWidth(20.0),
+        _getProportionateWidth(20.0),
       ),
       child: Icon(
         icon,
         color: Colors.grey,
-        size: _getProportionateWidth(20),
+        size: _getProportionateWidth(20.0),
       ),
     );
   }
@@ -114,14 +126,17 @@ class _LoginPageState extends State<LoginPage> {
   SizedBox _customButton(String text) {
     return SizedBox(
       width: double.infinity,
-      height: _getProportionateHeight(56),
-      child: FlatButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: Colors.red,
+      height: _getProportionateHeight(56.0),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
         child: Text(
           text,
           style: TextStyle(
-            fontSize: _getProportionateWidth(18),
+            fontSize: _getProportionateWidth(18.0),
             color: Colors.white,
           ),
         ),
@@ -136,7 +151,22 @@ class _LoginPageState extends State<LoginPage> {
     _formKey.currentState.save();
     final value = await _userBloc.login(_nickname, _password);
 
-    if (value) Navigator.pushReplacementNamed(context, 'dashboard');
+    if (!value) {
+      _snackbar('El nombre de usuario y la contraseña '
+          'que ingresaste no coinciden con nuestros registros');
+      return;
+    }
+
+    Navigator.pushReplacementNamed(context, 'dashboard');
+  }
+
+  void _snackbar(String mensaje) {
+    final snackbar = SnackBar(
+      content: Text(mensaje),
+      duration: Duration(milliseconds: 2500),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 
   double _getProportionateHeight(double inputHeight) {

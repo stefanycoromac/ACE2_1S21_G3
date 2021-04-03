@@ -169,6 +169,35 @@ const couseNavetteController = {
             });
             next(err);
         }
+    },
+    getPerWeek: async (req, res, next) => {
+        try {
+            const parameters = {
+                idUsuario: req.params.idUsuario,
+            };
+            const rows = await courseNavetteModel.getPerWeek(parameters);
+
+            let details = [];
+            rows.forEach(element => {
+                details.push({
+                    inicio: element.SEMANA,
+                    repMax: element.MAXIMO,
+                    repMin: element.MINIMO,
+                    promedio: element.PROMEDIO,
+                });
+            });
+
+            res.status(200).send({
+                code: '200',
+                data: details
+            });
+        } catch (err) {
+            res.status(500).send({
+                code: '500',
+                data: err
+            });
+            next(err);
+        }
     }
 };
 

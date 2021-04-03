@@ -70,6 +70,7 @@ export class CourseNavetteComponent implements OnInit, OnDestroy {
       this.getHistory();
       this.getFails();
       this.getRends();
+      this.getPerWeek();
     });
   }
 
@@ -104,7 +105,7 @@ export class CourseNavetteComponent implements OnInit, OnDestroy {
     this.rend = [];
 
     this.dataSourceTW = new MatTableDataSource<TsWeek>();
-    this.displayedColumnsTW = ['inicio', 'fin', 'repMax', 'repMin'];
+    this.displayedColumnsTW = ['inicio', 'repMax', 'repMin', 'promedio'];
     this.tsWeek = [];
   }
 
@@ -254,5 +255,16 @@ export class CourseNavetteComponent implements OnInit, OnDestroy {
     }
   }
 
-  //TODO get Test per Week
+  private async getPerWeek(): Promise<void> {
+    try {
+      const data = await this._courseNavetteService.getPerWeek(this.idUser);
+
+      if (data['code'] === '200') {
+        this.tsWeek = data['data'];
+        this.dataSourceTW.data = this.tsWeek;
+      }
+    } catch (err) {
+      console.log(<any>err);
+    }
+  }
 }

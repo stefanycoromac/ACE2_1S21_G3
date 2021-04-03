@@ -25,6 +25,10 @@ export class CourseNavetteService {
     return await this._httpClient.get(`${this.url}/all/${idUser}`).toPromise();
   }
 
+  public async getPerWeek(idUser: number): Promise<any> {
+    return await this._httpClient.get(`${this.url}/per-week/${idUser}`).toPromise();
+  }
+
   public async getByStatus(idUser: number, status: String): Promise<any> {
     const json = JSON.stringify({ estado: status });
     const headers = new HttpHeaders().set('Content-Type', 'application/json');

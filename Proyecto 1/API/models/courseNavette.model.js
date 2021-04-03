@@ -105,8 +105,20 @@ const courseNavetteModel = {
         return result.rows
     },
     getPerWeek: async (parameters) => {
-        let query = `SELECT * FROM TEST t
-            WHERE t.idUsuario = :idUsuario`;
+        let query = `SELECT DISTINCT a.Semana,
+            MAX(a.repeticionesTest) OVER (PARTITION BY a.Semana) AS Maximo,
+            MIN(a.repeticionesTest) OVER (PARTITION BY a.Semana)  AS minimo,
+            ROUND(AVG(a.repeticionesTest) OVER (PARTITION BY a.Semana), 2) AS Promedio 
+            FROM 
+            (
+                SELECT t.idTest, TO_CHAR(t.fechaInicio, 'iw') AS Semana , t.fechaInicio,
+                    t.estado, COUNT(r.idRepeticion) AS repeticionesTest
+                FROM TEST t , REPETICION r 
+                WHERE t.idTest = r.idTest AND  t.idUsuario = :idUsuario
+                GROUP BY t.idTest, TO_CHAR(t.fechaInicio, 'iw'), t.fechaInicio, t.estado
+                ORDER BY TO_CHAR(t.fechaInicio, 'iw') 
+            ) a
+            ORDER BY a.Semana ASC`;
 
         const binds = {
             idUsuario: parameters.idUsuario

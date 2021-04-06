@@ -179,8 +179,10 @@ const couseNavetteController = {
 
             let details = [];
             rows.forEach(element => {
+                let dataDate = getDatePerWeek(element.SEMANA, 2021)
                 details.push({
                     inicio: element.SEMANA,
+                    date: dataDate, 
                     repMax: element.MAXIMO,
                     repMin: element.MINIMO,
                     promedio: element.PROMEDIO,
@@ -199,6 +201,18 @@ const couseNavetteController = {
             next(err);
         }
     }
+
 };
+
+function getDatePerWeek (w, y) {
+    var simple = new Date(y, 0, 1 + (w - 1) * 7);
+        var dow = simple.getDay();
+        var ISOweekStart = simple;
+        if (dow <= 4)
+          ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+        else ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+        var date = ISOweekStart.getDate()+'/'+ (ISOweekStart.getMonth()+1) + '/'+ISOweekStart.getFullYear();
+        return date;
+}
 
 module.exports = couseNavetteController;

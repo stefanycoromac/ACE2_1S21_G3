@@ -108,7 +108,7 @@ export class CourseNavetteComponent implements OnInit, OnDestroy {
     this.rend = [];
 
     this.dataSourceTW = new MatTableDataSource<TsWeek>();
-    this.displayedColumnsTW = ['inicio', 'repMax', 'repMin', 'promedio'];
+    this.displayedColumnsTW = ['inicio', 'dateWeek', 'repMax', 'repMin', 'promedio'];
     this.tsWeek = [];
   }
 

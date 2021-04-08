@@ -83,12 +83,19 @@
                 <mat-button-toggle value="left" aria-label="Oxygen" [routerLink]="['oxygen', user.idUsuario]">
                   <mat-icon>air</mat-icon>
                 </mat-button-toggle>
+
                 <mat-button-toggle value="center" aria-label="Temperature"
                   [routerLink]="['temperature', user.idUsuario]">
                   <mat-icon color="primary">thermostat</mat-icon>
                 </mat-button-toggle>
+
                 <mat-button-toggle value="right" aria-label="Heart Rate" [routerLink]="['heart-rate', user.idUsuario]">
                   <mat-icon color="warn">favorite</mat-icon>
+                </mat-button-toggle>
+
+                <mat-button-toggle value="right" aria-label="Course Navette"
+                  [routerLink]="['course-navette', user.idUsuario]">
+                  <mat-icon>directions_run</mat-icon>
                 </mat-button-toggle>
               </mat-button-toggle-group>
 

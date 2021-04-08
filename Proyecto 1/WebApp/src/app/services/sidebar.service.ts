@@ -16,7 +16,7 @@ export class SidebarService {
       { title: 'Oxigeno', icon: 'air', url: 'oxygen' },
       { title: 'Temperatura', icon: 'thermostat', url: 'temperature' },
       { title: 'Ritmo Cardiaco', icon: 'favorite', url: 'heart-rate' },
-      { title: 'Course-Navette', icon: 'run_circle', url: 'course-navette' },
+      { title: 'Course-Navette', icon: 'directions_run', url: 'course-navette' },
     ];
 
     return this._menu;

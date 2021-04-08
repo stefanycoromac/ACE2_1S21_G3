@@ -7,7 +7,7 @@
     <div class="card card-graph">
       <div class="card-body">
 
-        <h3 class="card-text center">Velocidad</h3>
+        <h3 class="card-text center">Velocidad {{lastTest.velocidad || 0.00 | number : '1.2-2'}} m/s</h3>
         <app-pie-grid-chart [data]="speedData" [designatedTotal]="100"></app-pie-grid-chart>
 
       </div>
@@ -20,7 +20,7 @@
     <div class="card card-graph">
       <div class="card-body">
 
-        <h3 class="card-text center">Distancia</h3>
+        <h3 class="card-text center">Distancia {{lastTest.distancia || 0.00 | number : '1.2-2'}} m</h3>
         <app-pie-grid-chart [data]="distanceData" [designatedTotal]="20"></app-pie-grid-chart>
 
       </div>

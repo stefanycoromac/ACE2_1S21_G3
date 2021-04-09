@@ -4,7 +4,7 @@ const speedController = {
     create: async (req, res, next) => {
         try {
             let speed = {
-                idUsuario: req.body.idUsuario
+                idRepeticion: req.body.idRepeticion
             };
             speed = await speedModel.create(speed);
 

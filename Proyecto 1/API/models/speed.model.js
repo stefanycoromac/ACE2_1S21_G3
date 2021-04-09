@@ -3,8 +3,8 @@ const database = require('../config/database');
 
 const speedModel = {
     create: async (parameters) => {
-        const query = `INSERT INTO Velocidad(idUsuario)
-            VALUES(:idUsuario)
+        const query = `INSERT INTO Velocidad(idRepeticion)
+            VALUES(:idRepeticion)
             RETURNING idVelocidad INTO :idVelocidad`;
         const speed = Object.assign({}, parameters);
 

@@ -3,17 +3,19 @@ const int BTPWR = 12;
 #include <MPU9250_asukiaaa.h>
 
 MPU9250_asukiaaa mySensor;
-float mDirection, direccionInicial;
+//float mDirection, direccionInicial;
+float aY = 0.00, aYPrevio = 0.00, velocidad = 0.00, distancia = 0.00;
+int pasos = 0, pasosAux = 0;
 /* END Distancia y Velocidad */
 
 /* Ventilador */
- int fan = 9; 
+int fan = 9;
 /* END Ventilador */
 
 /* Buzzer */
 const int BuzzPin =  10;
-unsigned long previousMillis = 0; 
-const long interval = 60000;    
+unsigned long previousMillis = 0;
+const long interval = 60000;
 /* END Buzzer */
 
 /* Temperatura */
@@ -77,18 +79,19 @@ void setup()
   pinMode(BuzzPin, OUTPUT);
   digitalWrite(BuzzPin, HIGH);
 
-  pinMode(fan, OUTPUT);  
-  
+  pinMode(fan, OUTPUT);
+
   pinMode(11, OUTPUT);
 
-/**/
+  /**/
 #ifdef _ESP32_HAL_I2C_H_ // For ESP32
   Wire.begin(SDA_PIN, SCL_PIN);
   mySensor.setWire(&Wire);
 #endif
-  mySensor.beginMag();
-/**/
-  
+  // mySensor.beginMag();
+  mySensor.beginAccel();
+  /**/
+
 }
 
 void loop()
@@ -97,21 +100,21 @@ void loop()
 
   if (logueado)
   {
-    direccionInicial = mySensor.magHorizDirection();
     buzzer();
     realizarMediciones();
   }
 }
 
-void ventilador(){
- digitalWrite(fan,HIGH);
- delay(10000);
- digitalWrite(fan,LOW);
- logueado = false;
- digitalWrite(11,LOW);
+void ventilador() {
+  digitalWrite(fan, HIGH);
+  delay(10000);
+  digitalWrite(fan, LOW);
+  logueado = false;
+  digitalWrite(11, LOW);
 }
 
-void buzzer(){
+void buzzer() {
+
   unsigned long currentMillis = millis();
   if (currentMillis - previousMillis >= interval) {
     previousMillis = currentMillis;
@@ -119,7 +122,9 @@ void buzzer(){
     delay(3000);
     digitalWrite(BuzzPin, HIGH);
     Serial.print("R");
-  }  
+    pasos = 0;
+    aYPrevio = 0.00;
+  }
 }
 void medirTemperatura()
 {
@@ -138,19 +143,28 @@ void medirTemperatura()
 
 void medirDistancia()
 {
-  Serial.begin(115200);
-    if (mySensor.magUpdate() == 0) {
-    mDirection = mySensor.magHorizDirection();
-  /*mDirection =  mySensor.magHorizDirection()- direccionInicial ;
-    mDirection = mDirection/100;*/
-    dist = "D;"+String(mDirection);
+  if (mySensor.accelUpdate() == 0) {
+    aY = mySensor.accelY();
+
+    if (aY >= 0.30 && aY <= 0.75) {
+      if (aYPrevio >= 0.80 && aYPrevio <= 0.98) {
+        pasos = pasos + 1;
+      }
+      aYPrevio = aY;
+    }else if (aY >= 0.80 && aY <= 0.98) {
+      if (aYPrevio >= 0.30 && aYPrevio <= 0.75) {
+        pasos = pasos + 1;
+      }
+      aYPrevio = aY;
     }
-    enviarDatos(dist);
+    pasosAux = pasos;
+    distancia = pasosAux * 0.30; //Metros
+    enviarDatos("D;" + String(distancia));
     delay(1000);
-    spe = mDirection/(millis()*1000);
-    vel = "S;" + (String)spe;
-    enviarDatos(vel);
+    velocidad = distancia / (millis() / 1000);
+    enviarDatos("S;" + String(velocidad));
     delay(1000);
+  }
 }
 
 
@@ -214,13 +228,13 @@ void realizarMediciones()
     {
       if (heartRate > 100)
       {
-        heartRate = heartRate - (heartRate * 0.2);
-      }
-      if (heartRate >= 200){
-        ventilador();
+        heartRate = heartRate - (heartRate * 0.3);
       }
       latidos = "L;" + (String)heartRate;
       enviarDatos(latidos);
+      if (heartRate >= 200){
+        ventilador();
+        }
       delay(1000);
     }
 
@@ -238,7 +252,7 @@ void realizarMediciones()
     buzzer();
     verificarLogin();
   }
-  
+
   digitalWrite(MAXPWR, LOW);
 }
 
@@ -248,14 +262,14 @@ void verificarLogin()
   if (entrada == 'v')
   {
     logueado = true;
-    digitalWrite(11,HIGH);
+    digitalWrite(11, HIGH);
   }
   if (entrada == 'f')
   {
     logueado = false;
-    digitalWrite(11,LOW);
+    digitalWrite(11, LOW);
   }
-  if(entrada == 's')
+  if (entrada == 's')
   {
     ventilador();
   }

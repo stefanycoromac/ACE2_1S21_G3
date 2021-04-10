@@ -74,7 +74,7 @@ const courseNavetteModel = {
                 WHERE idUsuario = :idUsuario
                 ORDER BY fechaInicio DESC
                 FETCH NEXT 1 ROWS ONLY)
-            ORDER BY idTest DESC`;
+            ORDER BY numero ASC`;
 
         const binds = {
             idUsuario: parameters.idUsuario

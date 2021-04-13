@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="dismiss()">
+        Cerrar
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+    </ion-buttons>
+    <ion-title>Dispositivos Bluetooth</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor='let device of devices'>
+      	<ion-avatar>
+          <ion-icon name="bluetooth" size="large"></ion-icon>
+        </ion-avatar>
+      <ion-label>{{device.name}} - {{device.id}}</ion-label>
+      <ion-button (click)="connect(device.address)"> Conectar </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

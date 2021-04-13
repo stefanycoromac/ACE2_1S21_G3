@@ -26,7 +26,15 @@ const routes: Routes = [
   {
     path: 'reports',
     loadChildren: () => import('./pages/reports/reports.module').then( m => m.ReportsPageModule)
+  },  {
+    path: 'devices-list',
+    loadChildren: () => import('./pages/devices-list/devices-list.module').then( m => m.DevicesListPageModule)
+  },
+  {
+    path: 'create-account',
+    loadChildren: () => import('./pages/create-account/create-account.module').then( m => m.CreateAccountPageModule)
   }
+
 ];
 
 @NgModule({

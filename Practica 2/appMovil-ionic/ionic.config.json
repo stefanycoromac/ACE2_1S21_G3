@@ -1,5 +1,8 @@
 {
   "name": "appMovil-ionic",
-  "integrations": {},
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
   "type": "angular"
 }

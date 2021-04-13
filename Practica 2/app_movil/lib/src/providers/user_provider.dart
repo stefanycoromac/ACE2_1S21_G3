@@ -17,7 +17,7 @@ class UserProvider {
         body: json.encode(authData));
 
     final Map<String, dynamic> decodedRes = json.decode(res.body);
-    print(decodedRes);
+    // print(decodedRes);
 
     if (decodedRes['code'] != '200') return false;
 

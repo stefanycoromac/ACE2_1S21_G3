@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:app_movil/theme.dart';
 import 'package:app_movil/src/blocs/provider.dart';
 import 'package:app_movil/src/preferences/user_prefecence.dart';
 
@@ -27,7 +26,6 @@ class MyApp extends StatelessWidget {
           'login': (BuildContext context) => LoginPage(),
           'dashboard': (BuildContext context) => DashBoardPage(),
         },
-        // theme: theme(),
       ),
     );
   }

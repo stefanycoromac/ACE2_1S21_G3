@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial'
 import { AlertController } from '@ionic/angular'
@@ -8,7 +8,7 @@ import { AlertController } from '@ionic/angular'
   templateUrl: './devices-list.page.html',
   styleUrls: ['./devices-list.page.scss'],
 })
-export class DevicesListPage  {
+export class DevicesListPage implements OnInit {
 
   @Input() devices: []; 
   @Input() modalController: ModalController; 

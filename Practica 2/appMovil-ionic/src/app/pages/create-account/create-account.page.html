@@ -1,9 +1,68 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>createAccount</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="arrow-back-circle-outline" slot="start"></ion-icon>
+        Regresar 
+      </ion-button>
+    </ion-buttons>
+    <ion-title> VO2 Max </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content>  
+  <ion-card>
 
+    <ion-card-header>
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-icon name="person-add" size="large"></ion-icon>
+        </ion-avatar>
+        <ion-label>Crea tu Cuenta </ion-label>
+      </ion-item>
+    </ion-card-header>
+
+    <!-- nombre, apellido, edad, genero, peso, estatura, nickname, contraseña -->
+    <ion-card-content>
+      <ion-item class="item">
+        <ion-label position="floating"> Nombre </ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-item class="item">
+        <ion-label position="floating"> Apellido </ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-item class="item">
+        <ion-label position="floating"> Nickname </ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-item class="item">
+        <ion-label position="floating"> Contraseña </ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-item class="item">
+        <ion-label position="floating"> Edad </ion-label>
+        <ion-input type="number" inputmode="numeric" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Genero</ion-label>
+        <ion-select placeholder="Selecciona Una">
+          <ion-select-option value="1">Femenino</ion-select-option>
+          <ion-select-option value="0">Masculino</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="item">
+        <ion-label position="floating"> Peso </ion-label>
+        <ion-input type="number" inputmode="numeric" ></ion-input>
+      </ion-item>
+      <ion-item class="item">
+        <ion-label position="floating"> Estatura </ion-label>
+        <ion-input type="number" inputmode="numeric" ></ion-input>
+      </ion-item>
+      
+      <ion-button expand="full" shape="round">
+        Crear Cuenta
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

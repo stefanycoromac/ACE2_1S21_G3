@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular'; 
+import { CreateAccountPage } from '../create-account/create-account.page'
 
 
 @Component({
@@ -11,24 +12,24 @@ export class LoginPage implements OnInit {
 
   user:string; 
   password: string; 
-
-  private users = [
-    {
-      user: 'avla', 
-      password: '1234'
-    }, 
-    {
-      user: 'admin', 
-      password: 'admin'
-    }
-  ]
-
-  constructor() { }
+  
+  constructor(private modalController: ModalController) { }
 
   ngOnInit() {
   }
 
   login(){
     
+  }
+
+  async showCreateAccount(){
+    const modal =  await this.modalController.create({
+      component: CreateAccountPage, 
+      componentProps: {
+        'modalController': this.modalController
+      }
+    }); 
+
+    return await modal.present(); 
   }
 }

@@ -10,8 +10,10 @@ const userModel = {
         return result.rows;
     },
     register: async (parameters) => {
-        let query = `INSERT INTO Usuario (nombre, apellido, nickname, contrasenia) 
-            VALUES (:nombre, :apellido, :nickname, :contrasenia)`;
+        let query = `INSERT INTO Usuario (nombre, apellido, nickname,
+                contrasenia, edad, genero, peso, estatura)
+            VALUES (:nombre, :apellido, :nickname, :contrasenia,
+                :edad, :genero, :peso, :estatura)`;
         const user = Object.assign({}, parameters);
 
         const result = await database(query, user);
@@ -21,9 +23,17 @@ const userModel = {
         };
     },
 
+
+    get: async (parameters) => {
+        let query = `SELECT * FROM Usuario 
+            WHERE idUsuario = :idUsuario`;
+        const user = Object.assign({}, parameters);
+
+        const result = await database(query, user);
+        return result.rows;
+    },
     update: async (parameters) => {
-        let query = `UPDATE Usuario SET edad = :edad, genero = :genero,
-                peso = :peso, estatura = :estatura
+        let query = `UPDATE Usuario SET peso = :peso 
             WHERE idUsuario = :idUsuario`;
         const user = Object.assign({}, parameters);
 
@@ -35,14 +45,6 @@ const userModel = {
             };
         }
         return null;
-    },
-    getUser: async (parameters) => {
-        let query = `SELECT * FROM Usuario 
-            WHERE nickname = :nickname`;
-        const user = Object.assign({}, parameters);
-
-        const result = await database(query, user);
-        return result.rows;
     }
 };
 

@@ -20,8 +20,7 @@ const userController = {
                     peso: element.PESO,
                     estatura: element.ESTATURA,
                     tipo: element.TIPO,
-                    nickname: element.NICKNAME,
-                    contrasenia: element.CONTRASENIA
+                    nickname: element.NICKNAME
                 });
             });
 
@@ -50,7 +49,11 @@ const userController = {
                 nombre: req.body.nombre,
                 apellido: req.body.apellido,
                 nickname: req.body.nickname,
-                contrasenia: req.body.contrasenia
+                contrasenia: req.body.contrasenia,
+                edad: req.body.edad,
+                genero: req.body.genero,
+                peso: req.body.peso,
+                estatura: req.body.estatura
             };
             const user = await userModel.register(parameters);
 
@@ -66,14 +69,54 @@ const userController = {
             next(err);
         }
     },
+
+    get: async (req, res, next) => {
+        try {
+            const parameters = {
+                idUsuario: req.params.idUsuario
+            };
+            const rows = await userModel.get(parameters);
+
+            let users = [];
+            rows.forEach(element => {
+                users.push({
+                    idUsuario: element.IDUSUARIO,
+                    nombre: element.NOMBRE,
+                    apellido: element.APELLIDO,
+                    edad: element.EDAD,
+                    genero: element.GENERO,
+                    peso: element.PESO,
+                    estatura: element.ESTATURA,
+                    tipo: element.TIPO,
+                    nickname: element.NICKNAME
+                });
+            });
+
+
+            if (rows.length === 1) {
+                res.status(200).send({
+                    code: '200',
+                    data: users[0]
+                });
+            } else {
+                res.status(500).send({
+                    code: '500',
+                    data: users
+                });
+            }
+        } catch (err) {
+            res.status(500).send({
+                code: '500',
+                data: err
+            });
+            next(err);
+        }
+    },
     update: async (req, res, next) => {
         try {
             let user = {
                 idUsuario: req.body.idUsuario,
-                edad: req.body.edad,
-                genero: req.body.genero,
-                peso: req.body.peso,
-                estatura: req.body.estatura
+                peso: req.body.peso
             };
             user = await userModel.update(user);
 

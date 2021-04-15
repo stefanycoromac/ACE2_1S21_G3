@@ -10,22 +10,28 @@
       <ion-card-subtitle>VO2 Max</ion-card-subtitle>
       <ion-card-title> Inicio de Sesion </ion-card-title>
     </ion-card-header>
-  
-    <ion-card-content>
-      <ion-item class="item">
-        <ion-label position="floating">Nombre de Usuario</ion-label>
-        <ion-input></ion-input>
-      </ion-item>
-      <ion-item class="item">
-        <ion-label position="floating">Contraseña</ion-label>
-        <ion-input type='password'></ion-input>
-      </ion-item>
 
-      <ion-button class="buttonLogin" expand="block" shape="round"  [routerLink]="['/vo2-max']" >Iniciar Sesion</ion-button>
-    </ion-card-content>
+    <form autocomplete="off" #formSignin="ngForm" (ngSubmit)="signin()">
+      <ion-card-content>
+        <ion-item class="item">
+          <ion-label position="floating">Nombre de Usuario</ion-label>
+          <ion-input name="nickname" #nickname="ngModel" [(ngModel)]="user.nickname" required></ion-input>
+        </ion-item>
+        <ion-item class="item">
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input type='password' name="password" #password="ngModel" [(ngModel)]="user.contrasenia" required>
+          </ion-input>
+        </ion-item>
+
+        <ion-button type="submit" class="buttonLogin" expand="block" shape="round" [disabled]="!formSignin.form.valid">
+          Iniciar Sesion
+        </ion-button>
+      </ion-card-content>
+    </form>
+
     <ion-item class="item">
-      <ion-label style="color:#2181DC ;" (click)="showCreateAccount()">  ¿No tienes una cuenta?  </ion-label>
-    </ion-item>    
+      <ion-label style="color:#2181DC ;" (click)="showCreateAccount()"> ¿No tienes una cuenta? </ion-label>
+    </ion-item>
 
   </ion-card>
 </ion-content>

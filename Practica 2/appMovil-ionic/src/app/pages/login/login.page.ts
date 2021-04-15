@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { ModalController } from '@ionic/angular';
 
-import { CreateAccountPage } from '../create-account/create-account.page'
+import { CreateAccountPage } from 'src/app/pages/create-account/create-account.page'
 
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';

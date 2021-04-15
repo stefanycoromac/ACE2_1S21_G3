@@ -7,39 +7,39 @@
 <ion-content>
 
   <ion-card>
-    <ion-item  class="ion-activated">
-      <ion-icon name="add-circle-outline" slot="start"></ion-icon>
-      <ion-label>Volumen máximo exhalado </ion-label>
-    </ion-item>
-
-  <ion-item class="ion-activated">
-      <ion-icon name="podium-outline" slot="start"></ion-icon>
-      <ion-label>Promedio de volumen exhalado </ion-label>
-  </ion-item>
-
     <ion-item class="ion-activated">
       <ion-icon name="remove-circle-outline" slot="start"></ion-icon>
-      <ion-label> Volumen mínimo exhalado</ion-label>
+      <ion-label> Volumen mínimo exhalado {{lastTest.minExh || 0.00 | number : '1.2-2'}}</ion-label>
     </ion-item>
-  
+
     <ion-item class="ion-activated">
       <ion-icon name="add-circle-outline" slot="start"></ion-icon>
-      <ion-label> Volumen máximo inhalado </ion-label>
+      <ion-label>Volumen máximo exhalado {{lastTest.maxExh || 0.00 | number : '1.2-2'}}</ion-label>
     </ion-item>
 
     <ion-item class="ion-activated">
       <ion-icon name="podium-outline" slot="start"></ion-icon>
-      <ion-label> Promedio de volumen inhalado </ion-label>
+      <ion-label>Promedio de volumen exhalado {{lastTest.avgExh || 0.00 | number : '1.2-2'}}</ion-label>
     </ion-item>
 
     <ion-item class="ion-activated">
       <ion-icon name="remove-circle-outline" slot="start"></ion-icon>
-      <ion-label>Volumen mínimo inhalado</ion-label>
+      <ion-label>Volumen mínimo inhalado {{lastTest.minInh || 0.00 | number : '1.2-2'}}</ion-label>
+    </ion-item>
+
+    <ion-item class="ion-activated">
+      <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+      <ion-label> Volumen máximo inhalado {{lastTest.maxInh || 0.00 | number : '1.2-2'}}</ion-label>
+    </ion-item>
+
+    <ion-item class="ion-activated">
+      <ion-icon name="podium-outline" slot="start"></ion-icon>
+      <ion-label> Promedio de volumen inhalado {{lastTest.avgInh || 0.00 | number : '1.2-2'}}</ion-label>
     </ion-item>
 
     <ion-item class="ion-activated">
       <ion-icon name="speedometer-sharp" slot="start"></ion-icon>
-      <ion-label>Medicion final del VO2 Max</ion-label>
+      <ion-label>Medicion final del VO2 Max {{lastTest.medicion || 0.00 | number : '1.2-2'}}</ion-label>
     </ion-item>
   </ion-card>
 

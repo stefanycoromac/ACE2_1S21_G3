@@ -21,7 +21,7 @@ export class UserService {
     return await this._httpClient.post(
       `${this.url}/login`,
       json,
-      { headers: headers }
+      { headers }
     ).toPromise();
   }
 
@@ -34,6 +34,10 @@ export class UserService {
       json,
       { headers }
     ).toPromise();
+  }
+
+  public async get(idUser: number): Promise<any> {
+    return await this._httpClient.get(`${this.url}/${idUser}`).toPromise();
   }
 
   public async update(user: User): Promise<any> {

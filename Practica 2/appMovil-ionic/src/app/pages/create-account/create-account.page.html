@@ -3,14 +3,14 @@
     <ion-buttons slot="secondary">
       <ion-button (click)="dismiss()">
         <ion-icon name="arrow-back-circle-outline" slot="start"></ion-icon>
-        Regresar 
+        Regresar
       </ion-button>
     </ion-buttons>
     <ion-title> VO2 Max </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>  
+<ion-content>
   <ion-card>
 
     <ion-card-header>
@@ -23,46 +23,63 @@
     </ion-card-header>
 
     <!-- nombre, apellido, edad, genero, peso, estatura, nickname, contraseña -->
-    <ion-card-content>
-      <ion-item class="item">
-        <ion-label position="floating"> Nombre </ion-label>
-        <ion-input></ion-input>
-      </ion-item>
-      <ion-item class="item">
-        <ion-label position="floating"> Apellido </ion-label>
-        <ion-input></ion-input>
-      </ion-item>
-      <ion-item class="item">
-        <ion-label position="floating"> Nickname </ion-label>
-        <ion-input></ion-input>
-      </ion-item>
-      <ion-item class="item">
-        <ion-label position="floating"> Contraseña </ion-label>
-        <ion-input></ion-input>
-      </ion-item>
-      <ion-item class="item">
-        <ion-label position="floating"> Edad </ion-label>
-        <ion-input type="number" inputmode="numeric" ></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>Genero</ion-label>
-        <ion-select placeholder="Selecciona Una">
-          <ion-select-option value="1">Femenino</ion-select-option>
-          <ion-select-option value="0">Masculino</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item class="item">
-        <ion-label position="floating"> Peso </ion-label>
-        <ion-input type="number" inputmode="numeric" ></ion-input>
-      </ion-item>
-      <ion-item class="item">
-        <ion-label position="floating"> Estatura </ion-label>
-        <ion-input type="number" inputmode="numeric" ></ion-input>
-      </ion-item>
-      
-      <ion-button expand="full" shape="round">
-        Crear Cuenta
-      </ion-button>
-    </ion-card-content>
+    <form autocomplete="off" #formSignup="ngForm" (ngSubmit)="signup()">
+      <ion-card-content>
+        <ion-item class="item">
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input name="name" #name="ngModel" [(ngModel)]="user.nombre" required></ion-input>
+        </ion-item>
+
+        <ion-item class="item">
+          <ion-label position="floating">Apellido</ion-label>
+          <ion-input name="lastName" #lastName="ngModel" [(ngModel)]="user.apellido" required></ion-input>
+        </ion-item>
+
+        <ion-item class="item">
+          <ion-label position="floating">Nickname</ion-label>
+          <ion-input name="nickname" #nickname="ngModel" [(ngModel)]="user.nickname" required></ion-input>
+        </ion-item>
+
+        <ion-item class="item">
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input type="password" name="password" #password="ngModel" [(ngModel)]="user.contrasenia" required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item class="item">
+          <ion-label position="floating">Edad</ion-label>
+          <ion-input type="number" inputmode="numeric" name="Birth" id="birth" #gender="ngModel" [(ngModel)]="user.edad"
+            required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Genero</ion-label>
+          <ion-select placeholder="Selecciona Una" name="Gender" id="gender" #gender="ngModel" [(ngModel)]="user.genero"
+            required>
+            <ion-select-option value="1">Femenino</ion-select-option>
+            <ion-select-option value="0">Masculino</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item class="item">
+          <ion-label position="floating">Peso</ion-label>
+          <ion-input type="number" inputmode="numeric" name="Weight" id="weight" #weight="ngModel"
+            [(ngModel)]="user.peso" required></ion-input>
+        </ion-item>
+
+        <ion-item class="item">
+          <ion-label position="floating">Estatura</ion-label>
+          <ion-input type="number" inputmode="numeric" name="Height" id="height" #height="ngModel"
+            [(ngModel)]="user.estatura" required></ion-input>
+        </ion-item>
+      </ion-card-content>
+
+      <ion-card-content>
+        <ion-button type="submit" expand="full" shape="round" [disabled]="!formSignup.form.valid">
+          Crear Cuenta
+        </ion-button>
+      </ion-card-content>
+    </form>
+
   </ion-card>
 </ion-content>

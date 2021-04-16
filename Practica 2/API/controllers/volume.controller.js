@@ -1,16 +1,37 @@
 const volumeModel = require('../models/volume.model');
 
 const volumeController = {
-    create: async (req, res, next) => {
+    createInhaled: async (req, res, next) => {
         try {
             let volume = {
-                inhalado: req.body.inhalado,
-                exhalado: req.body.exhalado,
+                medicion: req.body.medicion,
                 minuto: req.body.minuto,
-                idPrueba: req.body.idPrueba,
+                idVO2MAX: req.body.idVO2MAX,
             };
 
-            volume = await volumeModel.create(volume);
+            volume = await volumeModel.createInhaled(volume);
+
+            res.status(200).send({
+                code: '200',
+                data: volume
+            });
+        } catch (err) {
+            res.status(500).send({
+                code: '500',
+                data: err
+            });
+            next(err);
+        }
+    },
+    createExhaled: async (req, res, next) => {
+        try {
+            let volume = {
+                medicion: req.body.medicion,
+                minuto: req.body.minuto,
+                idVO2MAX: req.body.idVO2MAX,
+            };
+
+            volume = await volumeModel.createExhaled(volume);
 
             res.status(200).send({
                 code: '200',

@@ -1,24 +1,210 @@
 /* USUARIOS */
 INSERT INTO USUARIO (NOMBRE, APELLIDO, EDAD, GENERO, 
     PESO, ESTATURA, TIPO, NICKNAME, CONTRASENIA) 
-    VALUES ('Dan', 'Reynolds', 33, 1, 170.00, 1.95, 0, 'dare', '1234');
+    VALUES ('Dan', 'Reynolds', 33, 1, 170.00, 
+        1.95, 0, 'dare', '1234');
     
 INSERT INTO USUARIO (NOMBRE, APELLIDO, EDAD, GENERO, 
         PESO, ESTATURA, TIPO, NICKNAME, CONTRASENIA) 
-    VALUES ('Damien', 'Rice', 47, 1, 150.00, 1.80, 0, 'dari', '1234');
+    VALUES ('Damien', 'Rice', 47, 1, 150.00, 
+        1.80, 0, 'dari', '1234');
 
 INSERT INTO USUARIO (NOMBRE, APELLIDO, EDAD, GENERO, 
         PESO, ESTATURA, TIPO, NICKNAME, CONTRASENIA) 
-    VALUES ('Avril', 'Lavigne', 36 , 0, 110.23, 1.57, 0, 'avla', '1234');
+    VALUES ('Avril', 'Lavigne', 36 , 0, 110.23, 
+        1.57, 0, 'avla', '1234');
 
 INSERT INTO USUARIO (NOMBRE, APELLIDO, EDAD, GENERO, 
         PESO, ESTATURA, TIPO, NICKNAME, CONTRASENIA) 
-    VALUES ('Robert', 'Lewandowski', 32, 1, 176.37, 1.84, 0, 'rolew', '1234');
+    VALUES ('Robert', 'Lewandowski', 32, 1, 176.37, 
+        1.84, 0, 'rolew', '1234');
 
 INSERT INTO USUARIO (NOMBRE, APELLIDO, EDAD, GENERO, 
         PESO, ESTATURA, TIPO, NICKNAME, CONTRASENIA) 
-    VALUES ('Jurgen', 'Klopp', 53, 1, 182.98, 1.91, 1, 'jukl', '1234');
+    VALUES ('Jurgen', 'Klopp', 53, 1, 182.98, 
+        1.91, 1, 'jukl', '1234');
 
 INSERT INTO USUARIO (NOMBRE, APELLIDO, EDAD, GENERO, 
         PESO, ESTATURA, TIPO, NICKNAME, CONTRASENIA) 
-    VALUES ('Alex', 'Morgan', 31, 0, 136.68, 1.70, 1, 'almo', '1234');
+    VALUES ('Alex', 'Morgan', 31, 0, 136.68, 
+        1.70, 1, 'almo', '1234');
+
+/* COACH */
+INSERT INTO COACH (IDATLETA, IDENTRENADOR) VALUES (1, 5);
+INSERT INTO COACH (IDATLETA, IDENTRENADOR) VALUES (2, 5);
+INSERT INTO COACH (IDATLETA, IDENTRENADOR) VALUES (4, 5);
+INSERT INTO COACH (IDATLETA, IDENTRENADOR) VALUES (3, 6);
+
+/* RITMO CARDIACO*/
+Insert into RITMOCARDIACO (MEDICION,FECHAHORA,IDUSUARIO) values (132.52,to_timestamp('27/02/21 06:16:50.652456000 PM','DD/MM/RR HH12:MI:SSXFF AM'),3);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (50,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (132,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (92,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (132,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (120,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (108,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (132,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (132,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (132,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (132,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (93,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (93,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (108,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (149,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (132,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (149,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (149,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (171,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (71,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (149,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (240,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (200,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (149,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (200,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (171,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (132,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (92,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (132,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (149,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (132,1);
+Insert into DETALLERITMO (MEDICION,IDRITMO) values (85,1);
+ 
+/* OXIGENO */ 
+Insert into OXIGENO (MEDICION,FECHAHORA,IDUSUARIO) values (83.21,to_timestamp('27/02/21 06:16:50.771998000 PM','DD/MM/RR HH12:MI:SSXFF AM'),3);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (99,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (95,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (97,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (98,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (96,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (0,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (43,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (31,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (31,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (34,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (93,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (97,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (98,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (97,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (99,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (100,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (100,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (100,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (93,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (82,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (94,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (89,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (81,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (89,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (100,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (70,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (94,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (85,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (100,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (66,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (98,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (100,1);
+Insert into DETALLEOXIGENO (MEDICION,IDOXIGENO) values (97,1);
+
+/*TEMPERATURA */ 
+Insert into TEMPERATURA (FECHAHORA,PROMEDIO,MINTEMP,MAXTEMP,IDUSUARIO) values (to_timestamp('27/02/21 06:16:50.761718000 PM','DD/MM/RR HH12:MI:SSXFF AM'),24.95,4.39,40.04,3);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (40.04,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (25.39,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (20.02,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (29.3,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (23.93,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (24.41,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (26.86,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (27.34,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (25.88,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (24.9,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (26.86,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (26.37,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (27.34,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (26.37,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (9.28,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (26.86,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (25.39,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (26.86,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (24.41,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (25.88,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (25.88,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (19.53,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (27.34,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (25.39,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (4.39,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (26.37,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (26.37,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (25.39,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (24.9,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (24.9,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (24.41,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (28.32,1);
+Insert into DETALLETEMPERATURA (MEDICION,IDTEMPERATURA) values (26.37,1);
+
+SELECT * FROM USUARIO; 
+SELECT * FROM COACH; 
+SELECT * FROM RITMOCARDIACO ORDER BY idritmo ASC; 
+SELECT * FROM DETALLERITMO WHERE idRitmo = 1;
+SELECT * FROM OXIGENO ORDER BY idoxigeno ASC; 
+SELECT * FROM DETALLEOXIGENO; 
+SELECT * FROM TEMPERATURA;
+SELECT * FROM DETALLETEMPERATURA; 
+
+SELECT dr.idritmo, dr.iddetalleritmo, dr.medicion 
+FROM detalleritmo dr, (
+  SELECT rc.idritmo, rc.medicion, 
+    u.nombre, u.apellido 
+  FROM RitmoCardiaco rc, Usuario u 
+  WHERE rc.idusuario = 1
+  ORDER BY rc.idritmo DESC 
+  FETCH NEXT 1 ROWS ONLY
+) a 
+WHERE dr.idritmo = a.idritmo
+ORDER BY dr.iddetalleritmo ASC; 
+
+SELECT do.idoxigeno, do.iddetalleoxigeno, do.medicion
+FROM detalleoxigeno do, 
+    (   
+        SELECT  o.idoxigeno FROM Oxigeno o, usuario u 
+        WHERE o.idusuario = 1 
+        ORDER BY o.idoxigeno DESC 
+        FETCH NEXT 1 ROWS ONLY
+    ) a
+WHERE do.idoxigeno = a.idoxigeno
+ORDER BY do.iddetalleoxigeno ASC;
+
+
+/* Total de Repeticiones por Test de un Usuario*/ 
+SELECT t.idTest, t.fechaInicio, t.estado, 
+    COUNT(r.idRepeticion) AS TotalRepeticiones
+FROM TEST t, REPETICION r
+WHERE t.idUsuario = 3 AND t.idTest = r.idTest
+GROUP BY t.idTest, t.fechaInicio, t.estado
+ORDER BY t.fechaInicio;
+
+SELECT t.idTest, t.idUsuario, t.fechaInicio, t.estado, COUNT(*) 
+FROM Test t
+INNER JOIN Repeticion r ON r.idTest = t.idTest
+GROUP BY t.idTest, t.idUsuario, t.fechaInicio, t.estado
+ORDER BY t.idTest ASC;
+
+/* Reporte de Repeticiones por Semana */ 
+SELECT ts.idTest, ts.idUsuario, ts.estado, count(*)
+FROM Repeticion repe
+INNER JOIN Velocidad vel ON (repe.idRepeticion = vel.idRepeticion)
+INNER JOIN Test ts ON (repe.idTest = ts.idTest)
+GROUP BY ts.idTest, ts.idUsuario, ts.estado;
+
+/*Promedio, Maximo, Minimo de Repeticiones por Semana */ 
+SELECT DISTINCT a.Semana, MAX(a.repeticionesTest) OVER (PARTITION BY a.Semana) AS Maximo,
+MIN(a.repeticionesTest) OVER (PARTITION BY a.Semana)  AS minimo,
+ROUND(AVG(a.repeticionesTest) OVER (PARTITION BY a.Semana), 2) AS Promedio 
+FROM 
+(
+    SELECT t.idTest, TO_CHAR(t.fechaInicio, 'iw') AS Semana , t.fechaInicio, t.estado, COUNT(r.idRepeticion) AS repeticionesTest
+    FROM TEST t , REPETICION r 
+    WHERE t.idTest = r.idTest /*AND  t.idUsuario = 3 */
+    GROUP BY t.idTest, TO_CHAR(t.fechaInicio, 'iw'), t.fechaInicio, t.estado
+    ORDER BY TO_CHAR(t.fechaInicio, 'iw') 
+) a
+ORDER BY a.Semana ASC; 

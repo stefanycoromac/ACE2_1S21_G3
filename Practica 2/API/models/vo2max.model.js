@@ -1,26 +1,27 @@
 const oracledb = require('oracledb');
 const database = require('../config/database');
 
-const testModel = {
+const vo2maxModel = {
     create: async (parameters) => {
         const query = `INSERT INTO Prueba(idUsuario)
             VALUES(:idUsuario)
             RETURNING idPrueba INTO :idPrueba`;
-        const test = Object.assign({}, parameters);
+        const vo2max = Object.assign({}, parameters);
 
-        test.idPrueba = {
+        vo2max.idPrueba = {
             dir: oracledb.BIND_OUT,
             type: oracledb.NUMBER
         };
 
-        const result = await database(query, test);
+        const result = await database(query, vo2max);
 
-        test.idPrueba = result.outBinds.idPrueba[0];
+        vo2max.idPrueba = result.outBinds.idPrueba[0];
         return {
-            test,
+            vo2max,
             result
         };
     },
+
     getLast: async (parameters) => {
         let query = `SELECT * FROM Prueba 
             WHERE idUsuario = :idUsuario
@@ -33,7 +34,17 @@ const testModel = {
 
         const result = await database(query, binds);
         return result.rows;
+    },
+    getDetail: async (parameters) => {
+        let query = ``;
+
+        const binds = {
+            idUsuario: parameters.idUsuario
+        };
+
+        const result = await database(query, binds);
+        return result.rows;
     }
 };
 
-module.exports = testModel;
+module.exports = vo2maxModel;

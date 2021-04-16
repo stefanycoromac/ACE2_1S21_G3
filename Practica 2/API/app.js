@@ -5,7 +5,13 @@ const path = require('path');
 
 const indexRouter = require('./routes/index.route');
 const userRouter = require('./routes/user.route');
-const testRouter = require('./routes/test.route');
+const heartRateRouter = require('./routes/heartRate.route');
+const temperatureRouter = require('./routes/temperature.route');
+const oxygenRouter = require('./routes/oxygen.route');
+const speedRouter = require('./routes/speed.route');
+const distanceRouter = require('./routes/distance.route');
+const courseNavetteRouter = require('./routes/courseNavette.route');
+const vo2maxRouter = require('./routes/vo2max.route');
 const volumeRouter = require('./routes/volume.route');
 
 const app = express();
@@ -26,7 +32,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes 
 app.use('/', indexRouter);
 app.use('/user', userRouter);
-app.use('/test', testRouter);
+app.use('/heart-rate', heartRateRouter);
+app.use('/temperature', temperatureRouter);
+app.use('/oxygen', oxygenRouter);
+app.use('/speed', speedRouter);
+app.use('/distance', distanceRouter);
+app.use('/course-navette', courseNavetteRouter);
+app.use('/vo2max', vo2maxRouter);
 app.use('/volume', volumeRouter);
 
 // Port assignment
@@ -35,9 +47,11 @@ app.listen(PORT, () => {
 });
 
 // Catch 404
-app.use((_req, res, _next) => {
+app.use((req, res, next) => {
     res.status(404).send({
         Error: 404,
         Descripcion: 'Pagina no encontrada'
     });
+    // res.status(404).sendFile(__dirname + "/public/404.html"); 
+    // next(createError(404));
 });

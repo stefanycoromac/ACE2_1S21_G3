@@ -1,17 +1,17 @@
-const testModel = require('../models/test.model');
+const distanceModel = require('../models/distance.model');
 
-const testController = {
+const distanceController = {
     create: async (req, res, next) => {
         try {
-            let test = {
-                idUsuario: req.body.idUsuario
-            };
-
-            test = await testModel.create(test);
+            let distance = {
+                idRepeticion: req.body.idRepeticion,
+                medicion: req.body.medicion
+            }
+            distance = await distanceModel.create(distance);
 
             res.status(200).send({
                 code: '200',
-                data: test
+                data: distance
             });
         } catch (err) {
             res.status(500).send({
@@ -26,28 +26,19 @@ const testController = {
             const parameters = {
                 idUsuario: req.params.idUsuario
             };
-            const rows = await testModel.getLast(parameters);
+            const rows = await distanceModel.getLast(parameters);
 
-            let tests = [];
+            let distances = [];
             rows.forEach(element => {
-                tests.push({
-                    idPrueba: element.IDPRUEBA,
-                    fecha: element.FECHA,
-                    minInh: element.MIN_INH,
-                    maxInh: element.MAX_INH,
-                    avgInh: element.AVG_INH,
-                    minExh: element.MIN_EXH,
-                    maxExh: element.MAX_EXH,
-                    avgExh: element.AVG_EXH,
-                    medicion: element.MEDICION,
-                    idUsuario: element.IDUSUARIO
+                distances.push({
+                    medicion: element.MEDICION
                 });
             });
 
             if (rows.length === 1) {
                 res.status(200).send({
                     code: '200',
-                    data: tests[0]
+                    data: distances[0]
                 });
             } else {
                 res.status(200).send({
@@ -65,4 +56,4 @@ const testController = {
     }
 };
 
-module.exports = testController;
+module.exports = distanceController;

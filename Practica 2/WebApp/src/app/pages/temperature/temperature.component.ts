@@ -105,6 +105,9 @@ export class TemperatureComponent implements OnInit, OnDestroy {
         let dateHour: string;
         let series: any[];
 
+        this.dataReports = [];
+        this.dataReports = [...this.dataReports];
+
         data['data'].forEach(element => {
           dateHour = this._datepipe.transform(
             new Date(element.fechaHora),

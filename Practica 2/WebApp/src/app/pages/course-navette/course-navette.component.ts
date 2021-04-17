@@ -66,7 +66,7 @@ export class CourseNavetteComponent implements OnInit, OnDestroy {
     this.getIDUser();
     this.dataInit();
 
-    const source = interval(2500);
+    const source = interval(1000);
     this.subscription = source.subscribe(() => {
       this.getLast();
       this.getDetail();
@@ -159,25 +159,13 @@ export class CourseNavetteComponent implements OnInit, OnDestroy {
         this.lastTest.fechaInicio = data['data']['fechaInicio'];
       }
 
-      const speed = await this._courseNavetteService.getLastSpeed(this.idUser);
-      if (speed['code'] === '200') {
-        if (this.lastTest.velocidad != speed['data']['medicion']) {
-          this.lastTest.velocidad = speed['data']['medicion'];
-
-          this.speedData = [
-            {
-              'name': 'Velocidad',
-              'value': this.lastTest.velocidad
-            }
-          ];
-          this.speedData = [...this.speedData];
-        }
-      }
-
       const distance = await this._courseNavetteService.getLastDistance(this.idUser);
       if (distance['code'] === '200') {
         if (this.lastTest.distancia != distance['data']['medicion']) {
           this.lastTest.distancia = distance['data']['medicion'];
+
+          this.distanceData = [];
+          this.distanceData = [...this.distanceData];
 
           this.distanceData = [
             {
@@ -186,6 +174,24 @@ export class CourseNavetteComponent implements OnInit, OnDestroy {
             }
           ];
           this.distanceData = [...this.distanceData];
+        }
+      }
+
+      const speed = await this._courseNavetteService.getLastSpeed(this.idUser);
+      if (speed['code'] === '200') {
+        if (this.lastTest.velocidad != speed['data']['medicion']) {
+          this.lastTest.velocidad = speed['data']['medicion'];
+
+          this.speedData = [];
+          this.speedData = [...this.speedData];
+
+          this.speedData = [
+            {
+              'name': 'Velocidad',
+              'value': this.lastTest.velocidad
+            }
+          ];
+          this.speedData = [...this.speedData];
         }
       }
     } catch (err) {

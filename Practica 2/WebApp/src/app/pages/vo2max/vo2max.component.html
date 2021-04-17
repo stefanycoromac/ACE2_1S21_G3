@@ -1,2 +1,120 @@
-<app-count-down> </app-count-down>
-<p>vo2max works!</p>
+<div class="row page-content">
+  <div class="col-12 col-lg-12 align-self-center">
+    <h1>VO2MAX</h1>
+  </div>
+
+  <div class="col-12 col-lg-7 align-self-center">
+    <div class="card card-graph">
+      <div class="card-body ">
+
+        <app-line-chart [data]="data"></app-line-chart>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-lg-5 align-self-center">
+
+    <div class="row">
+      <div class="col-12">
+        <div class="custom-card card">
+          <div class="card-body">
+            <app-count-down> </app-count-down>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-12 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-text center">Mínimo inhalado </p>
+            <p class="card-text center"> {{ 0.00 | number : '1.2-2'}} ml</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-text center">Máximo inhalado </p>
+            <p class="card-text center"> {{ 0.00 | number : '1.2-2'}} ml</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-text center">Promedio inhalado </p>
+            <p class="card-text center"> {{ 0.00 | number : '1.2-2'}} ml</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-12 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-text center">Mínimo exhalado </p>
+            <p class="card-text center"> {{ 0.00 | number : '1.2-2'}} ml</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-text center">Máximo exhalado </p>
+            <p class="card-text center"> {{ 0.00 | number : '1.2-2'}} ml</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-text center">Promedio exhalado </p>
+            <p class="card-text center"> {{ 0.00 | number : '1.2-2'}} ml</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-text center">VO2MAX: {{ 0.00 | number : '1.2-2'}} ml</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="row page-content">
+  <div class="col-12 col-lg-12 align-self-center">
+    <h1>Historial VO2MAX</h1>
+  </div>
+
+  <div class="col-12 col-lg-12 align-self-center">
+    <div class="card card-graph">
+      <div class="card-body ">
+
+        <app-vertical-bar-chart [data]="dataReports" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+          [legendTitle]="legendTitle"></app-vertical-bar-chart>
+
+      </div>
+    </div>
+  </div>
+</div>

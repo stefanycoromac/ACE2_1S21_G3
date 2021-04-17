@@ -51,6 +51,8 @@ export class OxygenComponent implements OnInit, OnDestroy {
       this.getLast();
       this.getTop();
       this.getDetail();
+      console.log(this.dataReports);
+
     });
   }
 
@@ -134,7 +136,7 @@ export class OxygenComponent implements OnInit, OnDestroy {
 
       if (data['code'] === '200') {
         this.dataReports = [];
-        this.data = [...this.data];
+        this.dataReports = [...this.dataReports];
 
         let dateHour;
         data['data'].forEach(element => {

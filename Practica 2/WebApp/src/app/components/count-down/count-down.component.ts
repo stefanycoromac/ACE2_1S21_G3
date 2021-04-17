@@ -11,7 +11,6 @@ export class CountDownComponent implements OnInit, OnDestroy {
 
   public dateNow: Date;
   public milliSecondsInASecond: number;
-  public hoursInADay: number;
   public minutesInAnHour: number
   public SecondsInAMinute: number;
 
@@ -21,9 +20,11 @@ export class CountDownComponent implements OnInit, OnDestroy {
 
   constructor() {
     this.milliSecondsInASecond = 1000;
-    this.hoursInADay = 24;
     this.minutesInAnHour = 60;
     this.SecondsInAMinute = 60;
+
+    this.minutesToDday = 5;
+    this.secondsToDday = 0;
   }
 
   ngOnInit() {
@@ -38,11 +39,17 @@ export class CountDownComponent implements OnInit, OnDestroy {
     this.dateNow = new Date();
     this.dateNow.setMinutes(this.dateNow.getMinutes() + 5);
 
+    this.minutesToDday = 0;
+    this.secondsToDday = 0;
+
     this.subscription = interval(1000).subscribe(
       () => {
         this.getTimeDifference();
 
         if (this.minutesToDday <= 0 && this.secondsToDday <= 0) {
+          this.minutesToDday = 5;
+          this.secondsToDday = 0;
+
           this.subscription.unsubscribe();
         }
       }
@@ -55,7 +62,10 @@ export class CountDownComponent implements OnInit, OnDestroy {
   }
 
   private allocateTimeUnits(timeDifference) {
-    this.secondsToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond) % this.SecondsInAMinute);
-    this.minutesToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour) % this.SecondsInAMinute);
+    this.secondsToDday = Math.floor(
+      (timeDifference) / (this.milliSecondsInASecond) % this.SecondsInAMinute);
+
+    this.minutesToDday = Math.floor(
+      (timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour) % this.SecondsInAMinute);
   }
 }

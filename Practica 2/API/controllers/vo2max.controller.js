@@ -21,6 +21,33 @@ const vo2maxController = {
             next(err);
         }
     },
+    update: async (req, res, next) => {
+        try {
+            let vo2max = {
+                idVO2MAX: req.body.idVO2MAX,
+                estado: req.body.estado
+            };
+            vo2max = await vo2maxModel.update(vo2max);
+
+            if (vo2max !== null) {
+                res.status(200).send({
+                    code: '200',
+                    data: vo2max
+                });
+            } else {
+                res.status(500).send({
+                    code: '500',
+                    data: vo2max
+                });
+            }
+        } catch (err) {
+            res.status(500).send({
+                code: '500',
+                data: err
+            });
+            next(err);
+        }
+    },
 
     getLast: async (req, res, next) => {
         try {
@@ -34,6 +61,7 @@ const vo2maxController = {
                 vo2maxs.push({
                     idPrueba: element.IDPRUEBA,
                     fecha: element.FECHA,
+                    estado: element.ESTADO,
                     minInh: element.MIN_INH,
                     maxInh: element.MAX_INH,
                     avgInh: element.AVG_INH,

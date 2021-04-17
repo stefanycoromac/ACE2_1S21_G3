@@ -3,29 +3,43 @@ const database = require('../config/database');
 
 const vo2maxModel = {
     create: async (parameters) => {
-        const query = `INSERT INTO Prueba(idUsuario)
+        const query = `INSERT INTO VO2MAX(idUsuario)
             VALUES(:idUsuario)
-            RETURNING idPrueba INTO :idPrueba`;
+            RETURNING idVO2MAX INTO :idVO2MAX`;
         const vo2max = Object.assign({}, parameters);
 
-        vo2max.idPrueba = {
+        vo2max.idVO2MAX = {
             dir: oracledb.BIND_OUT,
             type: oracledb.NUMBER
         };
 
         const result = await database(query, vo2max);
 
-        vo2max.idPrueba = result.outBinds.idPrueba[0];
+        vo2max.idVO2MAX = result.outBinds.idVO2MAX[0];
         return {
             vo2max,
             result
         };
     },
+    update: async (parameters) => {
+        const query = `UPDATE VO2MAX SET estado = :estado
+            WHERE idVO2MAX = :idVO2MAX`;
+        const vo2max = Object.assign({}, parameters);
+
+        const result = await database(query, vo2max);
+        if (result.rowsAffected && result.rowsAffected === 1) {
+            return {
+                result,
+                vo2max
+            };
+        }
+        return null;
+    },
 
     getLast: async (parameters) => {
-        let query = `SELECT * FROM Prueba 
+        let query = `SELECT * FROM VO2MAX 
             WHERE idUsuario = :idUsuario
-            ORDER BY idPrueba DESC
+            ORDER BY idVO2MAX DESC
             FETCH NEXT 1 ROWS ONLY`;
 
         const binds = {

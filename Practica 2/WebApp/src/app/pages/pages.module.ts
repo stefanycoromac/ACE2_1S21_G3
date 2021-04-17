@@ -20,6 +20,7 @@ import { HeartComponent } from './heart/heart.component';
 import { OxygenComponent } from './oxygen/oxygen.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CourseNavetteComponent } from './course-navette/course-navette.component';
+import { Vo2maxComponent } from './vo2max/vo2max.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { CourseNavetteComponent } from './course-navette/course-navette.componen
     HeartComponent,
     OxygenComponent,
     ProfileComponent,
-    CourseNavetteComponent
+    CourseNavetteComponent,
+    Vo2maxComponent
   ],
   exports: [
     PagesComponent,
@@ -39,7 +41,8 @@ import { CourseNavetteComponent } from './course-navette/course-navette.componen
     HeartComponent,
     OxygenComponent,
     ProfileComponent,
-    CourseNavetteComponent
+    CourseNavetteComponent,
+    Vo2maxComponent
   ],
   imports: [
     CommonModule,

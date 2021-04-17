@@ -10,6 +10,7 @@ import { OxygenComponent } from './oxygen/oxygen.component';
 import { TemperatureComponent } from './temperature/temperature.component';
 import { HeartComponent } from './heart/heart.component';
 import { CourseNavetteComponent } from './course-navette/course-navette.component';
+import { Vo2maxComponent } from './vo2max/vo2max.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
       { path: 'heart-rate/:idUser', component: HeartComponent },
       { path: 'course-navette', component: CourseNavetteComponent },
       { path: 'course-navette/:idUser', component: CourseNavetteComponent },
+      { path: 'vo2max', component: Vo2maxComponent },
     ]
   },
 ];

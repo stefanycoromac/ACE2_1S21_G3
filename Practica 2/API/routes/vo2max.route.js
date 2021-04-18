@@ -7,7 +7,7 @@ router.route('/')
     .post(vo2maxController.create)
     .put(vo2maxController.update);
 
-router.route('/:idUsuario/last').get(vo2maxController.getLast);
+router.route('/:idUsuario/last/idVO2MAX?').get(vo2maxController.get);
 router.route('/detail/:idUsuario/last').get(vo2maxController.getDetail);
 
 module.exports = router;

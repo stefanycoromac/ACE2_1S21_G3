@@ -36,15 +36,20 @@ const vo2maxModel = {
         return null;
     },
 
-    getLast: async (parameters) => {
+    get: async (parameters) => {
         let query = `SELECT * FROM VO2MAX 
-            WHERE idUsuario = :idUsuario
-            ORDER BY idVO2MAX DESC
-            FETCH NEXT 1 ROWS ONLY`;
-
+            WHERE idUsuario = :idUsuario`;
         const binds = {
             idUsuario: parameters.idUsuario
         };
+
+        if (parameters.idVO2MAX) {
+            binds.idVO2MAX = parameters.idVO2MAX;
+            query += ` AND idVO2MAX = :idVO2MAX`;
+        }
+
+        query += ` ORDER BY idVO2MAX DESC
+            FETCH NEXT 1 ROWS ONLY`;
 
         const result = await database(query, binds);
         return result.rows;

@@ -49,17 +49,18 @@ const vo2maxController = {
         }
     },
 
-    getLast: async (req, res, next) => {
+    get: async (req, res, next) => {
         try {
             const parameters = {
-                idUsuario: req.params.idUsuario
+                idUsuario: req.params.idUsuario,
+                idVO2MAX: req.params.idVO2MAX
             };
-            const rows = await vo2maxModel.getLast(parameters);
+            const rows = await vo2maxModel.get(parameters);
 
             let vo2maxs = [];
             rows.forEach(element => {
                 vo2maxs.push({
-                    idPrueba: element.IDPRUEBA,
+                    idVO2MAX: element.IDVO2MAX,
                     fecha: element.FECHA,
                     estado: element.ESTADO,
                     minInh: element.MIN_INH,

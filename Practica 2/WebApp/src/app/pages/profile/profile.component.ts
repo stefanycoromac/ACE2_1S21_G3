@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
       const data = await this._userService.update(this.user);
 
       if (data['code'] === '200') {
+        localStorage.setItem('user', JSON.stringify(this.user));
       }
     } catch (err) {
       console.log(<any>err);

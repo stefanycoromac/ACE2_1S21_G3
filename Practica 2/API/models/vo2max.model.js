@@ -39,6 +39,17 @@ const vo2maxModel = {
     get: async (parameters) => {
         let query = `SELECT * FROM VO2MAX 
             WHERE idUsuario = :idUsuario`;
+
+        const binds = {
+            idUsuario: parameters.idUsuario
+        };
+
+        const result = await database(query, binds);
+        return result.rows;
+    },
+    getLast: async (parameters) => {
+        let query = `SELECT * FROM VO2MAX 
+            WHERE idUsuario = :idUsuario`;
         const binds = {
             idUsuario: parameters.idUsuario
         };

@@ -95,8 +95,7 @@ export class OxygenComponent implements OnInit, OnDestroy {
       const data = await this._oxygenService.getLast(this.idUser);
 
       if (data['code'] === '200') {
-        this.lastOX.fechaHora = data['data']['fechaHora'];
-        this.lastOX.medicion = data['data']['medicion'];
+        this.lastOX = data['data'];
       }
     } catch (err) {
       console.log(<any>err);

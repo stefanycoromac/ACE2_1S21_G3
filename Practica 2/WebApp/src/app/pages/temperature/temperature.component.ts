@@ -86,10 +86,7 @@ export class TemperatureComponent implements OnInit, OnDestroy {
       const data = await this._temperatureService.getLast(this.idUser);
 
       if (data['code'] === '200') {
-        this.lastTP.fechaHora = data['data']['fechaHora'];
-        this.lastTP.promedio = data['data']['promedio'];
-        this.lastTP.minima = data['data']['minima'];
-        this.lastTP.maxima = data['data']['maxima'];
+        this.lastTP = data['data'];
         this.addData();
       }
     } catch (err) {

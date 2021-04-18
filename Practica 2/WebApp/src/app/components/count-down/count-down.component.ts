@@ -39,9 +39,6 @@ export class CountDownComponent implements OnInit, OnDestroy {
     this.dateNow = new Date();
     this.dateNow.setMinutes(this.dateNow.getMinutes() + 5);
 
-    this.minutesToDday = 0;
-    this.secondsToDday = 0;
-
     this.subscription = interval(1000).subscribe(
       () => {
         this.getTimeDifference();

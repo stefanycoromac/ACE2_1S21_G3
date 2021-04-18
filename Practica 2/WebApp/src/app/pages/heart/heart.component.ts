@@ -93,8 +93,7 @@ export class HeartComponent implements OnInit, OnDestroy {
       const data = await this._hearRateService.getLast(this.idUser);
 
       if (data['code'] === '200') {
-        this.lastHR.fechaHora = data['data']['fechaHora'];
-        this.lastHR.medicion = data['data']['medicion'];
+        this.lastHR = data['data'];
       }
     } catch (err) {
       console.log(<any>err);

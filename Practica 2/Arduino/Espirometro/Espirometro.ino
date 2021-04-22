@@ -1,4 +1,4 @@
-const int BTPWR = 13;
+const int BTPWR = 12;
 char entrada = 'f';
 boolean inicio = false;
 
@@ -6,11 +6,13 @@ volatile int NumPulsos;
 int PinSensor = 2;
 float factor_conversion = 7.11;
 float volumen_inhalado = 0, volumen_real = 0, volumen = 0, prev_volumen = 0, caudal_L_m = 0, prev_caudal_L_m = 0, frecuencia ;
+String real, total;
 long dt = 0;
 long t0 = 0;
 boolean exhale = true;
 
 unsigned long previousMillis = 0;
+unsigned long currentMillis = 0;
 const long interval = 60000;
 
 
@@ -19,6 +21,9 @@ void setup() {
 
   pinMode(BTPWR, OUTPUT);
   digitalWrite(BTPWR, HIGH);
+
+  pinMode(13, OUTPUT);
+  digitalWrite(13, LOW);
 
   Serial.begin(9600);
   pinMode(PinSensor, INPUT);
@@ -37,23 +42,27 @@ void loop() {
     verificarInicio();
     espirometro();
     finalizar();
-    Serial.print("v: ");
-    Serial.println (volumen_inhalado, 3);
+    total = ";" + (String) volumen_inhalado, 3;
+    enviarDatos(total);
+
   }
-  
+
 }
 
 void verificarInicio()
 {
+
   entrada = Serial.read();
+
   if (entrada == 'v')
   {
+    previousMillis = millis();
     inicio = true;
-  }
+    digitalWrite(13, HIGH);
 
-  if (entrada == 'f')
-  {
-    inicio = false;
+  } else {
+    Serial.print(';');
+    Serial.print(entrada);
   }
 }
 
@@ -73,8 +82,8 @@ void espirometro() {
     volumen_inhalado = volumen_inhalado + volumen;
   }
 
-  Serial.println (volumen_real, 3);
-
+  real = "R;" + (String) volumen_real, 3;
+  enviarDatos(real);
 
   prev_caudal_L_m = caudal_L_m, 3;
 }
@@ -96,9 +105,19 @@ int ObtenerFrecuecia()
 }
 
 void finalizar() {
-  unsigned long currentMillis = millis();
+
+  currentMillis = millis();
+
   if (currentMillis - previousMillis >= interval) {
     previousMillis = currentMillis;
     inicio = false;
+    enviarDatos("O");
+    digitalWrite(13, LOW);
   }
+}
+
+void enviarDatos(String cadena)
+{
+  Serial.print(cadena);
+  delay(500);
 }

@@ -119,9 +119,6 @@ export class Vo2maxComponent implements OnInit, AfterViewInit, OnDestroy {
       this.vo2max = await this.getSpecific();
     }
 
-    console.log('statusVO2', statusVO2);
-    console.log('this.vo2max.estado', this.vo2max.estado == true);
-
     if (statusVO2 !== undefined) {
       if (statusVO2 == true && this.vo2max.estado == false) {
         this.stopTimer();
@@ -195,11 +192,8 @@ export class Vo2maxComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dateNow = new Date();
     this.dateNow.setMinutes(this.dateNow.getMinutes() + 5);
 
-    console.log('activando');
-
     this.timerSub = interval(1000).subscribe(
       () => {
-        console.log('activa');
         this.getTimeDifference();
 
         if (this.minutesToDday <= 0 && this.secondsToDday <= 0) {

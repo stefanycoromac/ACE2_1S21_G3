@@ -63,6 +63,8 @@ export class DevicesListPage implements OnInit {
     }, error =>{
       this.showAlert('Problema con el envio de datos')
     }); 
+
+    
   }
 
   connect(address){
@@ -76,7 +78,7 @@ export class DevicesListPage implements OnInit {
   async deviceConnect(){
     this.bluetoothSerial.subscribe('/n').subscribe(success =>{
       this.showAlert('Dispositivo Conectado'); 
-      this.showAlert(success); 
+      this.sendData(); 
     }); 
   }
 

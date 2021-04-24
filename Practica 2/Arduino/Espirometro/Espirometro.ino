@@ -1,4 +1,4 @@
-const int BTPWR = 12;
+const int BTPWR = 6;
 char entrada = 'f';
 boolean inicio = false;
 
@@ -32,7 +32,8 @@ void setup() {
 }
 
 void loop() {
-  verificarInicio();
+  entrada = Serial.read();
+  Serial.print(entrada);
 
   volumen_inhalado = 0;
   volumen_real = 0;
@@ -44,18 +45,17 @@ void loop() {
     finalizar();
     total = ";" + (String) volumen_inhalado, 3;
     enviarDatos(total);
-
   }
+
+  verificarInicio();
 
 }
 
 void verificarInicio()
 {
-
-  entrada = Serial.read();
-
   if (entrada == 'v')
   {
+    
     previousMillis = millis();
     inicio = true;
     digitalWrite(13, HIGH);

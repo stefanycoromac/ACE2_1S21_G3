@@ -1,4 +1,4 @@
-const int BTPWR = 6;
+const int BTPWR = 5;
 char entrada = 'f';
 boolean inicio = false;
 
@@ -32,9 +32,7 @@ void setup() {
 }
 
 void loop() {
-  entrada = Serial.read();
-  Serial.print(entrada);
-
+ 
   volumen_inhalado = 0;
   volumen_real = 0;
   volumen = 0;
@@ -53,9 +51,9 @@ void loop() {
 
 void verificarInicio()
 {
-  if (entrada == 'v')
+  entrada = Serial.read();
+  if (entrada == 'v'||entrada == 65)
   {
-    
     previousMillis = millis();
     inicio = true;
     digitalWrite(13, HIGH);

@@ -265,6 +265,71 @@ COMPOUND TRIGGER
   END AFTER STATEMENT;
 END tg_minmaxpromVelocidad;
 
+
+CREATE OR REPLACE TRIGGER tg_INH_minmaxpromVO2MAX 
+FOR INSERT ON INHALADO 
+COMPOUND TRIGGER 
+    v_idVO2Max INTEGER; 
+    v_promedio NUMBER(7,2); 
+    v_min NUMBER(7,2); 
+    v_max NUMBER(7,2); 
+    
+    AFTER EACH ROW IS 
+    BEGIN 
+        v_idVO2Max := :NEW.idVO2MAX; 
+    END AFTER EACH ROW; 
+    
+    AFTER STATEMENT IS 
+    BEGIN 
+        SELECT AVG(i.medicion) INTO v_promedio FROM INHALADO i 
+        WHERE i.idVO2MAX = v_idVO2Max; 
+        
+        SELECT MIN(i.medicion) INTO v_min FROM INHALADO i 
+        WHERE i.idVO2MAX = v_idVO2Max;
+        
+        SELECT MAX(i.medicion) INTO v_max FROM INHALADO i 
+        WHERE i.idVO2MAX = v_idVO2Max;
+        
+        UPDATE VO2MAX SET 
+            min_inh = v_min,
+            max_inh = v_max, 
+            avg_inh = v_promedio
+        WHERE idVO2MAX = v_idVO2Max; 
+    END AFTER STATEMENT;     
+END tg_INH_minmaxpromVO2MAX; 
+
+CREATE OR REPLACE TRIGGER tg_EXH_minmaxpromVO2MAX 
+FOR INSERT ON EXHALADO
+COMPOUND TRIGGER 
+    v_idVO2Max INTEGER; 
+    v_promedio NUMBER(7,2); 
+    v_min NUMBER(7,2); 
+    v_max NUMBER(7,2); 
+    
+    AFTER EACH ROW IS 
+    BEGIN 
+        v_idVO2Max := :NEW.idVO2MAX; 
+    END AFTER EACH ROW; 
+    
+    AFTER STATEMENT IS 
+    BEGIN 
+        SELECT AVG(e.medicion) INTO v_promedio FROM EXHALADO e 
+        WHERE e.idVO2MAX = v_idVO2Max; 
+        
+        SELECT MIN(e.medicion) INTO v_min FROM EXHALADO e 
+        WHERE e.idVO2MAX = v_idVO2Max;
+        
+        SELECT MAX(e.medicion) INTO v_max FROM EXHALADO e 
+        WHERE e.idVO2MAX = v_idVO2Max;
+        
+        UPDATE VO2MAX SET 
+            min_exh = v_min,
+            max_exh = v_max, 
+            avg_exh = v_promedio
+        WHERE idVO2MAX = v_idVO2Max; 
+    END AFTER STATEMENT;     
+END tg_EXH_minmaxpromVO2MAX; 
+
 /* VIEWS */
 CREATE OR REPLACE VIEW coaching AS
   SELECT ch.idEntrenador AS IDCOACH, us.idUsuario AS IDUSUARIO, 

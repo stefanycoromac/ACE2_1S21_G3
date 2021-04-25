@@ -44,6 +44,49 @@ const volumeController = {
             });
             next(err);
         }
+    },
+
+    createInhaledRE: async (req, res, next) => {
+        try {
+            let volume = {
+                medicion: req.body.medicion,
+                idVO2MAX: req.body.idVO2MAX,
+            };
+
+            volume = await volumeModel.createInhaledRE(volume);
+
+            res.status(200).send({
+                code: '200',
+                data: volume
+            });
+        } catch (err) {
+            res.status(500).send({
+                code: '500',
+                data: err
+            });
+            next(err);
+        }
+    },
+    createExhaledRE: async (req, res, next) => {
+        try {
+            let volume = {
+                medicion: req.body.medicion,
+                idVO2MAX: req.body.idVO2MAX,
+            };
+
+            volume = await volumeModel.createExhaledRE(volume);
+
+            res.status(200).send({
+                code: '200',
+                data: volume
+            });
+        } catch (err) {
+            res.status(500).send({
+                code: '500',
+                data: err
+            });
+            next(err);
+        }
     }
 };
 

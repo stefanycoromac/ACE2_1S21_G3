@@ -101,13 +101,24 @@ async function calculateVO2MAX(idVO2Max) {
     let binds = {
         idVO2Max
     };
-    const result = await database(query, binds);
+    let result = await database(query, binds);
+    const total = result.rows[0].TOTAL
 
+    query = `SELECT peso FROM USUARIO us
+        INNER JOIN VO2MAX vo2 ON (vo2.idUsuario = us.idUsuario
+            AND vo2.idVo2max = :idVO2Max)`;
+    binds = {
+        idVO2Max
+    };
+    result = await database(query, binds);
+    const kgUser = result.rows[0].PESO;
+
+    result = (((total * 0.21) / 5) / kgUser) * 1000
     query = `UPDATE VO2MAX SET 
-        medicion = (:result * 0.21) / 5 
+        medicion = :result
         WHERE idVo2Max = :idVO2Max AND estado = 0`
     binds = {
-        result: result.rows[0].TOTAL,
+        result,
         idVO2Max
     };
     await database(query, binds);

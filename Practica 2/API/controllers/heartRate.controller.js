@@ -11,7 +11,6 @@ const heartRateController = {
 
             res.status(200).send({
                 code: '200',
-                movilecode: '1',
                 data: heartRate
             });
         } catch (err) {

@@ -48,15 +48,13 @@ const volumeController = {
 
     createInhaledRE: async (req, res, next) => {
         try {
-            console.log(req.body);
-
             let volume = {
                 medicion: req.body.medicion,
                 idVO2MAX: req.body.idVO2MAX,
             };
 
             volume = await volumeModel.createInhaledRE(volume);
-            console.log(volume);
+
             res.status(200).send({
                 code: '200',
                 data: volume
@@ -71,15 +69,13 @@ const volumeController = {
     },
     createExhaledRE: async (req, res, next) => {
         try {
-            console.log(req.body);
-
             let volume = {
                 medicion: req.body.medicion,
                 idVO2MAX: req.body.idVO2MAX,
             };
 
             volume = await volumeModel.createExhaledRE(volume);
-            console.log(volume);
+            
             res.status(200).send({
                 code: '200',
                 data: volume

@@ -26,6 +26,8 @@ const vo2maxModel = {
             WHERE idVO2MAX = :idVO2MAX`;
         const vo2max = Object.assign({}, parameters);
 
+        await calculateVO2MAX(vo2max.idVO2MAX);
+
         const result = await database(query, vo2max);
         if (result.rowsAffected && result.rowsAffected === 1) {
             return {
@@ -91,5 +93,24 @@ const vo2maxModel = {
         return result.rows;
     }
 };
+
+async function calculateVO2MAX(idVO2Max) {
+    let query = `SELECT SUM(i.medicion) AS total
+        FROM INHALADORE i
+        WHERE i.idVO2Max = :idVO2Max`;
+    let binds = {
+        idVO2Max
+    };
+    const result = await database(query, binds);
+
+    query = `UPDATE VO2MAX SET 
+        medicion = (:result * 0.21) / 5 
+        WHERE idVo2Max = :idVO2Max AND estado = 0`
+    binds = {
+        result: result.rows[0].TOTAL,
+        idVO2Max
+    };
+    await database(query, binds);
+}
 
 module.exports = vo2maxModel;

@@ -132,7 +132,7 @@ const vo2maxController = {
     getDetail: async (req, res, next) => {
         try {
             const parameters = {
-                idUsuario: req.params.idUsuario
+                idVO2MAX: req.params.idVO2MAX
             };
             const rows = await vo2maxModel.getDetail(parameters);
 
@@ -141,6 +141,7 @@ const vo2maxController = {
                 vo2max.push({
                     id: element.ID,
                     medicion: element.MEDICION,
+                    minuto: element.MINUTO
                 });
             });
 

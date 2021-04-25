@@ -38,7 +38,8 @@ const vo2maxModel = {
 
     get: async (parameters) => {
         let query = `SELECT * FROM VO2MAX 
-            WHERE idUsuario = :idUsuario`;
+            WHERE idUsuario = :idUsuario
+            ORDER BY idVO2MAX DESC`;
 
         const binds = {
             idUsuario: parameters.idUsuario
@@ -66,10 +67,24 @@ const vo2maxModel = {
         return result.rows;
     },
     getDetail: async (parameters) => {
-        let query = ``;
+        let query = `
+            (
+                SELECT ih.idinhalado AS ID, ih.medicion, 
+                    ih.minuto, ih.idvo2max 
+                FROM inhalado ih
+                WHERE ih.idvo2max = :idVO2MAX
+            )
+            UNION
+            (
+                SELECT ex.idexhalado AS ID, ex.medicion, 
+                    ex.minuto, ex.idvo2max 
+                FROM exhalado ex
+                WHERE ex.idvo2max = :idVO2MAX
+            )
+            ORDER BY minuto`;
 
         const binds = {
-            idUsuario: parameters.idUsuario
+            idVO2MAX: parameters.idVO2MAX
         };
 
         const result = await database(query, binds);

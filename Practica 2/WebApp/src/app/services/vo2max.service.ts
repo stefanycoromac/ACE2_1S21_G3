@@ -26,4 +26,8 @@ export class Vo2maxService {
   public async getLast(idUser: number): Promise<any> {
     return await this._httpClient.get(`${this.url}/${idUser}/last`).toPromise();
   }
+
+  public async getDetail(idVO2MAX: number): Promise<any> {
+    return await this._httpClient.get(`${this.url}/detail/${idVO2MAX}`).toPromise();
+  }
 }

@@ -11,5 +11,4 @@ export class VO2MAX {
   public medicion: number;
 
   constructor() { }
-
 };

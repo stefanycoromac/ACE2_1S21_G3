@@ -42,7 +42,7 @@ export class LineChartComponent implements OnInit {
 
     this.showGridLines = true;
     this.roundDomains = false;
-    this.autoScale = true;
+    this.autoScale = false;
 
     this.legendTitle = 'Legend Title';
     this.showLegend = false;

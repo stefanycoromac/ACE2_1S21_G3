@@ -14,7 +14,7 @@ export class PagesComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private _sidebarService: SidebarService) {
+  constructor(_sidebarService: SidebarService) {
     this.menuItem = _sidebarService.menu;
     this.now = Date.now();
   }

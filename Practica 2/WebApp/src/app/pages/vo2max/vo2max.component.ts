@@ -44,8 +44,6 @@ export class Vo2maxComponent implements OnInit, AfterViewInit, OnDestroy {
     private _datepipe: DatePipe,
     private _vo2maxService: Vo2maxService,
   ) {
-    this.vo2max = new VO2MAX();
-
     this.initTimer();
 
     this.data = [{
@@ -56,6 +54,8 @@ export class Vo2maxComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataSource = new MatTableDataSource<VO2MAX>();
     this.displayedColumns = ['fecha', 'avgInh', 'avgExh', 'medicion', 'actions'];
     this.record = [];
+
+    this.vo2max = new VO2MAX();
   }
 
   ngOnInit(): void {
@@ -65,6 +65,7 @@ export class Vo2maxComponent implements OnInit, AfterViewInit, OnDestroy {
     const source = interval(1500);
     this.subscription = source.subscribe(() => {
       this.get();
+      this.getDetail();
       this.getHistory();
     });
   }
@@ -91,7 +92,7 @@ export class Vo2maxComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private initialData(): any[] {
     const initialData: any[] = [];
-    for (let index = -25; index < 0; index++) {
+    for (let index = 0; index < 0; index++) {
       initialData.push({
         'name': index,
         'value': 0
@@ -132,6 +133,34 @@ export class Vo2maxComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  private async getDetail(): Promise<void> {
+    try {
+      if (this.vo2max.idVO2MAX !== undefined) {
+        const data = await this._vo2maxService.getDetail(this.vo2max.idVO2MAX);
+
+        if (data['code'] === '200') {
+          this.data[0].series = this.initialData();
+          this.data = [...this.data];
+
+          data['data'].forEach(element => {
+            this.addData(element.minuto, element.medicion);
+          });
+        }
+      }
+    } catch (err) {
+      console.log(<any>err);
+    }
+  }
+
+  private addData(minuto: number, medicion: number): void {
+    // this.data[0].series.shift();
+
+    const obj = { 'name': minuto, 'value': medicion };
+
+    this.data[0].series.push(obj);
+    this.data = [...this.data];
+  }
+
   private async getHistory(): Promise<void> {
     try {
       const data = await this._vo2maxService.get(this.idUser);
@@ -166,6 +195,8 @@ export class Vo2maxComponent implements OnInit, AfterViewInit, OnDestroy {
       if (data['code'] === '200') {
         return data['data'];
       }
+
+      return this.vo2max;
     } catch (err) {
       console.log(<any>err);
     }

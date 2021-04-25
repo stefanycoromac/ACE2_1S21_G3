@@ -278,10 +278,33 @@ COMPOUND TRIGGER
       UPDATE Velocidad SET 
           promedio = v_promedio, 
           minVel = v_min,
-          maxVel = v_max
+          maxVel = v_max 
         WHERE idVelocidad = v_idVelocidad;  
   END AFTER STATEMENT;
 END tg_minmaxpromVelocidad;
+
+
+CREATE OR REPLACE TRIGGER tg_medicionVO2Max
+FOR UPDATE ON VO2MAX
+COMPOUND TRIGGER
+  v_idVO2Max INTEGER;
+  v_totalInh NUMBER(7,2);
+  
+  AFTER EACH ROW IS
+  BEGIN
+    v_idVO2Max := :NEW.idVO2Max;
+  END AFTER EACH ROW;
+  AFTER STATEMENT IS
+    BEGIN
+      SELECT SUM(i.medicion) INTO v_totalInh FROM INHALADORE i
+        WHERE i.idVO2Max = v_idVO2Max;
+
+      UPDATE VO2MAX SET 
+        medicion = (v_totalInh * 0.21) / 5 
+        WHERE idVo2Max = v_idVO2Max AND estado = 0 ;  
+  END AFTER STATEMENT;
+END tg_medicionVO2Max ; 
+
 
 CREATE OR REPLACE TRIGGER tg_INH_minmaxpromVO2MAX 
 FOR INSERT ON INHALADORE
@@ -308,9 +331,9 @@ COMPOUND TRIGGER
         WHERE i.idVO2MAX = v_idVO2Max;
         
         UPDATE VO2MAX SET 
-            min_inh = v_min,
-            max_inh = v_max, 
-            avg_inh = v_promedio
+            min_inh = v_min / 1000,
+            max_inh = v_max / 1000, 
+            avg_inh = ROUND(v_promedio / 1000, 2 ) 
         WHERE idVO2MAX = v_idVO2Max; 
     END AFTER STATEMENT;     
 END tg_INH_minmaxpromVO2MAX; 
@@ -340,9 +363,9 @@ COMPOUND TRIGGER
         WHERE e.idVO2MAX = v_idVO2Max;
         
         UPDATE VO2MAX SET 
-            min_exh = v_min,
-            max_exh = v_max, 
-            avg_exh = v_promedio
+            min_exh = v_min / 1000,
+            max_exh = v_max / 1000, 
+            avg_exh = ROUND(v_promedio / 1000, 2)
         WHERE idVO2MAX = v_idVO2Max; 
     END AFTER STATEMENT;     
 END tg_EXH_minmaxpromVO2MAX; 

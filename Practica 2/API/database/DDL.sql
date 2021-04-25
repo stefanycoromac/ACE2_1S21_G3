@@ -283,9 +283,8 @@ COMPOUND TRIGGER
   END AFTER STATEMENT;
 END tg_minmaxpromVelocidad;
 
-
 CREATE OR REPLACE TRIGGER tg_INH_minmaxpromVO2MAX 
-FOR INSERT ON INHALADO 
+FOR INSERT ON INHALADORE
 COMPOUND TRIGGER 
     v_idVO2Max INTEGER; 
     v_promedio NUMBER(7,2); 
@@ -294,18 +293,18 @@ COMPOUND TRIGGER
     
     AFTER EACH ROW IS 
     BEGIN 
-        v_idVO2Max := :NEW.idVO2MAX; 
+        v_idVO2Max := :NEW.idVO2Max; 
     END AFTER EACH ROW; 
     
     AFTER STATEMENT IS 
     BEGIN 
-        SELECT AVG(i.medicion) INTO v_promedio FROM INHALADO i 
+        SELECT AVG(i.medicion) INTO v_promedio FROM INHALADORE i 
         WHERE i.idVO2MAX = v_idVO2Max; 
         
-        SELECT MIN(i.medicion) INTO v_min FROM INHALADO i 
+        SELECT MIN(i.medicion) INTO v_min FROM INHALADORE i 
         WHERE i.idVO2MAX = v_idVO2Max;
         
-        SELECT MAX(i.medicion) INTO v_max FROM INHALADO i 
+        SELECT MAX(i.medicion) INTO v_max FROM INHALADORE i 
         WHERE i.idVO2MAX = v_idVO2Max;
         
         UPDATE VO2MAX SET 
@@ -317,7 +316,7 @@ COMPOUND TRIGGER
 END tg_INH_minmaxpromVO2MAX; 
 
 CREATE OR REPLACE TRIGGER tg_EXH_minmaxpromVO2MAX 
-FOR INSERT ON EXHALADO
+FOR INSERT ON EXHALADORE
 COMPOUND TRIGGER 
     v_idVO2Max INTEGER; 
     v_promedio NUMBER(7,2); 
@@ -331,13 +330,13 @@ COMPOUND TRIGGER
     
     AFTER STATEMENT IS 
     BEGIN 
-        SELECT AVG(e.medicion) INTO v_promedio FROM EXHALADO e 
+        SELECT AVG(e.medicion) INTO v_promedio FROM EXHALADORE e 
         WHERE e.idVO2MAX = v_idVO2Max; 
         
-        SELECT MIN(e.medicion) INTO v_min FROM EXHALADO e 
+        SELECT MIN(e.medicion) INTO v_min FROM EXHALADORE e 
         WHERE e.idVO2MAX = v_idVO2Max;
         
-        SELECT MAX(e.medicion) INTO v_max FROM EXHALADO e 
+        SELECT MAX(e.medicion) INTO v_max FROM EXHALADORE e 
         WHERE e.idVO2MAX = v_idVO2Max;
         
         UPDATE VO2MAX SET 

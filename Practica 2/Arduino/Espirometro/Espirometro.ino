@@ -5,8 +5,8 @@ boolean inicio = false;
 volatile int NumPulsos;
 int PinSensor = 2;
 float factor_conversion = 7.11;
-float volumen_inhalado = 0, volumen_real = 0, volumen = 0, prev_volumen = 0, caudal_L_m = 0, prev_caudal_L_m = 0, frecuencia ;
-String real, total;
+float volumen_inhalado = 0, volumen_exhalado = 0, volumen_real = 0, volumen = 0, prev_volumen = 0, caudal_L_m = 0, prev_caudal_L_m = 0, frecuencia ;
+String real, totalE, totalI;
 long dt = 0;
 long t0 = 0;
 boolean exhale = true;
@@ -32,8 +32,9 @@ void setup() {
 }
 
 void loop() {
- 
+
   volumen_inhalado = 0;
+  volumen_exhalado = 0;
   volumen_real = 0;
   volumen = 0;
 
@@ -41,8 +42,6 @@ void loop() {
     verificarInicio();
     espirometro();
     finalizar();
-    total = ";" + (String) volumen_inhalado, 3;
-    enviarDatos(total);
   }
 
   verificarInicio();
@@ -52,7 +51,7 @@ void loop() {
 void verificarInicio()
 {
   entrada = Serial.read();
-  if (entrada == 'v'||entrada == 65)
+  if (entrada == 'v' || entrada == 65)
   {
     previousMillis = millis();
     inicio = true;
@@ -60,7 +59,7 @@ void verificarInicio()
 
   } else {
     Serial.print(';');
-    Serial.print(entrada);
+    Serial.print(" ");
   }
 }
 
@@ -71,16 +70,29 @@ void espirometro() {
   t0 = millis();
   volumen = (caudal_L_m / 60) * (dt / 1000);
   if (caudal_L_m == 0 and prev_caudal_L_m > 0) {
+    if (exhale) {
+      totalE = ";" + (String) volumen_exhalado, 3;
+      enviarDatos(totalE);
+      Serial.print("\n");
+      volumen_exhalado = 0;
+    } else {
+      totalI = ";" + (String) volumen_inhalado, 3;
+      enviarDatos(totalI);
+      Serial.print("\n");
+      volumen_inhalado = 0;
+    }
     exhale = !exhale;
+
   }
   if (exhale) {
     volumen_real = volumen_real - volumen;
+    volumen_exhalado = volumen_exhalado + volumen;
   } else {
     volumen_real = volumen_real + volumen;
     volumen_inhalado = volumen_inhalado + volumen;
   }
 
-  real = "R;" + (String) volumen_real, 3;
+  real = ";R;" + (String) volumen_real, 3;
   enviarDatos(real);
 
   prev_caudal_L_m = caudal_L_m, 3;
@@ -109,7 +121,7 @@ void finalizar() {
   if (currentMillis - previousMillis >= interval) {
     previousMillis = currentMillis;
     inicio = false;
-    enviarDatos("O");
+    enviarDatos(";O;");
     digitalWrite(13, LOW);
   }
 }

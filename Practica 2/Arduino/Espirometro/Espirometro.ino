@@ -13,7 +13,7 @@ boolean exhale = true;
 
 unsigned long previousMillis = 0;
 unsigned long currentMillis = 0;
-const long interval = 60000;
+const long interval = 300000;
 
 
 void setup() {
@@ -73,12 +73,10 @@ void espirometro() {
     if (exhale) {
       totalE = ";" + (String) volumen_exhalado, 3;
       enviarDatos(totalE);
-      Serial.print("\n");
       volumen_exhalado = 0;
     } else {
       totalI = ";" + (String) volumen_inhalado, 3;
       enviarDatos(totalI);
-      Serial.print("\n");
       volumen_inhalado = 0;
     }
     exhale = !exhale;

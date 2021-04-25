@@ -92,7 +92,7 @@ export class Vo2maxComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private initialData(): any[] {
     const initialData: any[] = [];
-    for (let index = -25; index < 0; index++) {
+    for (let index = -30; index < 0; index++) {
       initialData.push({
         'name': index,
         'value': 0
@@ -112,13 +112,14 @@ export class Vo2maxComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private async get(): Promise<void> {
+    const statusVO2 = this.vo2max.estado;
+
     if (this.vo2max.idVO2MAX === undefined) {
       this.vo2max = await this.getLast();
     } else {
       this.vo2max = await this.getSpecific();
     }
 
-    const statusVO2 = this.vo2max.estado;
     if (statusVO2 !== undefined) {
       if (statusVO2 == true && this.vo2max.estado == false) {
         this.stopTimer();

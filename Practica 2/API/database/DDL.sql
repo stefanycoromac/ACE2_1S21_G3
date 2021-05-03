@@ -331,9 +331,9 @@ COMPOUND TRIGGER
         WHERE i.idVO2MAX = v_idVO2Max;
         
         UPDATE VO2MAX SET 
-            min_inh = v_min / 1000,
-            max_inh = v_max / 1000, 
-            avg_inh = ROUND(v_promedio / 1000, 2 ) 
+            min_inh = v_min * 1000,
+            max_inh = v_max * 1000, 
+            avg_inh = ROUND(v_promedio * 1000, 2 ) 
         WHERE idVO2MAX = v_idVO2Max; 
     END AFTER STATEMENT;     
 END tg_INH_minmaxpromVO2MAX; 
@@ -363,9 +363,9 @@ COMPOUND TRIGGER
         WHERE e.idVO2MAX = v_idVO2Max;
         
         UPDATE VO2MAX SET 
-            min_exh = v_min / 1000,
-            max_exh = v_max / 1000, 
-            avg_exh = ROUND(v_promedio / 1000, 2)
+            min_exh = v_min * 1000,
+            max_exh = v_max  * 1000, 
+            avg_exh = ROUND(v_promedio * 1000, 2)
         WHERE idVO2MAX = v_idVO2Max; 
     END AFTER STATEMENT;     
 END tg_EXH_minmaxpromVO2MAX; 

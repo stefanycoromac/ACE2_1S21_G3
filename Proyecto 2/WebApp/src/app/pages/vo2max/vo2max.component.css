@@ -1,0 +1,27 @@
+.custom-card {
+  background-color: #17242c;
+}
+
+.custom-card .card-body {
+  padding: 0.40rem;
+  font-weight: bold;
+}
+
+.card-body {
+  padding: 0.9rem;
+}
+
+
+.timer {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 1.4em;
+  letter-spacing: -1px;
+  color: #e1e2e4;
+}
+
+.timer span {
+  font-size: 1.2em;
+  margin: 0 3px 0 15px;
+  color: #e1e2e4;
+}

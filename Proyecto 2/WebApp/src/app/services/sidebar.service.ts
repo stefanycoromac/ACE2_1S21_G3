@@ -18,6 +18,7 @@ export class SidebarService {
       { title: 'Temperatura', icon: 'thermostat', url: 'temperature' },
       { title: 'Ritmo Cardiaco', icon: 'favorite', url: 'heart-rate' },
       { title: 'Course-Navette', icon: 'directions_run', url: 'course-navette' },
+      { title: 'Contador de Pasos', icon: 'directions_walk', url: 'step-counter'},
     ];
 
     return this._menu;

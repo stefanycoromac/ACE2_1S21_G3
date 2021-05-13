@@ -21,6 +21,7 @@ import { OxygenComponent } from './oxygen/oxygen.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CourseNavetteComponent } from './course-navette/course-navette.component';
 import { Vo2maxComponent } from './vo2max/vo2max.component';
+import { StepCounterComponent } from './step-counter/step-counter.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { Vo2maxComponent } from './vo2max/vo2max.component';
     OxygenComponent,
     ProfileComponent,
     CourseNavetteComponent,
-    Vo2maxComponent
+    Vo2maxComponent,
+    StepCounterComponent
   ],
   exports: [
     PagesComponent,
@@ -42,7 +44,8 @@ import { Vo2maxComponent } from './vo2max/vo2max.component';
     OxygenComponent,
     ProfileComponent,
     CourseNavetteComponent,
-    Vo2maxComponent
+    Vo2maxComponent,
+    StepCounterComponent
   ],
   imports: [
     CommonModule,

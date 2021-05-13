@@ -11,6 +11,7 @@ import { TemperatureComponent } from './temperature/temperature.component';
 import { HeartComponent } from './heart/heart.component';
 import { CourseNavetteComponent } from './course-navette/course-navette.component';
 import { Vo2maxComponent } from './vo2max/vo2max.component';
+import { StepCounterComponent } from './step-counter/step-counter.component';
 
 
 const routes: Routes = [
@@ -30,6 +31,7 @@ const routes: Routes = [
       { path: 'course-navette', component: CourseNavetteComponent },
       { path: 'course-navette/:idUser', component: CourseNavetteComponent },
       { path: 'vo2max', component: Vo2maxComponent },
+      { path: 'step-counter', component: StepCounterComponent},
     ]
   },
 ];

@@ -1,11 +1,11 @@
-<div class="row page-content">
-  <div class="col-12 col-lg-12 align-self-center">
+<div class="row layout-spacing">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <h1>Temperatura</h1>
   </div>
 
-  <div class="col-12 col-lg-8 align-self-center">
-    <div class="card card-graph">
-      <div class="card-body ">
+  <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
+    <div class="statbox widget box box-shadow">
+      <div class="widget-content widget-content-area center">
 
         <app-vertical-bar-chart [data]="data" [scheme]="scheme" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
           [legendTitle]="legendTitle"></app-vertical-bar-chart>
@@ -14,29 +14,36 @@
     </div>
   </div>
 
-  <div class="col-12 col-lg-4 align-self-center">
+  <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
+    <div class="statbox widget box box-shadow">
+      <div class="widget-header">
+        <div class="row">
+          <div class="col-xl-12 col-md-12 col-sm-12 col-12">
 
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-text">{{lastTP.fechaHora | date:'MMM d, y, h:mm:ss a'}}</h5>
-        <p class="card-text">Promedio: {{lastTP.promedio || 0.00 | number : '1.2-2'}} &#176;C</p>
-        <p class="card-text">Minima: {{lastTP.minima || 0.00 | number : '1.2-2'}} &#176;C</p>
-        <p class="card-text">Maxima: {{lastTP.maxima || 0.00 | number : '1.2-2'}} &#176;C</p>
+            <h4><b>{{lastTP.fechaHora | date:'MMM d, y, h:mm:ss a'}}</b></h4>
+
+          </div>
+        </div>
+      </div>
+      <div class="widget-content widget-content-area center">
+        <h5>Promedio: {{lastTP.promedio || 0.00 | number : '1.2-2'}} &#176;C</h5>
+      </div>
+      <div class="widget-content widget-content-area center">
+        <h5>Minima: {{lastTP.minima || 0.00 | number : '1.2-2'}} &#176;C</h5>
+      </div>
+      <div class="widget-content widget-content-area center">
+        <h5>Maxima: {{lastTP.maxima || 0.00 | number : '1.2-2'}} &#176;C</h5>
       </div>
     </div>
-
   </div>
 
-</div>
-
-<div class="row page-content">
-  <div class="col-12 col-lg-12 align-self-center">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <h1>Historial de temperatura</h1>
   </div>
 
-  <div class="col-12 col-lg-12 align-self-center">
-    <div class="card card-graph">
-      <div class="card-body ">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
+    <div class="statbox widget box box-shadow">
+      <div class="widget-content widget-content-area center">
 
         <app-grouped-vertical-bar-chart [data]="dataReports" [scheme]="scheme" [xAxisLabel]="xAxisLabel"
           [yAxisLabel]="yAxisLabel" [legendTitle]="legendReportTitle"></app-grouped-vertical-bar-chart>

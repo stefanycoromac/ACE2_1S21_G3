@@ -1,60 +1,71 @@
-<div class="row page-content">
-  <div class="col-12 col-lg-12 align-self-center">
-    <h1>Inicio</h1>
-  </div>
+<div class="row layout-spacing">
 
-  <div class="col-12 col-xl-4 align-self-center">
-    <div class="card card-graph" routerLink="oxygen" style="cursor: pointer;">
-      <div class="card-body">
+  <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+    <div class="statbox widget box box-shadow">
+      <div class="widget-header">
+        <div class="row">
+          <div class="col-xl-12 col-md-12 col-sm-12 col-12">
 
-        <h5 class="card-text center">Oxigeno</h5>
-        <h6 class="card-text center">{{lastOxygen.fechaHora | date:'MMM d, y, h:mm:ss a'}}</h6>
+            <h3><b>Oxigeno</b></h3>
+            <h6>{{lastOxygen.fechaHora | date:'MMM d, y, h:mm:ss a'}}</h6>
+
+          </div>
+        </div>
+      </div>
+      <div class="widget-content widget-content-area center">
+
         <app-pie-grid-chart [data]="oxygenData"></app-pie-grid-chart>
 
       </div>
     </div>
   </div>
 
-  <div class="col-12 d-block d-sm-block d-md-block d-lg-none"><br></div>
+  <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+    <div class="statbox widget box box-shadow">
+      <div class="widget-header">
+        <div class="row">
+          <div class="col-xl-12 col-md-12 col-sm-12 col-12">
 
-  <div class="col-12 col-xl-4 align-self-center">
-    <div class="card card-graph" routerLink="temperature" style="cursor: pointer;">
-      <div class="card-body">
+            <h3><b>Temperatura</b></h3>
+            <h6>{{lastTemperature.fechaHora | date:'MMM d, y, h:mm:ss a'}}</h6>
 
-        <h5 class="card-text center">Temperatura</h5>
-        <h6 class="card-text center">{{lastTemperature.fechaHora | date:'MMM d, y, h:mm:ss a'}}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="widget-content widget-content-area center">
+
         <app-pie-grid-chart [scheme]="scheme" [data]="temperatureData"></app-pie-grid-chart>
 
       </div>
     </div>
   </div>
 
-  <div class="col-12 d-block d-sm-block d-md-block d-lg-none"><br></div>
+  <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+    <div class="statbox widget box box-shadow">
+      <div class="widget-header">
+        <div class="row">
+          <div class="col-xl-12 col-md-12 col-sm-12 col-12">
 
-  <div class="col-12 col-xl-4 align-self-center">
-    <div class="card card-graph" routerLink="heart-rate" style="cursor: pointer;">
-      <div class="card-body">
+            <h3><b>Ritmo Cardiaco</b></h3>
+            <h6>{{lastHeartRate.fechaHora | date:'MMM d, y, h:mm:ss a'}}</h6>
 
-        <h5 class="card-text center">Ritmo Cardiaco</h5>
-        <h6 class="card-text center">{{lastHeartRate.fechaHora | date:'MMM d, y, h:mm:ss a'}}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="widget-content widget-content-area center">
+
         <app-pie-grid-chart [data]="heartRateData" [designatedTotal]="200"></app-pie-grid-chart>
 
       </div>
     </div>
   </div>
 
-  <div class="col-12 d-block d-sm-block d-md-block d-lg-none"><br></div>
-
-</div>
-
-<ng-template [ngIf]="userType">
-  <div class="row page-content">
-    <div class="col-12 col-lg-12 align-self-center">
+  <ng-template [ngIf]="userType">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
       <h1>Atletas</h1>
     </div>
 
-    <div class="col-12 col-lg-12 align-self-center">
-
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
       <table class="table table-hover table-striped table-light">
         <thead>
           <tr>
@@ -103,7 +114,7 @@
           </tr>
         </tbody>
       </table>
-
     </div>
-  </div>
-</ng-template>
+  </ng-template>
+
+</div>

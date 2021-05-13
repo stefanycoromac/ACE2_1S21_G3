@@ -1,11 +1,11 @@
-<div class="row page-content">
-  <div class="col-12 col-lg-12 align-self-center">
+<div class="row layout-spacing">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <h1>VO2MAX</h1>
   </div>
 
-  <div class="col-12 col-lg-7 align-self-center">
-    <div class="card card-graph">
-      <div class="card-body ">
+  <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
+    <div class="statbox widget box box-shadow">
+      <div class="widget-content widget-content-area center">
 
         <app-line-chart [data]="data"></app-line-chart>
 
@@ -13,147 +13,114 @@
     </div>
   </div>
 
-  <div class="col-12 col-lg-5 align-self-center">
+  <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
 
-    <div class="row">
-      <div class="col-12">
-        <div class="custom-card card">
-          <div class="card-body">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
+      <div class="statbox widget box box-shadow">
+        <h5 class="timer">
+          <span id="minutes"> {{ minutesToDday }} </span>Min
+          <span id="seconds"> {{ secondsToDday }} </span>S
+        </h5>
+      </div>
+    </div>
 
-            <div class="timer">
-              <span id="minutes"> {{ minutesToDday }} </span>Min
-              <span id="seconds"> {{ secondsToDday }} </span>S
-            </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
 
+      <div class="row">
+        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
+          <div class="statbox widget box box-shadow">
+            <h6>Mínimo inhalado</h6>
+            <p> {{ vo2max.minInh || 0.00 | number : '1.2-2'}} ml</p>
+          </div>
+        </div>
+
+        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
+          <div class="statbox widget box box-shadow">
+            <h6>Máximo inhalado</h6>
+            <p> {{ vo2max.maxInh || 0.00 | number : '1.2-2'}} ml</p>
+          </div>
+        </div>
+
+        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
+          <div class="statbox widget box box-shadow">
+            <h6>Promedio inhalado</h6>
+            <p> {{ vo2max.avgInh || 0.00 | number : '1.2-2'}} ml</p>
+          </div>
+        </div>
+
+        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
+          <div class="statbox widget box box-shadow">
+            <h6>Mínimo exhalado</h6>
+            <p> {{ vo2max.minExh || 0.00 | number : '1.2-2'}} ml</p>
+          </div>
+        </div>
+
+        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
+          <div class="statbox widget box box-shadow">
+            <h6>Máximo exhalado</h6>
+            <p> {{ vo2max.maxExh || 0.00 | number : '1.2-2'}} ml</p>
+          </div>
+        </div>
+
+        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
+          <div class="statbox widget box box-shadow">
+            <h6>Promedio exhalado</h6>
+            <p> {{ vo2max.avgExh || 0.00 | number : '1.2-2'}} ml</p>
           </div>
         </div>
       </div>
     </div>
-
-    <br>
-
-    <div class="row">
-      <div class="col-12 col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-text center">Mínimo inhalado</p>
-            <p class="card-text center"> {{ vo2max.minInh || 0.00 | number : '1.2-2'}} ml</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-text center">Máximo inhalado</p>
-            <p class="card-text center"> {{ vo2max.maxInh || 0.00 | number : '1.2-2'}} ml</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-text center">Promedio inhalado</p>
-            <p class="card-text center"> {{ vo2max.avgInh || 0.00 | number : '1.2-2'}} ml</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <br>
-
-    <div class="row">
-      <div class="col-12 col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-text center">Mínimo exhalado</p>
-            <p class="card-text center"> {{ vo2max.minExh || 0.00 | number : '1.2-2'}} ml</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-text center">Máximo exhalado</p>
-            <p class="card-text center"> {{ vo2max.maxExh || 0.00 | number : '1.2-2'}} ml</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-text center">Promedio exhalado</p>
-            <p class="card-text center"> {{ vo2max.avgExh || 0.00 | number : '1.2-2'}} ml</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <br>
-
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-text center">VO2MAX: {{ vo2max.medicion || 0.00 | number : '1.2-2'}} ml/kg/min</h4>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
-</div>
 
-<div class="row page-content">
-  <div class="col-12 col-lg-12 align-self-center">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <h1>Historial VO2MAX</h1>
   </div>
 
-  <div class="col-12 col-lg-12 align-self-center">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="statbox widget box box-shadow">
+      <div class="widget-content widget-content-area">
+        <!-- Historial -->
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource">
 
-    <!-- Historial -->
-    <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="fecha">
+              <th mat-header-cell *matHeaderCellDef> Fecha </th>
+              <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="fecha">
-          <th mat-header-cell *matHeaderCellDef> Fecha </th>
-          <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
-        </ng-container>
+            <ng-container matColumnDef="avgInh">
+              <th mat-header-cell *matHeaderCellDef> Promedio inhalado </th>
+              <td mat-cell *matCellDef="let element"> {{element.avgInh}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="avgInh">
-          <th mat-header-cell *matHeaderCellDef> Promedio inhalado </th>
-          <td mat-cell *matCellDef="let element"> {{element.avgInh}} </td>
-        </ng-container>
+            <ng-container matColumnDef="avgExh">
+              <th mat-header-cell *matHeaderCellDef> Promedio exhalado </th>
+              <td mat-cell *matCellDef="let element"> {{element.avgExh}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="avgExh">
-          <th mat-header-cell *matHeaderCellDef> Promedio exhalado </th>
-          <td mat-cell *matCellDef="let element"> {{element.avgExh}} </td>
-        </ng-container>
+            <ng-container matColumnDef="medicion">
+              <th mat-header-cell *matHeaderCellDef> VO2MAX </th>
+              <td mat-cell *matCellDef="let element"> {{element.medicion}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="medicion">
-          <th mat-header-cell *matHeaderCellDef> VO2MAX </th>
-          <td mat-cell *matCellDef="let element"> {{element.medicion}} </td>
-        </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef> </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button aria-label="View" (click)="updateVO2Max(element.idVO2MAX)">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+              </td>
+            </ng-container>
 
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef> </th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button aria-label="View" (click)="updateVO2Max(element.idVO2MAX)">
-              <mat-icon>visibility</mat-icon>
-            </button>
-          </td>
-        </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-
-      <mat-paginator #paginatorRecord="matPaginator" [pageSize]="10" showFirstLastButtons></mat-paginator>
+          <mat-paginator #paginatorRecord="matPaginator" [pageSize]="10" showFirstLastButtons></mat-paginator>
+        </div>
+        <!-- FIN Historial -->
+      </div>
     </div>
-    <!-- FIN Historial -->
-
   </div>
+
 </div>

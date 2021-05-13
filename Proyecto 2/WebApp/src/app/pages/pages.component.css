@@ -1,42 +1,7 @@
 .center {
-  margin: auto;
-  width: 100%;
-  padding: 10px;
-}
-
-.sidebar-content {
-  width: 100vw;
-  height: 100vh;
-}
-
-.sidebar-panel {
-  background: #17242c;
-  color: #e1e2e4;
-  width: 250px;
-}
-
-.sidebar-panel .sidebar-header {
-  padding: 50px;
-  background: #17242c;
-}
-
-.sidebar-panel ul {
-  color: #89c8f2;
-  padding: 10px;
-}
-
-.sidebar-panel ul li a {
-  padding: 10px;
-  font-size: 1.0em;
-  display: block;
-  position: relative;
-  border: none;
-  color: #89c8f2;
-}
-
-.sidebar-panel ul li a:hover {
-  color: #e1e2e4;
-  text-decoration: none
+  margin: auto !important;
+  width: 100% !important;
+  padding: 10px !important;
 }
 
 .date-time:hover {
@@ -49,15 +14,6 @@
 .aligned-with-icon {
   position: absolute;
   margin-top: 0px;
-  margin-left: 10px;
-}
-
-.sidebar-container {
-  background: #242527;
-}
-
-.action-header {
-  position: relative;
-  background: #17242c;
-  color: #89c8f2;
+  margin-left: 35px;
+  font-size: 15px;
 }

@@ -1,3 +1,165 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  color: #e1e2e4;
+  font-weight: bold;
+}
+
+button {
+  border-radius: 20px;
+  border: 1px solid #636a70;
+  background-color: #636a70;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+button:focus {
+  outline: none;
+}
+
+:invalid {
+  box-shadow: none;
+}
+
+:-moz-submit-invalid {
+  box-shadow: none;
+}
+
+:-moz-ui-invalid {
+  box-shadow: none;
+}
+
+.center {
+  text-align: center;
+}
+
+.page-content {
+  height: 100vh;
+  padding: 20px;
+}
+
+.form-control::placeholder {
+  color: #999ca3;
+  opacity: 1;
+}
+
+.form-control {
+  color: #e1e2e4;
+  background-color: #636a70;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+  color: #e1e2e4;
+  background-color: #636a70;
+  opacity: 1;
+}
+
+.form-control:focus {
+  color: #e1e2e4;
+  background-color: #636a70;
+  outline: 0;
+  box-shadow: none;
+}
+
+/* CARD */
+.card {
+  background-color: #252a2e;
+  color: #e1e2e4;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.card-graph {
+  background-color: #252a2e;
+}
+
+/* CHART */
+.ngx-charts {
+  fill: #7b848b;
+}
+
+.ngx-charts .gridline-path {
+  stroke: #636a70 !important;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+}
+
+tr.mat-header-row {
+  height: 30px;
+  font-size: 15px !important;
+}
+
+.mat-header-cell {
+  font-size: 16px;
+  color: #e1e2e4;
+  background-color: #191A21 !important;
+}
+
+.mat-cell,
+.mat-footer-cell {
+  color: #e1e2e4;
+  font-size: 15px;
+}
+
+.mat-table thead,
+.mat-table tbody,
+.mat-table tfoot,
+mat-header-row,
+mat-row,
+mat-footer-row,
+[mat-header-row],
+[mat-row],
+[mat-footer-row],
+.mat-table-sticky {
+  background-color: #252a2e;
+}
+
+.mat-paginator,
+.mat-paginator-page-size .mat-select-trigger {
+  color: #e1e2e4;
+  background-color: #252a2e;
+}
+
+.mat-header-cell {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mat-cell {
+  text-align: center;
+  justify-content: center;
+}
+
+/* INIT */
+
 * {
   box-sizing: border-box;
 }

@@ -1,48 +1,76 @@
-<mat-drawer-container class="sidebar-content">
+<!--  BEGIN NAVBAR  -->
+<div class="sub-header-container fixed-top">
+  <header class="header navbar navbar-expand-sm">
+    <a class="sidebarCollapse" data-placement="bottom"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round" class="feather feather-menu">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </a>
 
-  <mat-drawer class="sidebar-panel" mode="side" #drawer opened>
-    <div class="sidebar-header center">
-      <h3>Health app</h3>
-    </div>
-
-    <ul class="list-unstyled components">
+    <ul class="navbar-nav flex-row">
       <li>
-        <a class="date-time">
-          <mat-icon>schedule</mat-icon>
-          <span class="aligned-with-icon">{{ now | date:'MMM d, y, h:mm a'}}</span>
-        </a>
-      </li>
+        <div class="page-header">
 
-      <li *ngFor="let item of menuItem">
-        <a [routerLink]="[item.url]">
-          <mat-icon>{{item.icon}}</mat-icon>
-          <span class="aligned-with-icon">{{item.title}}</span>
-        </a>
-      </li>
+          <nav class="breadcrumb-one" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a>
+                  <b style="font-size: 15px;">{{ now | date:'MMM d, y, h:mm a'}}</b>
+                </a>
+              </li>
+            </ol>
+          </nav>
 
-      <li>
-        <a style="cursor: pointer;" [routerLink]="['/login']" (click)="logOut()">
-          <mat-icon>logout</mat-icon>
-          <span class="aligned-with-icon">Cerrar Sesión</span>
-        </a>
+        </div>
       </li>
     </ul>
-  </mat-drawer>
+  </header>
+</div>
+<!--  END NAVBAR  -->
 
-  <mat-drawer-content class="sidebar-container">
-    <div class="d-lg-none">
-      <div class="action-header clearfix">
-        <div class="pull-left hidden-xs d-flex align-items-center">
-          <button mat-button style="outline: none;" (click)="drawer.toggle()">
-            <mat-icon>menu</mat-icon>
-          </button>
-        </div>
-      </div>
-    </div>
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+  <div class="overlay"></div>
 
-    <div class="container-fluid">
+  <!--  BEGIN SIDEBAR  -->
+  <div class="sidebar-wrapper sidebar-theme">
+    <nav id="sidebar">
+      <ul class="list-unstyled menu-categories" id="accordionExample">
+
+        <ng-template ngFor let-item [ngForOf]="menuItem">
+          <li class="menu">
+            <a [routerLink]="[item.url]" aria-expanded="false" class="dropdown-toggle">
+              <mat-icon>{{item.icon}}</mat-icon>
+              <span class="aligned-with-icon">{{item.title}}</span>
+            </a>
+          </li>
+        </ng-template>
+
+        <li class="menu">
+          <a aria-expanded="false" class="dropdown-toggle" style="cursor: pointer;" [routerLink]="['/login']"
+            (click)="logOut()">
+            <mat-icon>logout</mat-icon>
+            <span class="aligned-with-icon">Cerrar Sesión</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+  <!--  END SIDEBAR  -->
+
+  <!--  BEGIN CONTENT AREA  -->
+  <div id="content" class="main-content">
+    <div class="layout-px-spacing">
+
       <router-outlet></router-outlet>
-    </div>
 
-  </mat-drawer-content>
-</mat-drawer-container>
+    </div>
+  </div>
+  <!--  END CONTENT AREA  -->
+
+</div>
+<!-- END MAIN CONTAINER -->

@@ -1,16 +1,20 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 
 import { SidebarService } from '../services/sidebar.service';
 
+declare let App: any;
+
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
-  styleUrls: ['./pages.component.css']
+  styleUrls: [
+    './pages.component.css'
+  ]
 })
-export class PagesComponent implements OnInit, OnDestroy {
+export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
   public menuItem: any[];
-  public now: Number;
+  public now: number;
 
   private subscription: Subscription;
 
@@ -25,6 +29,10 @@ export class PagesComponent implements OnInit, OnDestroy {
     this.subscription = source.subscribe(() => {
       this.now = Date.now();
     });
+  }
+
+  ngAfterViewInit(): void {
+    App.init();
   }
 
   ngOnDestroy() {

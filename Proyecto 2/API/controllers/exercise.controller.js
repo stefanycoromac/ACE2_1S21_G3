@@ -1,19 +1,19 @@
-const exerciseSessionModel = require('../models/exerciseSession.model');
+const exerciseModel = require('../models/exercise.model');
 
-const exerciseSessionController = {
-    create: async(req, res, next) => {
-        try{
+const exerciseController = {
+    create: async (req, res, next) => {
+        try {
             let exerciseSession = {
                 idUsuario: req.body.idUsuario
             };
 
-            exerciseSession = await exerciseSessionModel.create(exerciseSession);
+            exerciseSession = await exerciseModel.create(exerciseSession);
 
             res.status(200).send({
                 code: '200',
                 data: exerciseSession
             });
-        }catch(err){
+        } catch (err) {
             res.status(500).send({
                 code: '500',
                 data: err
@@ -21,26 +21,26 @@ const exerciseSessionController = {
             next(err);
         }
     },
-    update: async(req, res, next) => {
-        try{
+    update: async (req, res, next) => {
+        try {
             let exerciseSession = {
                 idSesion: req.body.idSesion,
                 estado: req.body.estado
             };
-            exerciseSession = await exerciseSessionModel.update(exerciseSession);
+            exerciseSession = await exerciseModel.update(exerciseSession);
 
-            if(exerciseSession != null){
+            if (exerciseSession != null) {
                 res.status(200).send({
                     code: '200',
                     data: exerciseSession
                 });
-            }else{
+            } else {
                 res.status(500).send({
                     code: '500',
                     data: exerciseSession
                 });
             }
-        }catch(err){
+        } catch (err) {
             res.status(500).send({
                 code: '500',
                 data: err
@@ -50,4 +50,4 @@ const exerciseSessionController = {
     }
 }
 
-module.exports = exerciseSessionController;
+module.exports = exerciseController;

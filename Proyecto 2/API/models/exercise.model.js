@@ -1,7 +1,7 @@
 const oracledb = require('oracledb');
 const database = require('../config/database');
 
-const exerciseSessionModel = {
+const exerciseModel = {
     create: async (parameters) => {
         const query = `INSERT INTO SesionEjercicio(idUsuario)
             VALUES(:idUsuario)
@@ -37,4 +37,4 @@ const exerciseSessionModel = {
     },
 };
 
-module.exports = exerciseSessionModel;
+module.exports = exerciseModel;

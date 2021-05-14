@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common';
 
 import { User } from 'src/app/models/user.model';
 import { ExerciseService } from 'src/app/services/exercise.service';
+import { Exercise } from 'src/app/models/exercise.model';
 
 declare function FluidMeter(): void;
 
@@ -20,7 +21,8 @@ export class StepCounterComponent implements OnInit {
   public caloriesChart: any;
 
   public idUser: number;
-  public lastSession: {};
+  public lastSession: Exercise;
+  public sessionTime: string;
 
   public dataReports: any[];
   public xAxisLabel: string;
@@ -39,7 +41,8 @@ export class StepCounterComponent implements OnInit {
     this.stepChart = new FluidMeter();
     this.caloriesChart = new FluidMeter();
 
-    this.lastSession = {};
+    this.lastSession = new Exercise();
+    this.sessionTime = '0 Dias 0 Horas 0 Minutos';
   }
 
   ngOnInit(): void {
@@ -85,29 +88,25 @@ export class StepCounterComponent implements OnInit {
 
     this.stepChart.init({
       targetContainer: document.getElementById("fluid-meter-steps"),
-      fillPercentage: 50,
+      fillPercentage: 0,
       options: this.chartoptions
     });
 
     this.caloriesChart.init({
       targetContainer: document.getElementById("fluid-meter-calories"),
-      fillPercentage: 50,
+      fillPercentage: 0,
       options: this.chartoptions
     });
-
-    // for (let index = 0; index < 100; index++) {
-    //   this.stepChart.setPercentage(index / 5);
-    // }
   }
 
   private reportProperties(): void {
-    this.xAxisLabel = 'Estado';
-    this.yAxisLabel = 'Temperatura';
+    this.xAxisLabel = 'Fecha';
+    this.yAxisLabel = 'Medición';
     this.legendReportTitle = 'Ultimas 10 lecturas';
     this.dataReports = [];
 
     this.scheme = {
-      domain: ['#3f51b5', '#00b862', '#a8385d']
+      domain: ['#3f51b5', '#00b862', '#ffd54f', '#a8385d']
     }
   }
 
@@ -128,12 +127,30 @@ export class StepCounterComponent implements OnInit {
 
       if (data['code'] === '200') {
         this.lastSession = data['data'];
-        this.stepChart.setPercentage(this.lastSession['noPasos']);
-        this.caloriesChart.setPercentage(this.lastSession['caloriasQuemadas']);
+        this.stepChart.setPercentage(
+          this.lastSession.noPasos * 100 / this.lastSession.metaPasos
+        );
+
+        this.caloriesChart.setPercentage(
+          this.lastSession.caloriasQuemadas * 100 / this.lastSession.metaCalorias
+        );
+
+        this.lastSession.fechaInicio = new Date(this.lastSession.fechaInicio);
+        this.lastSession.fechaFin = new Date(this.lastSession.fechaFin);
+
+        this.getTime(this.lastSession.fechaFin, this.lastSession.fechaInicio);
       }
     } catch (err) {
       console.log(<any>err);
     }
+  }
+
+  private getTime(date2: Date, date1: Date): void {
+    const diffMs = (date2.getTime() - date1.getTime());
+    const diffDays = Math.floor(diffMs / 86400000);
+    const diffHrs = Math.floor((diffMs % 86400000) / 3600000);
+    const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+    this.sessionTime = `${diffDays} Dias ${diffHrs} Horas ${diffMins} Minutos`;
   }
 
   private async getTop(): Promise<void> {
@@ -149,7 +166,7 @@ export class StepCounterComponent implements OnInit {
 
         data['data'].forEach(element => {
           dateHour = this._datepipe.transform(
-            new Date(element.fechaHora),
+            new Date(element.fechaInicio),
             'd/MM/yy, h:mm:ss a'
           );
 
@@ -177,7 +194,7 @@ export class StepCounterComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   public size(_event?: any): Number {
-    const size = (window.innerHeight * 0.59).toFixed()
+    const size = (window.innerHeight * 0.6).toFixed()
     return Number(size);
   }
 }

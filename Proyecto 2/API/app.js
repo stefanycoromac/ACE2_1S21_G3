@@ -49,11 +49,9 @@ app.listen(PORT, () => {
 });
 
 // Catch 404
-app.use((req, res, next) => {
+app.use((_req, res, _next) => {
     res.status(404).send({
         Error: 404,
         Descripcion: 'Pagina no encontrada'
     });
-    // res.status(404).sendFile(__dirname + "/public/404.html"); 
-    // next(createError(404));
 });

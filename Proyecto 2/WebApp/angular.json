@@ -40,7 +40,8 @@
               "src/assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js",
               "src/assets/js/app.js",
               "src/assets/js/custom.js",
-              "src/assets/js/dash.js"
+              "src/assets/js/dash.js",
+              "src/assets/js/js-fluid-meter.js"
             ]
           },
           "configurations": {
@@ -112,7 +113,8 @@
               "src/assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js",
               "src/assets/js/app.js",
               "src/assets/js/custom.js",
-              "src/assets/js/dash.js"
+              "src/assets/js/dash.js",
+              "src/assets/js/js-fluid-meter.js"
             ]
           }
         },

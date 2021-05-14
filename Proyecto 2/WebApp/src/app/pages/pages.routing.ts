@@ -31,7 +31,8 @@ const routes: Routes = [
       { path: 'course-navette', component: CourseNavetteComponent },
       { path: 'course-navette/:idUser', component: CourseNavetteComponent },
       { path: 'vo2max', component: Vo2maxComponent },
-      { path: 'step-counter', component: StepCounterComponent},
+      { path: 'step-counter', component: StepCounterComponent },
+      { path: 'step-counter/:idUser', component: StepCounterComponent },
     ]
   },
 ];

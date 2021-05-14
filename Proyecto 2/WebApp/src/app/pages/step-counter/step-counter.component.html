@@ -3,43 +3,19 @@
     <h1>Contador de Pasos y Calorias </h1>
   </div>
 
-  <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-    <div class="statbox widget box box-shadow">
-      <div class="widget-header">
-        <div class="row">
-          <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-            <h5><b> META </b></h5>
-          </div>
-        </div>
-      </div>
-      <div class="widget-content widget-content-area">
-
-        <form autocomplete="off" #form="ngForm" (ngSubmit)="saveGoal()">
-          <div class="form-group mb-4">
-            <label for="stepGoal">Nombre</label>
-            <input class="form-control" type="number" name="stepGoal" id="stepGoal" [value]="stepGoal" required>
-          </div>
-          <button type="submit" class="btn btn-primary btn-block" [disabled]="!form.form.valid">Guardar Meta</button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-  </div>
-
   <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
     <div class="statbox widget box box-shadow">
       <div class="widget-header">
         <div class="row">
           <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-            <h4><b>Pasos</b></h4>
+            <h2><b>Pasos</b></h2>
           </div>
         </div>
       </div>
-      <div class="widget-content widget-content-area center">
-        <app-pie-grid-chart [data]="stepData" [designatedTotal]="100"></app-pie-grid-chart>
+      <div class="widget-content widget-content-area d-flex justify-content-center">
+
+        <div id="fluid-meter-steps" class="mx-auto"></div>
+
       </div>
     </div>
   </div>
@@ -49,18 +25,30 @@
       <div class="widget-header">
         <div class="row">
           <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-            <h4><b>Calorias Quemadas</b></h4>
+            <h2><b>Calorias</b></h2>
           </div>
         </div>
       </div>
-      <div class="widget-content widget-content-area center">
-        <app-pie-grid-chart [data]="stepData" [designatedTotal]="100"></app-pie-grid-chart>
+      <div class="widget-content widget-content-area d-flex justify-content-center">
+
+        <div id="fluid-meter-calories" class="mx-auto"></div>
+
       </div>
     </div>
   </div>
 
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-    <h1> Historial de Pasos </h1>
+    <h1>Historial de Pasos</h1>
   </div>
 
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
+    <div class="statbox widget box box-shadow">
+      <div class="widget-content widget-content-area center">
+
+        <app-grouped-vertical-bar-chart [data]="dataReports" [scheme]="scheme" [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel" [legendTitle]="legendReportTitle"></app-grouped-vertical-bar-chart>
+
+      </div>
+    </div>
+  </div>
 </div>

@@ -145,12 +145,17 @@ export class StepCounterComponent implements OnInit {
     }
   }
 
-  private getTime(date2: Date, date1: Date): void {
-    const diffMs = (date2.getTime() - date1.getTime());
-    const diffDays = Math.floor(diffMs / 86400000);
-    const diffHrs = Math.floor((diffMs % 86400000) / 3600000);
-    const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
-    this.sessionTime = `${diffDays} Dias ${diffHrs} Horas ${diffMins} Minutos`;
+  private getTime(finalDate: Date, initDate: Date): void {
+    let seconds = (finalDate.getTime() - initDate.getTime()) / 1000;
+    let days = 0 ;
+    let hours = Math.floor(seconds / 3600);
+    if (hours >= 24){
+        days = Math.floor(hours / 24);
+        hours = hours % 24;
+    }
+    let minutes = Math.floor((seconds/60) % 60);
+    let seconds2 =  Math.floor(seconds % 60);
+    this.sessionTime = `${days} Dias ${hours} Horas ${minutes} Minutos`;
   }
 
   private async getTop(): Promise<void> {

@@ -13,6 +13,7 @@ const distanceRouter = require('./routes/distance.route');
 const courseNavetteRouter = require('./routes/courseNavette.route');
 const vo2maxRouter = require('./routes/vo2max.route');
 const volumeRouter = require('./routes/volume.route');
+const exerciseRouter = require('./routes/exercise.route');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -40,6 +41,7 @@ app.use('/distance', distanceRouter);
 app.use('/course-navette', courseNavetteRouter);
 app.use('/vo2max', vo2maxRouter);
 app.use('/volume', volumeRouter);
+app.use('/exercise', exerciseRouter);
 
 // Port assignment
 app.listen(PORT, () => {

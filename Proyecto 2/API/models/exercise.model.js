@@ -3,8 +3,8 @@ const database = require('../config/database');
 
 const exerciseModel = {
     create: async (parameters) => {
-        const query = `INSERT INTO SesionEjercicio(idUsuario)
-            VALUES(:idUsuario)
+        const query = `INSERT INTO SesionEjercicio(idUsuario, metaPasos, metaCalorias, noPasos)
+            VALUES(:idUsuario, :metaPasos, :metaCalorias, :noPasos)
             RETURNING idSesion INTO :idSesion`;
         const exercise = Object.assign({}, parameters);
 
@@ -35,6 +35,54 @@ const exerciseModel = {
         }
         return null;
     },
+    getLast: async (parameters) => {
+        const query = `SELECT * FROM SesionEjercicio 
+            WHERE idUsuario = :idUsuario
+            ORDER BY fechaInicio DESC
+            FETCH NEXT 1 ROWS ONLY`;
+
+        const binds = {
+            idUsuario: parameters.idUsuario
+        };
+
+        const result = await database(query, binds);
+        return result.rows;
+    },
+    getTop: async (parameters) => {
+        let query = `SELECT * FROM SesionEjercicio
+            WHERE idUsuario = :idUsuario
+            ORDER BY idSesion DESC
+            FETCH NEXT 10 ROWS ONLY`;
+
+        const binds = {
+            idUsuario: parameters.idUsuario
+        };
+
+        const result = await database(query, binds);
+        return result.rows;
+    },
+    getPerWeek: async (parameters) => {
+        let query = `SELECT DISTINCT a.Semana,
+            MAX(a.noPasos) OVER (PARTITION BY a.Semana) AS Maximo,
+            MIN(a.noPasos) OVER (PARTITION BY a.Semana)  AS minimo,
+            ROUND(AVG(a.noPasos) OVER (PARTITION BY a.Semana), 2) AS Promedio 
+            FROM 
+            (
+                SELECT se.idSesion, TO_CHAR(se.fechaInicio, 'iw') AS Semana , se.fechaInicio,
+                    se.estado, se.noPasos
+                FROM SesionEjercicio se
+                WHERE se.idUsuario = :idUsuario
+                ORDER BY TO_CHAR(se.fechaInicio, 'iw') 
+            ) a
+            ORDER BY a.Semana ASC`;
+
+        const binds = {
+            idUsuario: parameters.idUsuario
+        };
+
+        const result = await database(query, binds);
+        return result.rows
+    }
 };
 
 module.exports = exerciseModel;

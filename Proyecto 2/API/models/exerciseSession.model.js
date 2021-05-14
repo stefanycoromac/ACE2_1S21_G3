@@ -1,7 +1,7 @@
 const oracledb = require('oracledb');
 const database = require('../config/database');
 
-const exerciseModel = {
+const exerciseSessionModel = {
     create: async (parameters) => {
         const query = `INSERT INTO SesionEjercicio(idUsuario)
             VALUES(:idUsuario)
@@ -20,7 +20,21 @@ const exerciseModel = {
             exercise,
             result
         };
-    }
+    },
+    update: async (parameters) => {
+        const query = `UPDATE SesionEjercicio SET estado = :estado
+            WHERE idSesion = :idSesion`;
+        const test = Object.assign({}, parameters);
+
+        const result = await database(query, test);
+        if (result.rowsAffected && result.rowsAffected === 1) {
+            return {
+                result,
+                test
+            };
+        }
+        return null;
+    },
 };
 
-module.exports = exerciseModel;
+module.exports = exerciseSessionModel;

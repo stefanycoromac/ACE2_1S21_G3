@@ -46,3 +46,8 @@ mat-footer-row,
 .ngx-charts .gridline-path {
   stroke: #636a70 !important;
 }
+
+.pie-grid .percent-label {
+  font-size: 0px !important;
+  display: none;
+}

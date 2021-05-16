@@ -5,11 +5,8 @@ const exerciseController = {
         try {
             let exerciseSession = {
                 idUsuario: req.body.idUsuario,
-                metaPasos: req.body.metaPasos,
                 metaCalorias: req.body.metaCalorias,
-                noPasos: req.body.noPasos
             };
-
             exerciseSession = await exerciseModel.create(exerciseSession);
 
             res.status(200).send({
@@ -28,9 +25,36 @@ const exerciseController = {
         try {
             let exerciseSession = {
                 idSesion: req.body.idSesion,
-                estado: req.body.estado
+                noPasos: req.body.noPasos
             };
             exerciseSession = await exerciseModel.update(exerciseSession);
+
+            if (exerciseSession != null) {
+                res.status(200).send({
+                    code: '200',
+                    data: exerciseSession
+                });
+            } else {
+                res.status(500).send({
+                    code: '500',
+                    data: exerciseSession
+                });
+            }
+        } catch (err) {
+            res.status(500).send({
+                code: '500',
+                data: err
+            });
+            next(err);
+        }
+    },
+    updateStatus: async (req, res, next) => {
+        try {
+            let exerciseSession = {
+                idSesion: req.body.idSesion,
+                estado: req.body.estado
+            };
+            exerciseSession = await exerciseModel.updateStatus(exerciseSession);
 
             if (exerciseSession != null) {
                 res.status(200).send({

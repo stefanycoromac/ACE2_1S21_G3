@@ -21,8 +21,11 @@ export class StepCounterComponent implements OnInit {
   public caloriesChart: any;
 
   public idUser: number;
+  public user: User;
   public lastSession: Exercise;
   public sessionTime: string;
+
+  public formula: number;
 
   public dataReports: any[];
   public xAxisLabel: string;
@@ -42,7 +45,9 @@ export class StepCounterComponent implements OnInit {
     this.caloriesChart = new FluidMeter();
 
     this.lastSession = new Exercise();
-    this.sessionTime = '0 Dias 0 Horas 0 Minutos';
+    this.sessionTime = '0 Horas 0 Minutos';
+    this.formula = 0;
+    this.user = new User();
   }
 
   ngOnInit(): void {
@@ -51,7 +56,7 @@ export class StepCounterComponent implements OnInit {
     this.initChart();
     this.reportProperties();
 
-    const source = interval(2500);
+    const source = interval(1500);
     this.subscription = source.subscribe(() => {
       this.getLast();
       this.getTop();
@@ -102,7 +107,7 @@ export class StepCounterComponent implements OnInit {
   private reportProperties(): void {
     this.xAxisLabel = 'Fecha';
     this.yAxisLabel = 'Medición';
-    this.legendReportTitle = 'Ultimas 10 lecturas';
+    this.legendReportTitle = 'Ultimas 5 lecturas';
     this.dataReports = [];
 
     this.scheme = {
@@ -116,8 +121,18 @@ export class StepCounterComponent implements OnInit {
     );
 
     if (!this.idUser) {
-      const user: User = JSON.parse(localStorage.getItem('user'));
-      this.idUser = user.idUsuario;
+      this.user = JSON.parse(localStorage.getItem('user'));
+      this.idUser = this.user.idUsuario;
+
+      this.formula = this.calculateTMB();
+    }
+  }
+
+  private calculateTMB(): number {
+    if (this.user.genero == 1) {
+      return 66 + (13.7 * this.user.peso) + (5 * this.user.estatura * 100) - (6.75 * this.user.edad);
+    } else {
+      return 655 + (9.6 * this.user.peso) + (1.8 * this.user.estatura * 100) - (4.7 * this.user.edad);
     }
   }
 
@@ -127,16 +142,34 @@ export class StepCounterComponent implements OnInit {
 
       if (data['code'] === '200') {
         this.lastSession = data['data'];
-        this.stepChart.setPercentage(
-          this.lastSession.noPasos * 100 / this.lastSession.metaPasos
-        );
 
-        this.caloriesChart.setPercentage(
-          this.lastSession.caloriasQuemadas * 100 / this.lastSession.metaCalorias
-        );
+        if (this.lastSession.noPasos != 0) {
+          this.stepChart.setPercentage(
+            this.lastSession.noPasos * 100 / this.lastSession.metaPasos
+          );
+        } else {
+          this.stepChart.setPercentage(0);
+        }
 
-        this.lastSession.fechaInicio = new Date(this.lastSession.fechaInicio);
-        this.lastSession.fechaFin = new Date(this.lastSession.fechaFin);
+        if (this.lastSession.caloriasQuemadas != 0) {
+          this.caloriesChart.setPercentage(
+            this.lastSession.caloriasQuemadas * 100 / this.lastSession.metaCalorias
+          );
+        } else {
+          this.caloriesChart.setPercentage(0);
+        }
+
+        if (this.lastSession.fechaInicio != null) {
+          this.lastSession.fechaInicio = new Date(this.lastSession.fechaInicio);
+        } else {
+          this.lastSession.fechaInicio = new Date();
+        }
+
+        if (this.lastSession.fechaFin != null) {
+          this.lastSession.fechaFin = new Date(this.lastSession.fechaFin);
+        } else {
+          this.lastSession.fechaFin = new Date();
+        }
 
         this.getTime(this.lastSession.fechaFin, this.lastSession.fechaInicio);
       }
@@ -147,15 +180,16 @@ export class StepCounterComponent implements OnInit {
 
   private getTime(finalDate: Date, initDate: Date): void {
     let seconds = (finalDate.getTime() - initDate.getTime()) / 1000;
-    let days = 0 ;
+    let days = 0;
     let hours = Math.floor(seconds / 3600);
-    if (hours >= 24){
-        days = Math.floor(hours / 24);
-        hours = hours % 24;
+    if (hours >= 24) {
+      days = Math.floor(hours / 24);
+      hours = hours % 24;
     }
-    let minutes = Math.floor((seconds/60) % 60);
-    let seconds2 =  Math.floor(seconds % 60);
-    this.sessionTime = `${days} Dias ${hours} Horas ${minutes} Minutos`;
+    let minutes = Math.floor((seconds / 60) % 60);
+    let seconds2 = Math.floor(seconds % 60);
+
+    this.sessionTime = `${hours} Horas ${minutes} Minutos`;
   }
 
   private async getTop(): Promise<void> {

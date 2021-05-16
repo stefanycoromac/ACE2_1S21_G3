@@ -1,59 +1,60 @@
-<div class="page-content d-flex justify-content-center align-items-center">
-  <div class="col-sm-10 col-sm-push-6 col-md-10 col-md-push-8 col-lg-10 col-lg-push-8">
-    <div class="container" [ngClass]="{'right-panel-active': rightPanel}">
+<div class="page-content">
+  <div class="form-container outer">
+    <div class="form-form">
+      <div class="form-form-wrap">
+        <div class="form-container">
+          <div class="form-content">
 
-      <div class="form-container sign-in-container">
-        <form autocomplete="off" #formSignin="ngForm" (ngSubmit)="signin()">
-          <h1 class="title">Iniciar sesión</h1>
+            <h1 class="">Iniciar sesión</h1>
+            <p class="">Inicie sesión con su cuenta para continuar</p>
 
-          <input class="form-control" type="text" placeholder="Nickname" name="nickname" #nickname="ngModel"
-            [(ngModel)]="user.nickname" required>
-          <input class="form-control" type="password" placeholder="Contraseña" name="password" #password="ngModel"
-            [(ngModel)]="user.contrasenia" required>
+            <form class="text-left" autocomplete="off" #formSignin="ngForm" (ngSubmit)="signin()">
+              <div class="form">
 
-          <!-- <a href="#">¿Olvidaste tu contraseña?</a> -->
-          <button type="submit" class="log-btn" [disabled]="!formSignin.form.valid">Iniciar sesión</button>
+                <div id="username-field" class="field-wrapper input">
+                  <label for="nickname">USUARIO</label>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-user">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
 
-          <button type="button" class="log-sm-btn" (click)="switchPanel()">Crear una cuenta</button>
-        </form>
-      </div>
+                  <input class="form-control" type="text" placeholder="Nickname" id="nickname" name="nickname"
+                    #nickname="ngModel" [(ngModel)]="user.nickname" required>
+                </div>
 
-      <div class="form-container sign-up-container">
-        <form autocomplete="off" #formSignup="ngForm" (ngSubmit)="signup()">
-          <h1 class="title">Crea una cuenta nueva</h1>
+                <div id="password-field" class="field-wrapper input mb-2">
+                  <div class="d-flex justify-content-between">
+                    <label for="password">CONTRASEÑA</label>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-lock">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
 
-          <input type="text" class="form-control" placeholder="Nombre" name="name" #name="ngModel"
-            [(ngModel)]="userSignup.nombre" required>
-          <input type="text" class="form-control" placeholder="Apellido" name="lastName" #lastName="ngModel"
-            [(ngModel)]="userSignup.apellido" required>
-          <input type="text" class="form-control" placeholder="Nickname" name="nicknameRegister"
-            #nicknameRegister="ngModel" [(ngModel)]="userSignup.nickname" required>
-          <input type="password" class="form-control" placeholder="Contraseña" name="passwordRegister"
-            #passwordRegister="ngModel" [(ngModel)]="userSignup.contrasenia" required>
+                  <input class="form-control" type="password" placeholder="Contraseña" id="password" name="password"
+                    #password="ngModel" [(ngModel)]="user.contrasenia" required>
+                </div>
 
-          <button type="submit" class="log-btn" [disabled]="!formSignup.form.valid">Regístrate</button>
+                <div class="d-sm-flex justify-content-between">
+                  <div class="field-wrapper">
+                    <button type="submit" class="btn btn-primary">ENTRAR</button>
+                  </div>
+                </div>
 
-          <button type="button" class="log-sm-btn" (click)="switchPanel()">Iniciar sesión</button>
-        </form>
-      </div>
+                <p class="signup-link">
+                  <!-- ¿Aún no te has registrado? <a href="#">Crea una cuenta</a> -->
+                </p>
 
+              </div>
+            </form>
 
-      <div class="overlay-container">
-        <div class="overlay">
-          <div class="overlay-panel overlay-right">
-            <h1>¡Hola, amig@!</h1>
-            <p>¿Nuevo en el sitio?</p>
-            <button type="submit" class="ghost" id="signUp" (click)="switchPanel()">Crear una cuenta</button>
-          </div>
-
-          <div class="overlay-panel overlay-left">
-            <h1>¡Bienvenido de nuevo!</h1>
-            <p>¿Ya tienes una cuenta?</p>
-            <button type="submit" class="ghost" id="signIn" (click)="switchPanel()">Iniciar sesión</button>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>

@@ -10,6 +10,6 @@ export class User {
   public nickname?: string;
   public contrasenia?: string;
 
-  constructor() { }
+  constructor() { this.genero = 1; }
 
 };

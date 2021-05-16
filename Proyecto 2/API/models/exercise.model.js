@@ -3,10 +3,11 @@ const database = require('../config/database');
 
 const exerciseModel = {
     create: async (parameters) => {
-        const query = `INSERT INTO SesionEjercicio(idUsuario, metaPasos, metaCalorias, noPasos)
-            VALUES(:idUsuario, :metaPasos, :metaCalorias, :noPasos)
+        const query = `INSERT INTO SesionEjercicio(idUsuario, metaPasos, metaCalorias)
+            VALUES(:idUsuario, :metaPasos, :metaCalorias)
             RETURNING idSesion INTO :idSesion`;
-        const exercise = Object.assign({}, parameters);
+        let exercise = Object.assign({}, parameters);
+        exercise.metaPasos = exercise.metaCalorias * 20;
 
         exercise.idSesion = {
             dir: oracledb.BIND_OUT,
@@ -22,6 +23,22 @@ const exerciseModel = {
         };
     },
     update: async (parameters) => {
+        const query = `UPDATE SesionEjercicio SET noPasos = :noPasos,
+                caloriasQuemadas = :caloriasQuemadas
+            WHERE idSesion = :idSesion`;
+        let test = Object.assign({}, parameters);
+        test.caloriasQuemadas = test.noPasos / 20;
+
+        const result = await database(query, test);
+        if (result.rowsAffected && result.rowsAffected === 1) {
+            return {
+                result,
+                test
+            };
+        }
+        return null;
+    },
+    updateStatus: async (parameters) => {
         const query = `UPDATE SesionEjercicio SET estado = :estado
             WHERE idSesion = :idSesion`;
         const test = Object.assign({}, parameters);
@@ -52,7 +69,7 @@ const exerciseModel = {
         let query = `SELECT * FROM SesionEjercicio
             WHERE idUsuario = :idUsuario
             ORDER BY idSesion DESC
-            FETCH NEXT 10 ROWS ONLY`;
+            FETCH NEXT 5 ROWS ONLY`;
 
         const binds = {
             idUsuario: parameters.idUsuario

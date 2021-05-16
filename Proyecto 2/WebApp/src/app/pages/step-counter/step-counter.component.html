@@ -10,11 +10,11 @@
     <div class="statbox widget box box-shadow">
       <div class="widget-header">
         <div class="row">
-          <div class="col-xl-5 col-md-12 col-sm-12 col-12 d-flex justify-content-start">
+          <div class="col-xl-5 col-md-12 col-sm-12 col-12 d-flex justify-content-start align-self-center">
             <h3><b>{{lastSession.noPasos  || 0 | number : '1.0'}} pasos</b></h3>
           </div>
-          <div class="col-xl-7 col-md-12 col-sm-12 col-12 d-flex justify-content-end">
-            <h3>Objetivo {{lastSession.metaPasos  || 0 | number : '1.0'}} pasos</h3>
+          <div class="col-xl-7 col-md-12 col-sm-12 col-12 d-flex justify-content-end align-self-center">
+            <h4>Objetivo {{lastSession.metaPasos  || 0 | number : '1.0'}} pasos</h4>
           </div>
         </div>
       </div>
@@ -30,11 +30,11 @@
     <div class="statbox widget box box-shadow">
       <div class="widget-header">
         <div class="row">
-          <div class="col-xl-5 col-md-12 col-sm-12 col-12 d-flex justify-content-start">
+          <div class="col-xl-5 col-md-12 col-sm-12 col-12 d-flex justify-content-start align-self-center">
             <h3><b>{{lastSession.caloriasQuemadas  || 0 | number : '1.0'}} calorias</b></h3>
           </div>
-          <div class="col-xl-7 col-md-12 col-sm-12 col-12 d-flex justify-content-end">
-            <h3>Objetivo {{lastSession.metaCalorias  || 0 | number : '1.0'}} calorias</h3>
+          <div class="col-xl-7 col-md-12 col-sm-12 col-12 d-flex justify-content-end align-self-center">
+            <h4>Objetivo {{lastSession.metaCalorias  || 0 | number : '1.0'}} calorias</h4>
           </div>
         </div>
       </div>
@@ -46,12 +46,33 @@
     </div>
   </div>
 
-  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-    <h1>Historial de Pasos</h1>
+  <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
+    <div class="statbox widget box box-shadow">
+      <div class="widget-header">
+        <div class="row">
+          <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-start">
+            <h3><b>¿Sabías Qué?</b></h3>
+          </div>
+        </div>
+      </div>
+      <div class="widget-content widget-content-area center">
+
+        <p>Tú consumes aproximadamente {{formula || 0 | number : '1.2-2'}} calorías diarias.</p>
+        <p>Si quieres bajar de peso debes quemar 500 calorías al día.</p>
+
+      </div>
+    </div>
   </div>
 
-  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
+  <div class="col-xl-9 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
     <div class="statbox widget box box-shadow">
+      <div class="widget-header">
+        <div class="row">
+          <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-start">
+            <h3><b>Historial</b></h3>
+          </div>
+        </div>
+      </div>
       <div class="widget-content widget-content-area center">
 
         <app-grouped-vertical-bar-chart [data]="dataReports" [scheme]="scheme" [xAxisLabel]="xAxisLabel"

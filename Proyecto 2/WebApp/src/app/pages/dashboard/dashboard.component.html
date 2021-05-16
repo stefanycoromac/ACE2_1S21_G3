@@ -1,13 +1,13 @@
 <div class="row layout-spacing">
 
   <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-    <div class="statbox widget box box-shadow">
+    <div class="statbox widget box box-shadow" routerLink="oxygen" style="cursor: pointer;">
       <div class="widget-header">
         <div class="row">
           <div class="col-xl-12 col-md-12 col-sm-12 col-12">
 
-            <h3><b>Oxigeno</b></h3>
-            <h6>{{lastOxygen.fechaHora | date:'MMM d, y, h:mm:ss a'}}</h6>
+            <h3 class="d-flex justify-content-center"><b>Oxigeno</b></h3>
+            <h6 class="d-flex justify-content-center">{{lastOxygen.fechaHora | date:'MMM d, y, h:mm:ss a'}}</h6>
 
           </div>
         </div>
@@ -21,13 +21,13 @@
   </div>
 
   <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-    <div class="statbox widget box box-shadow">
+    <div class="statbox widget box box-shadow" routerLink="temperature" style="cursor: pointer;">
       <div class="widget-header">
         <div class="row">
           <div class="col-xl-12 col-md-12 col-sm-12 col-12">
 
-            <h3><b>Temperatura</b></h3>
-            <h6>{{lastTemperature.fechaHora | date:'MMM d, y, h:mm:ss a'}}</h6>
+            <h3 class="d-flex justify-content-center"><b>Temperatura</b></h3>
+            <h6 class="d-flex justify-content-center">{{lastTemperature.fechaHora | date:'MMM d, y, h:mm:ss a'}}</h6>
 
           </div>
         </div>
@@ -41,13 +41,13 @@
   </div>
 
   <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-    <div class="statbox widget box box-shadow">
+    <div class="statbox widget box box-shadow" routerLink="heart-rate" style="cursor: pointer;">
       <div class="widget-header">
         <div class="row">
           <div class="col-xl-12 col-md-12 col-sm-12 col-12">
 
-            <h3><b>Ritmo Cardiaco</b></h3>
-            <h6>{{lastHeartRate.fechaHora | date:'MMM d, y, h:mm:ss a'}}</h6>
+            <h3 class="d-flex justify-content-center"><b>Ritmo Cardiaco</b></h3>
+            <h6 class="d-flex justify-content-center">{{lastHeartRate.fechaHora | date:'MMM d, y, h:mm:ss a'}}</h6>
 
           </div>
         </div>

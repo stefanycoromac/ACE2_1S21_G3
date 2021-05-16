@@ -7,6 +7,7 @@ router.route('/')
     .post(exerciseController.create)
     .put(exerciseController.update);
 
+router.route('/state').put(exerciseController.updateStatus);
 router.route('/:idUsuario/last').get(exerciseController.getLast);
 router.route('/:idUsuario/top').get(exerciseController.getTop);
 

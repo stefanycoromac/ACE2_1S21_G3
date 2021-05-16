@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
     this.lastOxygen = new Oxygen();
     this.oxygenData = [
       {
-        'name': 'Oxigeno',
+        'name': '%',
         'value': this.lastOxygen.medicion
       }
     ];
@@ -104,7 +104,7 @@ export class DashboardComponent implements OnInit {
 
         this.oxygenData = [
           {
-            'name': 'Oxigeno',
+            'name': '%',
             'value': this.lastOxygen.medicion
           }
         ];

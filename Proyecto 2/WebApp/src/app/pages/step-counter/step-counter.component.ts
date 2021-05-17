@@ -18,7 +18,6 @@ declare function FluidMeter(): void;
 export class StepCounterComponent implements OnInit {
   public chartoptions: {};
   public stepChart: any;
-  public caloriesChart: any;
 
   public idUser: number;
   public user: User;
@@ -42,7 +41,6 @@ export class StepCounterComponent implements OnInit {
   ) {
     this.chartoptions = {};
     this.stepChart = new FluidMeter();
-    this.caloriesChart = new FluidMeter();
 
     this.lastSession = new Exercise();
     this.sessionTime = '0 Horas 0 Minutos';
@@ -96,12 +94,6 @@ export class StepCounterComponent implements OnInit {
       fillPercentage: 0,
       options: this.chartoptions
     });
-
-    this.caloriesChart.init({
-      targetContainer: document.getElementById("fluid-meter-calories"),
-      fillPercentage: 0,
-      options: this.chartoptions
-    });
   }
 
   private reportProperties(): void {
@@ -149,14 +141,6 @@ export class StepCounterComponent implements OnInit {
           );
         } else {
           this.stepChart.setPercentage(0);
-        }
-
-        if (this.lastSession.caloriasQuemadas != 0) {
-          this.caloriesChart.setPercentage(
-            this.lastSession.caloriasQuemadas * 100 / this.lastSession.metaCalorias
-          );
-        } else {
-          this.caloriesChart.setPercentage(0);
         }
 
         if (this.lastSession.fechaInicio != null) {
@@ -233,7 +217,7 @@ export class StepCounterComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   public size(_event?: any): Number {
-    const size = (window.innerHeight * 0.6).toFixed()
+    const size = (window.innerHeight * 0.68).toFixed()
     return Number(size);
   }
 }

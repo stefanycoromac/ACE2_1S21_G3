@@ -46,7 +46,7 @@ export class HeartComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getIDUser();
 
-    const source = interval(2500);
+    const source = interval(2000);
     this.subscription = source.subscribe(() => {
       this.getLast();
       this.getTop();

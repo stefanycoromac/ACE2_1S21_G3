@@ -62,7 +62,7 @@ export class Vo2maxComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getIDUser();
     this.dataSource.data = this.record;
 
-    const source = interval(1500);
+    const source = interval(2000);
     this.subscription = source.subscribe(() => {
       this.get();
       this.getDetail();

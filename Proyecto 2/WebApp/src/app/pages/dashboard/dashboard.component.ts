@@ -9,6 +9,8 @@ import { User } from 'src/app/models/user.model';
 import { Oxygen } from 'src/app/models/oxygen.model';
 import { Temperature } from 'src/app/models/temperature.model';
 import { HeartRate } from 'src/app/models/heart-rate.model';
+import { Exercise } from 'src/app/models/exercise.model';
+import { ExerciseService } from 'src/app/services/exercise.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,6 +31,9 @@ export class DashboardComponent implements OnInit {
   public lastHeartRate: HeartRate;
   public heartRateData: any[];
 
+  public lastExcercie: Exercise;
+  public exerciseData: any[];
+
   public athletes: User[];
 
   constructor(
@@ -36,6 +41,7 @@ export class DashboardComponent implements OnInit {
     private _oxygenService: OxygenService,
     private _temperatureService: TemperatureService,
     private _hearRateService: HeartRateService,
+    private _exerciseService: ExerciseService,
   ) {
     this.initialData();
   }
@@ -46,6 +52,7 @@ export class DashboardComponent implements OnInit {
     this.getLastOxygen();
     this.getLastTemperature();
     this.getLastHeartRate();
+    this.getLastExercise();
 
     if (this.userType)
       this.getCoaching();
@@ -84,6 +91,14 @@ export class DashboardComponent implements OnInit {
       {
         'name': 'BPM',
         'value': this.lastHeartRate.medicion
+      }
+    ];
+
+    this.lastExcercie = new Exercise();
+    this.exerciseData = [
+      {
+        'name': '%',
+        'value': 0
       }
     ];
   }
@@ -146,7 +161,6 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-
   private async getLastHeartRate(): Promise<void> {
     try {
       const data = await this._hearRateService.getLast(this.idUser);
@@ -162,6 +176,34 @@ export class DashboardComponent implements OnInit {
           }
         ];
         this.heartRateData = [...this.heartRateData];
+      }
+    } catch (err) {
+      console.log(<any>err);
+    }
+  }
+
+  private async getLastExercise(): Promise<void> {
+    try {
+      const data = await this._exerciseService.getLast(this.idUser);
+
+      if (data['code'] === '200') {
+        this.lastExcercie = data['data'];
+
+        if (this.lastExcercie.noPasos != 0) {
+          this.exerciseData = [
+            {
+              'name': '%',
+              'value': this.lastExcercie.noPasos * 100 / this.lastExcercie.metaPasos
+            }
+          ];
+        } else {
+          this.exerciseData = [
+            {
+              'name': '%',
+              'value': 0
+            }
+          ];
+        }
       }
     } catch (err) {
       console.log(<any>err);

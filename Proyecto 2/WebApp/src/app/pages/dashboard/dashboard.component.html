@@ -60,6 +60,39 @@
     </div>
   </div>
 
+  <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing"></div>
+
+  <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+    <div class="statbox widget box box-shadow" routerLink="step-counter" style="cursor: pointer;">
+      <div class="widget-header">
+        <div class="row">
+          <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+
+            <h3 class="d-flex justify-content-center"><b>Pasos y Calorias quemadas</b></h3>
+            <h6 class="d-flex justify-content-center">{{lastHeartRate.fechaHora | date:'MMM d, y, h:mm:ss a'}}</h6>
+
+          </div>
+        </div>
+      </div>
+      <div class="widget-content widget-content-area d-flex justify-content-center">
+        <div class="row">
+          <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+
+            <app-pie-grid-chart [data]="exerciseData" [designatedTotal]="100"></app-pie-grid-chart>
+
+            <h6 class="d-flex justify-content-center"> Estado de sesión: {{lastExcercie.estado | titlecase}} </h6>
+            <h6 class="d-flex justify-content-center">
+              {{lastExcercie.caloriasQuemadas  || 0 | number : '1.0'}} Calorias quemadas
+            </h6>
+            <h6 class="d-flex justify-content-center">{{lastExcercie.noPasos  || 0 | number : '1.0'}} Pasos realizados
+            </h6>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <ng-template [ngIf]="userType">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing align-self-center">
       <h1>Atletas</h1>
